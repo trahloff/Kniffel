@@ -35,6 +35,8 @@ public class POI_Service {
 			}
 			break;
 		}
+		
+		System.out.println("kuh");
 
 
 
