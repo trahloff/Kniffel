@@ -34,6 +34,7 @@ public class POI_Service {
 				continue;
 			}
 			break;
+			
 		}
 
 
