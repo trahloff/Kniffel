@@ -13,7 +13,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.WorkbookUtil;
 
-
+@SuppressWarnings({ "resource", "unused" })
 public class POI_Service {
 
 	private static Workbook getWorkbook(String file) throws IOException {
@@ -22,6 +22,7 @@ public class POI_Service {
 		input.close();
 		return wb;
 	}
+
 
 	private static void  writeToWorkbook(String file, Workbook wb) throws IOException {
 		FileOutputStream fileOut = new FileOutputStream(file);
@@ -32,6 +33,7 @@ public class POI_Service {
 	public static String test(){
 		return "hi";
 	}
+
 
 	public static void main(String[] args) throws Exception {
 
