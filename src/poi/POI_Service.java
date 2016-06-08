@@ -1,4 +1,4 @@
-package main;
+package poi;
 
 import java.io.*;
 import java.util.Iterator;
@@ -27,6 +27,10 @@ public class POI_Service {
 		FileOutputStream fileOut = new FileOutputStream(file);
 		wb.write(fileOut);
 		fileOut.close();
+	}
+	
+	public static String test(){
+		return "hi";
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -94,7 +98,7 @@ public class POI_Service {
 								break;
 							}
 						}
-						System.out.println("");
+						System.out.print("\n");
 					}
 
 					workbook.close();
@@ -112,6 +116,7 @@ public class POI_Service {
 
 
 		System.out.println(getWorkbook("save.xls"));
+		
 
 
 
