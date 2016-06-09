@@ -1,12 +1,15 @@
 package kniff;
 
 import java.awt.*;
-import java.util.*;
-
 import javax.swing.JButton;
 
 public class Die extends JButton
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2847346976374468132L;
+
 	public static Die[] KniffDice = new Die[5];
 	
 	private int value;

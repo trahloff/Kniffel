@@ -27,7 +27,6 @@ import java.awt.Button;
 import java.awt.Canvas;
 import java.awt.Color;
 import javax.swing.JTable;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 
 public class MainWindow
@@ -275,7 +274,6 @@ public class MainWindow
 		});
 		button_1.setBounds(671, 660, 63, 40);
 		menuScreen.add(button_1);
-		frmKniffelig.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuScreen, gameScreen}));
 		
 		initDice();
 		initButtons();
