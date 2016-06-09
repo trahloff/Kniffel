@@ -29,8 +29,8 @@ public class POI_Service {
 		fileOut.close();
 	}
 	
-	public static String test(){
-		return "hi";
+	public static String test() throws IOException{
+		return getWorkbook("save.xls").toString();
 	}
 
 	public static void main(String[] args) throws Exception {
