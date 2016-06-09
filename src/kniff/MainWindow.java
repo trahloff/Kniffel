@@ -53,7 +53,7 @@ public class MainWindow
 		     }
 	};
 	private JPanel gameScreen;
-	private JLabel label;
+	private JLabel lblInfolabel;
 	private JLabel lblKniffelig;
 	private JPanel menuScreen;
 	private JButton button_1;
@@ -250,11 +250,11 @@ public class MainWindow
 		btnRoll.setBounds(83, 592, 540, 60);
 		gameScreen.add(btnRoll);
 		
-		label = new JLabel("Mr. Snuggels ist an der Reihe");
-		label.setBounds(0, 663, 744, 48);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
-		gameScreen.add(label);
+		lblInfolabel = new JLabel("Infolabel");
+		lblInfolabel.setBounds(83, 663, 541, 48);
+		lblInfolabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfolabel.setFont(new Font("OCR A Extended", Font.PLAIN, 18));
+		gameScreen.add(lblInfolabel);
 		
 		menuScreen = new JPanel();
 		frmKniffelig.getContentPane().add(menuScreen, "menuScreen");
