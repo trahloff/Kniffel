@@ -52,12 +52,12 @@ public class POI_Service {
 		 * 
 		 */
 
-		Workbook wb = new HSSFWorkbook();
-		Sheet sheet1 = wb.createSheet("new sheet");
-
-		// replaces invalid characters with spaces
-		String safeName = WorkbookUtil.createSafeSheetName("[O'Brien's sales*?]"); // returns " O'Brien's sales   "
-		Sheet sheet3 = wb.createSheet(safeName);
+//		Workbook wb = new HSSFWorkbook();
+//		Sheet sheet1 = wb.createSheet("new sheet");
+//
+//		// replaces invalid characters with spaces
+//		String safeName = WorkbookUtil.createSafeSheetName("[O'Brien's sales*?]"); // returns " O'Brien's sales   "
+//		Sheet sheet3 = wb.createSheet(safeName);
 
 
 
@@ -118,6 +118,7 @@ public class POI_Service {
 
 
 		System.out.println(getWorkbook("save.xls"));
+		System.out.println("hi");
 		
 
 
