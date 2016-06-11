@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -23,23 +24,13 @@ public class POI_Service {
 		ArrayList<String> players = new ArrayList<String>();
 
 		try {
-			//Get first sheet from the workbook
-			HSSFSheet sheet = (HSSFSheet) getWorkbook().getSheetAt(0);
-
-			//Iterate through each rows from first sheet
-			Iterator<Row> rowIterator = sheet.iterator();
-
-			while(rowIterator.hasNext()) {
-				Row row = rowIterator.next();
-				//For each row, iterate through each columns
-				Iterator<Cell> cellIterator = row.cellIterator();
-				while(cellIterator.hasNext()) {
-					Cell cell = cellIterator.next();
-					if(cell.getCellType()==Cell.CELL_TYPE_STRING) {
-						players.add(cell.getStringCellValue());
-					}
-				}
+			
+			Iterator<Sheet> sheetIterator= getWorkbook().iterator();
+			
+			while (sheetIterator.hasNext()) {
+				players.add(sheetIterator.next().getSheetName());		
 			}
+
 
 		} catch (Exception e) {
 			System.out.println(e);
