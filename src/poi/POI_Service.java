@@ -13,25 +13,55 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.WorkbookUtil;
 
-@SuppressWarnings({ "resource", "unused" })
+@SuppressWarnings({"unused" })
 public class POI_Service {
-
-	private static Workbook getWorkbook(String file) throws IOException {
-		FileInputStream input = new FileInputStream(file);
-		Workbook wb = new HSSFWorkbook(input);
-		input.close();
-		return wb;
-	}
-
-
-	private static void  writeToWorkbook(String file, Workbook wb) throws IOException {
-		FileOutputStream fileOut = new FileOutputStream(file);
+	
+	private static void  writeToWorkbook(Workbook wb) throws IOException {
+		FileOutputStream fileOut = new FileOutputStream("save.xls");
 		wb.write(fileOut);
 		fileOut.close();
 	}
 	
+	private static void createSave(File file) throws IOException {
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet("overview");
+		
+		FileOutputStream output = new FileOutputStream(file);
+		workbook.write(output);
+		output.close();
+		workbook.close();
+		
+	}
+	
+	private static Workbook getSave(File file) throws IOException {
+		FileInputStream input = new FileInputStream(file);
+		Workbook wb = new HSSFWorkbook(input);
+		input.close();
+		return wb;
+		
+	}
+
+	private static Workbook getWorkbook() throws IOException {
+		
+		File f = new File("save.xls");
+		
+		// much safer check than .exist(), because with .isFile() return==true ONLY when it exists & valid file
+		if(f.isFile()) { 
+			System.out.println("exists");
+			return getSave(f);
+		}else {
+			System.out.println("created new save");
+			createSave(f);
+			return getSave(f);
+		}
+		
+	}
+
+
+
+	
 	public static String test() throws IOException{
-		return getWorkbook("save.xls").toString();
+		return getWorkbook().toString();
 	}
 
 
@@ -52,20 +82,6 @@ public class POI_Service {
 		 * 
 		 */
 
-//		Workbook wb = new HSSFWorkbook();
-//		Sheet sheet1 = wb.createSheet("new sheet");
-//
-//		// replaces invalid characters with spaces
-//		String safeName = WorkbookUtil.createSafeSheetName("[O'Brien's sales*?]"); // returns " O'Brien's sales   "
-//		Sheet sheet3 = wb.createSheet(safeName);
-
-
-
-		// better than .exist(), cuz .exist() also returns true of f is a valid directory
-		File f = new File("save.xls");
-		if(!f.isFile()) { 
-			System.out.println("exists");
-		}else {
 			while (true) {
 				try {
 					//					writeToWorkbook("save.xls", wb);
@@ -114,12 +130,10 @@ public class POI_Service {
 
 
 
-		}
-
-
-		System.out.println(getWorkbook("save.xls"));
-		System.out.println("hi");
 		
+
+
+		System.out.println(getWorkbook());
 
 
 
