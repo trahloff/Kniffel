@@ -83,7 +83,7 @@ public class POI_Service {
 			sheet.getRow(0).createCell(Math.abs(sheet.getRow(0).getLastCellNum()), Cell.CELL_TYPE_STRING).setCellValue(playerName);
 
 		} catch (IllegalArgumentException e) {
-			System.out.println("there is no player \""+playerName+"\" who could be created");
+			System.out.println("could not create player \""+playerName+"\"");
 		}
 
 
@@ -145,7 +145,7 @@ public class POI_Service {
 	 * 3.: open f, write scores, close f
 	 * 		- works
 	 * 
-	 * 4.: don't mess up the closing
+	 * 4.: don't mess up the closing process
 	 * 		- works probably
 	 * 
 	 */
