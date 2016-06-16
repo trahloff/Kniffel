@@ -345,7 +345,7 @@ public class MainWindow
 		menuScreen.add(btnNewButton);
 		
 		DesignerButton btnBeenden_1 = new DesignerButton("Beenden", "menuButton");
-		btnBeenden_1.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		btnBeenden_1.setFont(new Font("OCR A Extended", Font.BOLD, 15));
 		btnBeenden_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

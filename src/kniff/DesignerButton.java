@@ -1,5 +1,7 @@
 package kniff;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -20,12 +22,22 @@ public class DesignerButton extends JButton
 	{
 		super(string);
 		this.setButtonType("menuButton");
+		initDesign();
 	}
 
 	public DesignerButton(String string, String type)
 	{
 		super(string);
 		this.setButtonType(type);
+		initDesign();
+	}
+	
+	private void initDesign()
+	{
+		this.setBorderPainted(false);
+		this.setFocusPainted(false);
+		this.setContentAreaFilled(false);
+		this.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 	}
 	
 	public void SetButtonType(String type)
@@ -35,37 +47,46 @@ public class DesignerButton extends JButton
 	
 	public void paintComponent(Graphics g)
     {
-        super.paintComponent(g);
+        
         Graphics2D antiAlias = (Graphics2D)g;
         antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         
-//        switch (this.buttonType)
-//		{
-//        	case "gameStartButton":
-//        		paintGameStartButton(g);
-//        		break;
-//        	case "menuButton":
-//        		paintNormalButton(g);
-//        		break;
-//			default:
-//				//super.paintComponent(g);
-//				break;
-//		}
+        switch (this.buttonType)
+		{
+        	case "gameStartButton":
+        		paintGameStartButton(g);
+        		break;
+        	case "menuButton":
+        		paintMenuButton(g);
+        		break;
+			default:
+				super.paintComponent(g);
+				break;
+		}
+        
+        this.setForeground(Color.decode("#55DDAA"));
+        super.paintComponent(g);
     }
 	
-//	private void paintGameStartButton(Graphics g)
-//	{	
-//		g.setColor(Color.decode("#555555"));
-//		g.fillOval(0, 0, 150, 150);
-//		g.setColor(Color.decode("#55DDAA"));
-//		g.drawOval(15, 15, 120, 120);
-//	}
-//	private void paintNormalButton(Graphics g)
-//	{
-//		g.setColor(Color.decode("#ABACAD"));
-//		g.drawRoundRect(0, 0, 150, 50, 40, 40);
-//	}
+	private void paintGameStartButton(Graphics g)
+	{	
+		g.setColor(Color.decode("#555555"));
+		g.fillOval(0, 0, 150, 150);
+		g.setColor(Color.decode("#55DDAA"));
+		g.fillOval(15, 15, 120, 120);
+		g.setColor(Color.decode("#555555"));
+		g.fillOval(20, 20, 110, 110);
+	}
+	private void paintMenuButton(Graphics g)
+	{
+		g.setColor(Color.decode("#555555"));
+		g.fillRoundRect(0, 0, 150, 50, 40, 40);
+		g.setColor(Color.decode("#55DDAA"));
+		g.fillRoundRect(3, 3, 144, 44, 35, 35);
+		g.setColor(Color.decode("#555555"));
+		g.fillRoundRect(5, 5, 140, 40, 35, 35);
+	}
 
 	public String getButtonType()
 	{

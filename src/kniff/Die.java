@@ -14,6 +14,12 @@ public class Die extends JButton
 	
 	private int value;
 	
+	public Die()
+	{
+		super();
+		initDesign();
+	}
+	
 	public int roll()
 	{
 		if (this.isEnabled())
@@ -90,9 +96,6 @@ public class Die extends JButton
         Graphics2D antiAlias = (Graphics2D)g;
         antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
-        g.setColor(Color.decode("#EAEAEA"));
-        g.fillRect(0, 0, 100, 100);
-        
         if (this.isEnabled())
 		{
         	g.setColor(Color.decode("#FDFDFD"));
@@ -146,4 +149,11 @@ public class Die extends JButton
 			break;
 		}
     }
+	
+	private void initDesign()
+	{
+		this.setBorderPainted(false);
+		this.setFocusPainted(false);
+		this.setContentAreaFilled(false);
+	}
 }
