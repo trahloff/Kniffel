@@ -149,6 +149,12 @@ public class POI_Service {
 	 * 		- works probably
 	 * 
 	 */
+	
+	/*TODO:
+	 * - Model definieren wann ein savegame "valid" ist
+	 * - bei invalid --> resetSave
+	 * - (Model definieren für sheets)
+	 * */
 
 
 
