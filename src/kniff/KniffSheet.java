@@ -38,12 +38,10 @@ public class KniffSheet
 	}
 
 	public boolean fixCombination(DiceCombination combi, Die[] kniffDice)
-	{
-		
+	{	
 		int[] sortedValues = Die.getSortedValues(kniffDice);
-		if (getPossibleCombinations(kniffDice).contains(combi))
-			if (results.put(combi, sortedValues) == null)
-				return true;
+		if (results.put(combi, sortedValues) == null)
+			return true;
 		return false;
 	}	
 	
@@ -72,11 +70,32 @@ public class KniffSheet
 			return 30;
 		case ThroA:
 			return countAnyValue(diceValues);
+		case One:
+			return countAny(1, diceValues);
+		case Two:
+			return countAny(2, diceValues);
+		case Thr:
+			return countAny(3, diceValues);
+		case Fou:
+			return countAny(4, diceValues);
+		case Fiv:
+			return countAny(5, diceValues);
+		case Six:
+			return countAny(6, diceValues);
 		default:
 			return 0;
 		}
 	}
 	
+	private static int countAny(int value, int[] diceValues)
+	{
+		int j = 0;
+		for (int i = 0; i < diceValues.length; i++)
+			if (diceValues[i] == value)
+				j += diceValues[i];
+		return j;
+	}
+
 	private static int countAnyValue(int[] values)
 	{
 		int result = 0;
@@ -162,8 +181,12 @@ public class KniffSheet
 
 	public ArrayList<DiceCombination> getFixedCombinations()
 	{
+		ArrayList<DiceCombination> combis = new ArrayList<DiceCombination>();
+		Enumeration<DiceCombination> enumer = this.results.keys();
+		while(enumer.hasMoreElements())
+			combis.add(enumer.nextElement());
 		
-		return null;
+		return combis;
 	}
 
 }

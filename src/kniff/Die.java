@@ -30,6 +30,14 @@ public class Die extends JButton
 		return KniffDice;
 	} 
 	
+	public static boolean allDeactivated()
+	{
+        for (int i = 0; i < KniffDice.length; i++)
+       	 if (KniffDice[i].isEnabled())
+       		 return false;
+        return true;
+	}
+	
 	public static int[] getSortedValues(Die[] Dice)
 	{
 		int[] values = new int[5];
