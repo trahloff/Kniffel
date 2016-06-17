@@ -7,19 +7,15 @@ public class Player implements Comparable<Player>
 	private static int objCount;
 	
 	public String name = "Spieler " + Player.objCount;
-	private List<KniffSheet> KniffSheets = new ArrayList<KniffSheet>();
-	public KniffSheet currentKniffSheet = new KniffSheet();
+	public KniffSheet KniffSheet = new KniffSheet();
 	
-	public Player(String name)
+	public Player(String name) throws Exception
 	{
 		Player.objCount++;
-		
-		//if (name.length() == 0)
-			//throw new Exception("Der Spielername darf nicht leer sein!");
-		//if (name.trim().length() == 0)
-			//throw new IllegalArgumentException("Der Spielername darf nicht nur aus Leerzeichen bestehen!");
-		//if (NameIsUsed(name))
-			//throw new Exception("Der Spielername " + name + " ist bereits vergeben!");
+		if (name.length() == 0)
+			throw new Exception("Der Name des Spielers darf nicht leer sein!");
+		if (name.length() > 20)
+			throw new Exception("Der Name des Spielers darf nicht länger als 20 Zeichen sein!");
 		this.name = name;
 	}
 	
@@ -39,11 +35,5 @@ public class Player implements Comparable<Player>
 			if (player.name.compareTo(name) == 0)
 				return true;
 		return false;
-	}
-	
-	public void fixCurrentKniffSheet()
-	{
-		KniffSheets.add(currentKniffSheet);
-		currentKniffSheet = new KniffSheet();
 	}
 }

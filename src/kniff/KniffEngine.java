@@ -15,8 +15,15 @@ public class KniffEngine
 	
 	public static void initPlayers()
 	{
-		Players.add(new Player("Test Player A"));
-		Players.add(new Player("Test Player B"));
+		try
+		{
+			Players.add(new Player("Test Player A"));
+			Players.add(new Player("Test Player B"));
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		IPlayer = Players.iterator();
 	}
