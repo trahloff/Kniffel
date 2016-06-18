@@ -65,26 +65,26 @@ public class DesignerButton extends JButton
 				break;
 		}
         
-        this.setForeground(Color.decode("#55DDAA"));
+        this.setForeground(Design.getColor(Colors.accent_a_dark));
         super.paintComponent(g);
     }
 	
 	private void paintGameStartButton(Graphics g)
 	{	
-		g.setColor(Color.decode("#555555"));
+		g.setColor(Design.getColor(Colors.bg_light));
 		g.fillOval(0, 0, 150, 150);
-		g.setColor(Color.decode("#55DDAA"));
+		g.setColor(Design.getColor(Colors.accent_a_light));
 		g.fillOval(15, 15, 120, 120);
-		g.setColor(Color.decode("#555555"));
+		g.setColor(Design.getColor(Colors.bg_light));
 		g.fillOval(20, 20, 110, 110);
 	}
 	private void paintMenuButton(Graphics g)
 	{
-		g.setColor(Color.decode("#555555"));
+		g.setColor(Design.getColor(Colors.bg_light));
 		g.fillRoundRect(0, 0, 150, 50, 40, 40);
-		g.setColor(Color.decode("#55DDAA"));
+		g.setColor(Design.getColor(Colors.accent_a_light));
 		g.fillRoundRect(3, 3, 144, 44, 35, 35);
-		g.setColor(Color.decode("#555555"));
+		g.setColor(Design.getColor(Colors.bg_light));
 		g.fillRoundRect(5, 5, 140, 40, 35, 35);
 	}
 
