@@ -1,5 +1,6 @@
 package kniff;
 
+import java.awt.Graphics;
 import java.util.*;
 
 import javax.swing.JButton;
@@ -96,5 +97,10 @@ public class CombiButton extends JButton
 	public void finalize()
 	{
 		CombiButton.combiButtons.remove(this);
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		Design.drawButton(this, g);
 	}
 }

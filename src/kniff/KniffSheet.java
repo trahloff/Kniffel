@@ -12,16 +12,16 @@ public class KniffSheet
 		
 	}
 	
-	public static ArrayList<DiceCombination> getPossibleCombinations(Die[] kniffDice)
+	public static ArrayList<DiceCombination> getPossibleCombinations(Dice[] kniffDice)
 	{
-		int[] sortedValues = Die.getSortedValues(kniffDice);
+		int[] sortedValues = Dice.getSortedValues(kniffDice);
 		return getPossibleCombinations(sortedValues);
 	}
 	
 	public static ArrayList<DiceCombination> getPossibleCombinations(int[] values)
 	{
 		possibleCombinations.clear();
-		int[] sortedValues = Die.sortKniffelDiceValues(values);
+		int[] sortedValues = Dice.sortKniffelDiceValues(values);
 		if(isThroA(sortedValues))
 			possibleCombinations.add(DiceCombination.ThroA);
 		if(isFouoA(sortedValues))
@@ -37,9 +37,9 @@ public class KniffSheet
 		return possibleCombinations;
 	}
 
-	public boolean fixCombination(DiceCombination combi, Die[] kniffDice)
+	public boolean fixCombination(DiceCombination combi, Dice[] kniffDice)
 	{	
-		int[] sortedValues = Die.getSortedValues(kniffDice);
+		int[] sortedValues = Dice.getSortedValues(kniffDice);
 		if (results.put(combi, sortedValues) == null)
 			return true;
 		return false;

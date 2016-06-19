@@ -3,18 +3,18 @@ package kniff;
 import java.awt.*;
 import javax.swing.JButton;
 
-public class Die extends JButton
+public class Dice extends JButton
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2847346976374468132L;
 
-	public static Die[] KniffDice = new Die[5];
+	public static Dice[] KniffDice = new Dice[5];
 	
 	private int value;
 	
-	public Die()
+	public Dice()
 	{
 		super();
 		initDesign();
@@ -29,9 +29,9 @@ public class Die extends JButton
 		return this.value;
 	}
 	
-	public static Die[] rollAll()
+	public static Dice[] rollAll()
 	{
-		for (Die d : KniffDice)
+		for (Dice d : KniffDice)
 			d.roll();
 		return KniffDice;
 	} 
@@ -44,11 +44,11 @@ public class Die extends JButton
         return true;
 	}
 	
-	public static int[] getSortedValues(Die[] Dice)
+	public static int[] getSortedValues(Dice[] Dice)
 	{
 		int[] values = new int[5];
 		int i = 0;
-		for (Die d : Dice)
+		for (Dice d : Dice)
 		{
 			values[i] = d.value;
 			if (i > 0)

@@ -10,22 +10,17 @@ import javax.swing.JButton;
 
 public class DesignerButton extends JButton
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private String buttonType;
-	
-	//
+	private ButtonDesignType buttonType;
 	
 	public DesignerButton(String string)
 	{
 		super(string);
-		this.setButtonType("menuButton");
+		this.setButtonType(ButtonDesignType.menuButton);
 		initDesign();
 	}
 
-	public DesignerButton(String string, String type)
+	public DesignerButton(String string, ButtonDesignType type)
 	{
 		super(string);
 		this.setButtonType(type);
@@ -40,7 +35,7 @@ public class DesignerButton extends JButton
 		this.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 	}
 	
-	public void SetButtonType(String type)
+	public void SetButtonType(ButtonDesignType type)
 	{
 		this.setButtonType(type);
 	}
@@ -54,10 +49,10 @@ public class DesignerButton extends JButton
         
         switch (this.buttonType)
 		{
-        	case "gameStartButton":
+        	case startButton:
         		paintGameStartButton(g);
         		break;
-        	case "menuButton":
+        	case menuButton:
         		paintMenuButton(g);
         		break;
 			default:
@@ -65,36 +60,42 @@ public class DesignerButton extends JButton
 				break;
 		}
         
-        this.setForeground(Design.getColor(Colors.accent_a_dark));
+        
         super.paintComponent(g);
     }
 	
 	private void paintGameStartButton(Graphics g)
 	{	
 		g.setColor(Design.getColor(Colors.bg_light));
-		g.fillOval(0, 0, 150, 150);
+		g.fillOval(0, 0, this.getHeight(), this.getWidth());
 		g.setColor(Design.getColor(Colors.accent_a_light));
-		g.fillOval(15, 15, 120, 120);
-		g.setColor(Design.getColor(Colors.bg_light));
-		g.fillOval(20, 20, 110, 110);
+		g.fillOval(15, 15, this.getHeight() - 30, this.getWidth() - 30);
+		g.setColor(Design.getColor(Colors.bg_dark));
+		g.fillOval(20, 20, this.getHeight() - 40, this.getWidth() - 40);
+		
+		// final Color setting for Text
+		this.setForeground(Design.getColor(Colors.fg_dark));
 	}
 	private void paintMenuButton(Graphics g)
 	{
-		g.setColor(Design.getColor(Colors.bg_light));
-		g.fillRoundRect(0, 0, 150, 50, 40, 40);
+		g.setColor(Design.getColor(Colors.light_glow_a));
+		g.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), 40, 40);
 		g.setColor(Design.getColor(Colors.accent_a_light));
-		g.fillRoundRect(3, 3, 144, 44, 35, 35);
+		g.fillRoundRect(3, 3, this.getWidth() - 6, this.getHeight() - 6, 35, 35);
 		g.setColor(Design.getColor(Colors.bg_light));
-		g.fillRoundRect(5, 5, 140, 40, 35, 35);
+		g.fillRoundRect(5, 5, this.getWidth() - 10, this.getHeight() - 10, 35, 35);
+		
+		// final Color setting for Text
+		this.setForeground(Design.getColor(Colors.fg_light));
 	}
 
-	public String getButtonType()
+	public ButtonDesignType getButtonType()
 	{
 		return buttonType;
 	}
 
-	public void setButtonType(String buttonType)
+	public void setButtonType(ButtonDesignType menubutton)
 	{
-		this.buttonType = buttonType;
+		this.buttonType = menubutton;
 	}
 }
