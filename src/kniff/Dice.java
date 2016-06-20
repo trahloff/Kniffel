@@ -9,10 +9,9 @@ public class Dice extends JButton
 	 * 
 	 */
 	private static final long serialVersionUID = -2847346976374468132L;
-
-	public static Dice[] KniffDice = new Dice[5];
-	
+	public static Dice[] KniffDice = new Dice[5];	
 	private int value;
+	private boolean isInitial;
 	
 	public Dice()
 	{
@@ -23,10 +22,25 @@ public class Dice extends JButton
 	public int roll()
 	{
 		if (this.isEnabled())
+		{
+			this.isInitial = false;
 			this.value = (int) Math.round((Math.random()*5) + 1);
+		}
 		this.setText(value + "");
-		
+		this.repaint();
 		return this.value;
+	}
+	
+	public void setInitial(boolean v)
+	{
+		this.isInitial = v;
+		this.value = -1;
+	}
+	
+	public static void setAllInitial(boolean v)
+	{
+		for (Dice d : KniffDice)
+			d.setInitial(v);
 	}
 	
 	public static Dice[] rollAll()
@@ -104,11 +118,19 @@ public class Dice extends JButton
 		}
         else
         {
-        	g.setColor(Color.decode("#EFEFEF"));
+        	g.setColor(Design.getColor(Colors.disabled_dice_a));
             g.fillRoundRect(12, 12, 76, 76, 15, 15);
+            g.setColor(Color.decode("#E0E0E0"));
+        	g.drawRoundRect(12, 12, 76, 76, 15, 15);
 			g.setColor(Color.decode("#444444"));
         }
-        
+        if (this.isInitial)
+		{
+			g.drawLine(25, 25, this.getWidth() - 25, this.getHeight() - 25);
+			g.drawLine(25, 75, this.getWidth() - 25, this.getHeight() - 75);
+		}
+        else
+        {
         switch (this.value)
 		{
 		case 1:
@@ -143,11 +165,11 @@ public class Dice extends JButton
 			g.fillOval(65, 25, 10, 10);
 			g.fillOval(65, 45, 10, 10);
 			g.fillOval(65, 65, 10, 10);
-			break;
-			
+			break;	
 		default:
 			break;
 		}
+        }
     }
 	
 	private void initDesign()

@@ -2,6 +2,8 @@ package kniff;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,14 +12,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JPanel;
+import java.awt.FlowLayout;
 
 public class ScGame extends Screen
 {
 	JButton btnEnd;
 	
-	private CombiButton btn3oA, btn4oA, btn5oA, btnFul, btnCnc, btnSml, btnBig, btnOne, btnTwo, btnThr, btnFou, btnFiv, btnSix;
 	private Dice die1, die2, die3, die4, die5;
-	private DesignerButton btnRoll;
+	private KniffButton btnRoll;
 	private JLabel lblInfolabel;
 	
 	private MouseAdapter DieButtonListener = new MouseAdapter() {
@@ -33,20 +36,7 @@ public class ScGame extends Screen
 		             }
 		     }
 	};
-	
-	private MouseAdapter CombiButtonListener = new MouseAdapter() {
-		@Override
-		public void mouseClicked(MouseEvent e) {
-		         if(e.getSource() instanceof CombiButton)
-		             {
-		                 CombiButton button = (CombiButton) e.getSource();
-		                 if (button.isEnabled())
-		                 {
-		                	 button.setEnabled(false);  
-		                 }
-		             }
-		     }
-	};
+	private JPanel pnSheets;
 	
 	public ScGame()	
 	{
@@ -62,89 +52,19 @@ public class ScGame extends Screen
 				Controller.show(Controller.scStart);
 			}
 		});
-		btnEnd.setBounds(553, 83, 110, 40);
+		btnEnd.setBounds(32, 768, 79, 71);
 		this.add(btnEnd);
 		
-		btnOne = new CombiButton(DiceCombination.One);
-		btnOne.setToolTipText("1er Augen");
-		btnOne.setBounds(114, 88, 100, 30);
-		btnOne.addMouseListener(CombiButtonListener);
-		this.add(btnOne);
-		
-		btnTwo = new CombiButton(DiceCombination.Two);
-		btnTwo.setToolTipText("2er Augen");
-		btnTwo.setBounds(114, 129, 100, 30);
-		btnTwo.addMouseListener(CombiButtonListener);
-		this.add(btnTwo);
-		
-		btnThr = new CombiButton(DiceCombination.Thr);
-		btnThr.setToolTipText("3er Augen");
-		btnThr.setBounds(114, 170, 100, 30);
-		btnThr.addMouseListener(CombiButtonListener);
-		this.add(btnThr);
-		
-		btnFou = new CombiButton(DiceCombination.Fou);
-		btnFou.setToolTipText("4er Augen");
-		btnFou.setBounds(223, 88, 100, 30);
-		btnFou.addMouseListener(CombiButtonListener);
-		this.add(btnFou);
-		
-		btnFiv = new CombiButton(DiceCombination.Fiv);
-		btnFiv.setToolTipText("5er Augen");
-		btnFiv.setBounds(224, 129, 100, 30);
-		btnFiv.addMouseListener(CombiButtonListener);
-		this.add(btnFiv);
-		
-		btnSix = new CombiButton(DiceCombination.Six);
-		btnSix.setToolTipText("6er Augen");
-		btnSix.setBounds(224, 170, 100, 30);
-		btnSix.addMouseListener(CombiButtonListener);
-		this.add(btnSix);
-		
-		btnFul = new CombiButton(DiceCombination.FullHouse);
-		btnFul.setToolTipText("Full House");
-		btnFul.setBounds(114, 289, 100, 30);
-		btnFul.addMouseListener(CombiButtonListener);
-		this.add(btnFul);
-		
-		btn3oA = new CombiButton(DiceCombination.ThroA);
-		btn3oA.setToolTipText("3er Pasch");
-		btn3oA.setBounds(114, 321, 100, 30);
-		btn3oA.addMouseListener(CombiButtonListener);
-		this.add(btn3oA);
-		
-		btn4oA = new CombiButton(DiceCombination.FouoA);
-		btn4oA.setToolTipText("4er Pasch");
-		btn4oA.setBounds(114, 353, 100, 30);
-		btn4oA.addMouseListener(CombiButtonListener);
-		this.add(btn4oA);
-		
-		btnSml = new CombiButton(DiceCombination.SmlStr);
-		btnSml.setToolTipText("kleine Stra\u00DFe");
-		btnSml.setBounds(114, 385, 100, 30);
-		btnSml.addMouseListener(CombiButtonListener);
-		this.add(btnSml);
-		
-		btnBig = new CombiButton(DiceCombination.BigStr);
-		btnBig.setToolTipText("gro\u00DFe Stra\u00DFe");
-		btnBig.setBounds(114, 417, 100, 30);
-		btnBig.addMouseListener(CombiButtonListener);
-		this.add(btnBig);
-		
-		btn5oA = new CombiButton(DiceCombination.FivoA);
-		btn5oA.setToolTipText("Kniffel");
-		btn5oA.setBounds(114, 449, 100, 30);
-		btn5oA.addMouseListener(CombiButtonListener);
-		this.add(btn5oA);
-		
-		btnCnc = new CombiButton(DiceCombination.Cnc);
-		btnCnc.setToolTipText("Chance");
-		btnCnc.setBounds(114, 481, 100, 30);
-		btnCnc.addMouseListener(CombiButtonListener);
-		this.add(btnCnc);
-		
-		btnRoll = new DesignerButton("W\u00FCrfel rollen");
-		btnRoll.setBounds(114, 639, 540, 71);
+		btnRoll = new KniffButton("W\u00FCrfel rollen");
+		btnRoll.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Controller.rollDice();
+			}
+		});
+		btnRoll.setBounds(121, 767, 540, 71);
+		btnRoll.bdt = ButtonDesignType.menuButton;
 		this.add(btnRoll);
 		
 		lblInfolabel = new JLabel("");
@@ -160,35 +80,35 @@ public class ScGame extends Screen
 	{
 		die1 = new Dice();
 		die1.addMouseListener(DieButtonListener);
-		die1.setBounds(113, 528, 100, 100);
+		die1.setBounds(120, 656, 100, 100);
 		die1.setText("1");
 		die1.setFont(new Font("OCR A Extended", Font.BOLD, 25));		
 		this.add(die1);
 		
 		die2 = new Dice();
 		die2.addMouseListener(DieButtonListener);
-		die2.setBounds(223, 528, 100, 100);
+		die2.setBounds(230, 656, 100, 100);
 		die2.setText("2");
 		die2.setFont(new Font("OCR A Extended", Font.BOLD, 25));
 		this.add(die2);
 		
 		die3 = new Dice();
 		die3.addMouseListener(DieButtonListener);
-		die3.setBounds(333, 528, 100, 100);
+		die3.setBounds(340, 656, 100, 100);
 		die3.setText("3");
 		die3.setFont(new Font("OCR A Extended", Font.BOLD, 25));
 		this.add(die3);
 		
 		die4 = new Dice();
 		die4.addMouseListener(DieButtonListener);
-		die4.setBounds(443, 528, 100, 100);
+		die4.setBounds(450, 656, 100, 100);
 		die4.setText("4");
 		die4.setFont(new Font("Gill Sans MT", Font.BOLD, 25));
 		this.add(die4);
 		
 		die5 = new Dice();
 		die5.addMouseListener(DieButtonListener);
-		die5.setBounds(553, 528, 100, 100);
+		die5.setBounds(560, 656, 100, 100);
 		die5.setText("5");
 		die5.setFont(new Font("OCR A Extended", Font.BOLD, 25));
 		this.add(die5);
@@ -200,27 +120,38 @@ public class ScGame extends Screen
 		Dice.KniffDice[4] = die5;
 		
 		Dice.rollAll();
+		
+		initSheets();
+		
+		pnSheets = new JPanel();
+		pnSheets.setBounds(121, 70, 540, 575);
+		add(pnSheets);
+		pnSheets.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		Sheet res = new Sheet();
+		res.setPreferredSize(new Dimension(150, pnSheets.getHeight()));
+		pnSheets.add(res);
+		res.setEnabled(false);
 	}
 
-	private void initButtons()
+	private void initSheets()
 	{
-		btn3oA.setText("3er Pasch");
-		btn4oA.setText("4er Pasch");
-		btn5oA.setText("Kniffel");
-		btnSml.setText("kleine Straﬂe");
-		btnBig.setText("groﬂe Straﬂe");
-		btnFul.setText("Full House");
-		btnCnc.setText("Chance");
-		btnOne.setText("1er Augen");
-		btnTwo.setText("2er Augen");
-		btnThr.setText("3er Augen");
-		btnFou.setText("4er Augen");
-		btnFiv.setText("5er Augen");
-		btnSix.setText("6er Augen");
+		for (Player p : KniffEngine.Players)
+		{
+			p.sheet.setPreferredSize(new Dimension((pnSheets.getWidth() / KniffEngine.Players.size()) - 5, pnSheets.getHeight()));
+			pnSheets.add(p.sheet);
+		}
 	}
-
+	
 	public void writeMessage(String string)
 	{
 		this.lblInfolabel.setText(string);
+	}
+
+	public void enableSheetForPlayer(Player currentPlayer)
+	{
+		for (Component s : pnSheets.getComponents())
+			((Sheet) s).setEnabled(false);
+		currentPlayer.sheet.setEnabled(true);
 	}
 }

@@ -5,7 +5,7 @@ import java.util.*;
 
 import javax.swing.JButton;
 
-public class CombiButton extends JButton
+public class CombiButton extends KniffButton
 {
 	/**
 	 * 
@@ -102,5 +102,6 @@ public class CombiButton extends JButton
 	public void paintComponent(Graphics g)
 	{
 		Design.drawButton(this, g);
+		super.paintComponent(g);
 	}
 }

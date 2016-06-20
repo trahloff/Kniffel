@@ -7,13 +7,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class ScStart extends Screen
 {
-	public DesignerButton btnStart, btnEnd;
+	public KniffButton btnStart, btnEnd;
 	JLabel lbTitle, lbMessage;
 	
 	public ScStart()
@@ -37,7 +38,7 @@ public class ScStart extends Screen
 		this.add(lbMessage);
 		
 		// Start-Button
-		btnStart = new DesignerButton("Spielen", ButtonDesignType.startButton);
+		btnStart = new KniffButton("Spielen");
 		btnStart.setFont(new Font("OCR A Extended", Font.BOLD, 20));
 		btnStart.setBounds(295, 332, 150, 150);
 		btnStart.addMouseListener(new MouseAdapter() {
@@ -46,10 +47,11 @@ public class ScStart extends Screen
 				Controller.show(Controller.scOption);
 			}
 		});
+		btnStart.bdt = ButtonDesignType.startButton;
 		this.add(btnStart);
 		
 		// End-Button
-		btnEnd = new DesignerButton("Beenden", ButtonDesignType.menuButton);
+		btnEnd = new KniffButton("Beenden");
 		btnEnd.setFont(new Font("OCR A Extended", Font.BOLD, 15));
 		btnEnd.setBounds(295, 555, 150, 50);
 		btnEnd.addMouseListener(new MouseAdapter() {
@@ -58,6 +60,7 @@ public class ScStart extends Screen
 				System.exit(0);
 			}
 		});
+		btnEnd.bdt = ButtonDesignType.menuButton;
 		this.add(btnEnd);
 	}
 	

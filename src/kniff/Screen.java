@@ -17,4 +17,11 @@ public class Screen extends JPanel
 	{
 		super();
 	}
+	
+	public void paintComponent(Graphics g)
+	{
+		g.setColor(this.getBackground());
+		g.drawRect(0, 0, this.getWidth(), this.getHeight());
+		super.paintComponent(g);
+	}
 }
