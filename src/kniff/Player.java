@@ -36,12 +36,4 @@ public class Player implements Comparable<Player>
 	{
 		return p.name.compareTo(this.name);
 	}
-	
-	public static boolean NameIsUsed(String name)
-	{
-		for (Player player : KniffEngine.Players)
-			if (player.name.compareTo(name) == 0)
-				return true;
-		return false;
-	}
 }

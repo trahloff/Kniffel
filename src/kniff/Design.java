@@ -16,38 +16,45 @@ public class Design
 	private static Dictionary<Colors, Color> colorDictionary = new Hashtable<Colors, Color>();
 	private static Font globalFont;
 	
-	public static void setColorScheme(int i)
+	public static void setColorScheme(ColorScheme s)
 	{
-		switch (i)
+		switch (s)
 		{
-		case 0:
+		case Default:
 			setDefault();
 			break;
-		case 1:
+		case Fire:
 			setFire();
 			break;
-		case 2:
-			setBlueOrange();
-			break;
 		default:
-			setDefault();
 			break;
 		}
 	}
 	
 	public static void setRandom()
 	{
-		setColorScheme((int) (Math.random() * 10));
+		ColorScheme s;
+		
+		switch ((int) (Math.random() * 10))
+		{
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			s = ColorScheme.Fire;
+			break;
+		default:
+			s = ColorScheme.Default;
+			break;
+		}
+		
+		setColorScheme(s);
 	}
 	
 	public static Color getColor(Colors c)
 	{
 		return colorDictionary.get(c);
-	}
-	
-	private static void setBlueOrange()
-	{
-
 	}
 	
 	private static void setFire()
@@ -113,7 +120,6 @@ public class Design
 	
 	private static void paintStartButton(KniffButton b, Graphics g)
 	{
-		int r = 5;
 		g.setColor(Design.getColor(Colors.bg_dark));
 		
 		if (b.isEnabled())
@@ -177,7 +183,6 @@ public class Design
 			// final Color setting for Text
 			b.setForeground(Design.getColor(Colors.fg_dark));
 		}
-		g.drawOval(0, 0, b.getWidth()-1, b.getHeight()-1);
 		
 	}
 

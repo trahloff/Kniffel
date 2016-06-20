@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionEvent;
 
 public class ScStart extends Screen
 {
@@ -25,22 +26,22 @@ public class ScStart extends Screen
 		
 		// Title-Label
 		lbTitle = new JLabel("Kniffelig");
-		lbTitle.setBounds(10, 156, 724, 157);
+		lbTitle.setBounds(10, 150, 650, 150);
 		lbTitle.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 90));
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(lbTitle);
 		
 		// Message-Label
-		lbMessage = new JLabel(getRandomMessage());
-		lbMessage.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		lbMessage = new JLabel(getRandomMessage());	
 		lbMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lbMessage.setBounds(10, 629, 724, 71);
+		lbMessage.setBounds(-20, 708, 724, 71);
+		lbMessage.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		this.add(lbMessage);
 		
 		// Start-Button
 		btnStart = new KniffButton("Spielen");
-		btnStart.setFont(new Font("OCR A Extended", Font.BOLD, 20));
-		btnStart.setBounds(295, 332, 150, 150);
+		btnStart.setFont(Design.getFont());
+		btnStart.setBounds(240, 345, 200, 200);
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -52,8 +53,8 @@ public class ScStart extends Screen
 		
 		// End-Button
 		btnEnd = new KniffButton("Beenden");
-		btnEnd.setFont(new Font("OCR A Extended", Font.BOLD, 15));
-		btnEnd.setBounds(295, 555, 150, 50);
+		btnEnd.setFont(Design.getFont());
+		btnEnd.setBounds(250, 630, 180, 50);
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -62,6 +63,19 @@ public class ScStart extends Screen
 		});
 		btnEnd.bdt = ButtonDesignType.menuButton;
 		this.add(btnEnd);
+		
+		KniffButton btnSettings = new KniffButton("Einstellungen");
+		btnSettings.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Controller.show(Controller.scSettings);
+			}
+		});
+		btnSettings.setFont(null);
+		btnSettings.bdt = ButtonDesignType.menuButton;
+		btnSettings.setBounds(250, 570, 180, 50);
+		add(btnSettings);
 	}
 	
 	private String getRandomMessage()

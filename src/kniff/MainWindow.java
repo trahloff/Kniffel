@@ -63,7 +63,7 @@ public class MainWindow
 		{
 			button = iCombiButton.nextElement();
 			button.setEnabled(true);
-			button.setText("" + KniffSheet.calcPoints(button.getLinkedCombination(), Dice.getSortedValues(Dice.KniffDice)));
+			button.setText("" + KniffSheet.calcPoints(button.getLinkedCombination(), Dice.getSortedValues(Controller.kniffDice)));
 		}
 		
 		for (DiceCombination combi : combis)

@@ -68,6 +68,21 @@ public class Sheet extends JPanel
 		btnSix.addMouseListener(CombiButtonListener);
 		content.add(btnSix);
 		
+		JLabel lbSumUp = new JLabel("oben");
+		lbSumUp.setToolTipText("Summe des oberen Teils (ohne Bonus)");
+		lbSumUp.setPreferredSize(new Dimension(100, 20));
+		content.add(lbSumUp);
+		
+		JLabel lbBonus = new JLabel("bonus");
+		lbBonus.setToolTipText("35 Bonuspunkte wenn +75 Punkte im oberen Teil");
+		lbSumUp.setPreferredSize(new Dimension(100, 20));
+		content.add(lbBonus);
+		
+		JLabel lbSumUpAll = new JLabel("oben gesamt");
+		lbSumUpAll.setToolTipText("Summe des oberen Teils");
+		lbSumUp.setPreferredSize(new Dimension(100, 20));
+		content.add(lbSumUpAll);
+		
 		btnFul = new CombiButton(DiceCombination.FullHouse);
 		btnFul.setToolTipText("Full House");
 		btnFul.setBounds(114, 289, 100, 30);
@@ -110,6 +125,19 @@ public class Sheet extends JPanel
 		btnCnc.addMouseListener(CombiButtonListener);
 		content.add(btnCnc);
 		
+		JLabel lbSumDown = new JLabel("unterer Teil");
+		lbSumDown.setToolTipText("Summe des unteren Teils");
+		lbSumUp.setPreferredSize(new Dimension(100, 20));
+		content.add(lbSumDown);
+		
+		JLabel lbSumUpAllValue = new JLabel("oberer Teil Gesamt");
+		lbSumUpAllValue.setBounds(224, 170, 100, 20);
+		content.add(lbSumUpAllValue);
+		
+		JLabel lbSumAll = new JLabel("gesamt");
+		lbSumAll.setToolTipText("Summe des gesamten Spiels");
+		lbSumUp.setPreferredSize(new Dimension(100, 20));
+		content.add(lbSumAll);
 		
 		playerName = new JLabel("...");
 		playerName.setBounds(10, 10, 290, 30);

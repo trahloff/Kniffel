@@ -39,7 +39,14 @@ public class ScOption extends Screen
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Controller.startGame();
+				try
+				{
+					Controller.startGame();
+				} catch (Exception e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnStart.setBounds(329, 537, 100, 100);
