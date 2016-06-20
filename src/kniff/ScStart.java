@@ -7,19 +7,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class StartScreen extends Screen
+public class ScStart extends Screen
 {
-	public DesignerButton btnStart, btnEnd;
+	public KniffButton btnStart, btnEnd;
 	JLabel lbTitle, lbMessage;
 	
-	public StartScreen()
+	public ScStart()
 	{
-		this.setBackground(Design.getColor(Colors.bg_dark));
 		this.setLayout(null);
+		
+		this.setName("start");
 		
 		// Title-Label
 		lbTitle = new JLabel("Kniffelig");
@@ -36,19 +38,20 @@ public class StartScreen extends Screen
 		this.add(lbMessage);
 		
 		// Start-Button
-		btnStart = new DesignerButton("Spielen", "gameStartButton");
+		btnStart = new KniffButton("Spielen");
 		btnStart.setFont(new Font("OCR A Extended", Font.BOLD, 20));
 		btnStart.setBounds(295, 332, 150, 150);
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.Show(Controller.scOption);
+				Controller.show(Controller.scOption);
 			}
 		});
+		btnStart.bdt = ButtonDesignType.startButton;
 		this.add(btnStart);
 		
 		// End-Button
-		btnEnd = new DesignerButton("Beenden", "menuButton");
+		btnEnd = new KniffButton("Beenden");
 		btnEnd.setFont(new Font("OCR A Extended", Font.BOLD, 15));
 		btnEnd.setBounds(295, 555, 150, 50);
 		btnEnd.addMouseListener(new MouseAdapter() {
@@ -57,6 +60,7 @@ public class StartScreen extends Screen
 				System.exit(0);
 			}
 		});
+		btnEnd.bdt = ButtonDesignType.menuButton;
 		this.add(btnEnd);
 	}
 	
@@ -89,9 +93,13 @@ public class StartScreen extends Screen
 		}
 	}
 	
-	public void show()
+	public void writeMessage(String s)
 	{
-		super.show();
-		lbMessage = new JLabel(getRandomMessage());
+		lbMessage.setText(s);
+	}
+	
+	public void writeRandomMessage()
+	{
+		lbMessage.setText(getRandomMessage());
 	}
 }

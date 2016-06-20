@@ -1,16 +1,27 @@
 package kniff;
 
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+
 import javax.swing.JPanel;
 
 public class Screen extends JPanel
-{
-	public void show()
+{	
+	public Screen(CardLayout cardLayout)
 	{
-		this.setVisible(true);
+		super(cardLayout);
+	}
+
+	public Screen()
+	{
+		super();
 	}
 	
-	public void hide()
+	public void paintComponent(Graphics g)
 	{
-		this.setVisible(false);
+		g.setColor(this.getBackground());
+		g.drawRect(0, 0, this.getWidth(), this.getHeight());
+		super.paintComponent(g);
 	}
 }

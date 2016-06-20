@@ -17,8 +17,8 @@ public class KniffEngine
 	{
 		try
 		{
-			Players.add(new Player("Test Player A"));
-			Players.add(new Player("Test Player B"));
+			Players.add(new Player("Test Player A", "TPA"));
+			Players.add(new Player("Test Player B", "TPB"));
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -45,5 +45,6 @@ public class KniffEngine
 	{
 		round = 0;	
 		initPlayers();
+		Dice.setAllInitial(true);
 	}
 }

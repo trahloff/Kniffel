@@ -13,5 +13,8 @@ public enum Colors
 	accent_a_light,
 	accent_a_dark,
 	accent_b_light,
-	accent_b_dark
+	accent_b_dark,
+	light_glow_a,
+	disabled_dice_a,
+	disabled_dice_b
 }
