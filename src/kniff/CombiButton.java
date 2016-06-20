@@ -17,10 +17,12 @@ public class CombiButton extends KniffButton
 	public static Dictionary<DiceCombination, CombiButton> combiButtons = new Hashtable<DiceCombination, CombiButton>();
 	private DiceCombination linkedCombination;
 	private String customText = "";
+	public int value;
 	
 	public CombiButton(String text, DiceCombination combi)
 	{
 		super(text);
+		this.value = 0;
 		this.linkedCombination = combi;
 		this.customText = text;
 		CombiButton.combiButtons.put(combi, this);
@@ -29,6 +31,7 @@ public class CombiButton extends KniffButton
 	public CombiButton(DiceCombination combi)
 	{
 		super(getDefaultText(combi));
+		this.value = 0;
 		this.linkedCombination = combi;
 		this.customText = "";
 		CombiButton.combiButtons.put(combi, this);
@@ -107,6 +110,13 @@ public class CombiButton extends KniffButton
 	
 	public void kill()
 	{
+		try
+		{
+			this.value = Integer.parseInt(this.getText());
+		} catch (Exception e)
+		{
+			this.value = 0;
+		}
 		this.isKilled = true;
 		this.setEnabled(false);
 	}

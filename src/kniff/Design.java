@@ -14,10 +14,12 @@ import javax.swing.JButton;
 public class Design
 {
 	private static Dictionary<Colors, Color> colorDictionary = new Hashtable<Colors, Color>();
+	private static ColorScheme colorScheme;
 	private static Font globalFont;
 	
 	public static void setColorScheme(ColorScheme s)
 	{
+		colorScheme = s;
 		switch (s)
 		{
 		case Default:
@@ -268,5 +270,10 @@ public class Design
 	public static void setFont(Font font)
 	{
 		globalFont = font;
+	}
+
+	public static Object getColorScheme()
+	{
+		return colorScheme;
 	}
 }

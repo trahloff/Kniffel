@@ -2,6 +2,8 @@ package kniff;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -10,6 +12,8 @@ import java.awt.event.MouseEvent;
 
 public class ScSettings extends Screen
 {
+	private JComboBox cBoxColor;
+	
 	public ScSettings() {
 		setLayout(null);
 		
@@ -71,7 +75,10 @@ public class ScSettings extends Screen
 		lblAuswahlDesDesignschemas.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		lblAuswahlDesDesignschemas.setBounds(240, 197, 250, 30);
 		add(lblAuswahlDesDesignschemas);
-		
-		
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
 	}
 }

@@ -68,7 +68,7 @@ public class ScGame extends Screen
 		this.add(lblInfolabel);
 		
 		pnSheets = new JPanel();
-		pnSheets.setBounds(204, 66, 540, 579);
+		pnSheets.setBounds(204, 66, 540, 690);
 		this.add(pnSheets);
 		pnSheets.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -79,7 +79,7 @@ public class ScGame extends Screen
 		this.add(sheet);
 		
 		pnDiceContainer = new JPanel();
-		pnDiceContainer.setBounds(204, 657, 540, 99);
+		pnDiceContainer.setBounds(758, 146, 119, 549);
 		this.add(pnDiceContainer);
 		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 	

@@ -44,14 +44,14 @@ public class ScOption extends Screen
 				try
 				{
 						players.clear();
-//						players.add(new Player("Anna", "AnA"));
+						players.add(new Player("Anna", "AnA"));
 //						players.add(new Player("Barbara", "B$L"));
 //						players.add(new Player("Charlie", "Cha"));
-						players.add(new Player("Dennis", "God"));
-						players.add(new Player("Eduard", "Edu"));
-						players.add(new Player("Frederike", "Frd"));
-						players.add(new Player("Galadriel", "Gal"));
-						players.add(new Player("Henrik", "Hrk"));
+//						players.add(new Player("Dennis", "God"));
+//						players.add(new Player("Eduard", "Edu"));
+//						players.add(new Player("Frederike", "Frd"));
+//						players.add(new Player("Galadriel", "Gal"));
+//						players.add(new Player("Henrik", "Hrk"));
 					
 					Controller.startGame(players);
 				} catch (Exception e1)

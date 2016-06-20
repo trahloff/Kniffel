@@ -17,6 +17,7 @@ import javax.swing.JButton;
 public class Sheet extends JPanel
 {
 	private CombiButton btn3oA, btn4oA, btn5oA, btnFul, btnCnc, btnSml, btnBig, btnOne, btnTwo, btnThr, btnFou, btnFiv, btnSix;
+	private JLabel lbSumUp, lbBonus, lbSumUpAll, lbSumDown, lbSumUpAllValue, lbSumAll;
 	private JPanel content;
 	private JLabel playerName;
 	
@@ -67,17 +68,20 @@ public class Sheet extends JPanel
 		btnSix.addMouseListener(CombiButtonListener);
 		content.add(btnSix);
 		
-		JLabel lbSumUp = new JLabel("oben");
+		lbSumUp = new JLabel("oben");
+		lbSumUp.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumUp.setToolTipText("Summe des oberen Teils (ohne Bonus)");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbSumUp);
 		
-		JLabel lbBonus = new JLabel("bonus");
+		lbBonus = new JLabel("bonus");
+		lbBonus.setHorizontalAlignment(SwingConstants.CENTER);
 		lbBonus.setToolTipText("35 Bonuspunkte wenn +75 Punkte im oberen Teil");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbBonus);
 		
-		JLabel lbSumUpAll = new JLabel("oben gesamt");
+		lbSumUpAll = new JLabel("oben gesamt");
+		lbSumUpAll.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumUpAll.setToolTipText("Summe des oberen Teils");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbSumUpAll);
@@ -124,16 +128,19 @@ public class Sheet extends JPanel
 		btnCnc.addMouseListener(CombiButtonListener);
 		content.add(btnCnc);
 		
-		JLabel lbSumDown = new JLabel("unterer Teil");
+		lbSumDown = new JLabel("unterer Teil");
+		lbSumDown.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumDown.setToolTipText("Summe des unteren Teils");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbSumDown);
 		
-		JLabel lbSumUpAllValue = new JLabel("oberer Teil Gesamt");
+		lbSumUpAllValue = new JLabel("oberer Teil Gesamt");
+		lbSumUpAllValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumUpAllValue.setBounds(224, 170, 100, 20);
 		content.add(lbSumUpAllValue);
 		
-		JLabel lbSumAll = new JLabel("gesamt");
+		lbSumAll = new JLabel("gesamt");
+		lbSumAll.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumAll.setToolTipText("Summe des gesamten Spiels");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbSumAll);
@@ -176,6 +183,7 @@ public class Sheet extends JPanel
 		                 if (button.isEnabled())
 		                 {
 		                	 button.kill();
+		                	 updateSheetValues(Controller.kniffDice);
 		                	 Controller.nextPlayer();
 		                 }
 		             }
@@ -188,14 +196,33 @@ public class Sheet extends JPanel
 			c.setEnabled(b);
 	}
 	
+	// lbSumUp, lbBonus, lbSumUpAll, lbSumDown, lbSumUpAllValue, lbSumAll
+	// btn3oA, btn4oA, btn5oA, btnFul, btnCnc, btnSml, btnBig, btnOne, btnTwo, btnThr, btnFou, btnFiv, btnSix
 	public void updateSheetValues(Dice[] combination)
 	{
 		for (Component c : content.getComponents())
 			if (c.getClass().equals(CombiButton.class))
 			{
 				CombiButton b = (CombiButton) c;
-				b.setText("" + KniffSheet.calcPoints(b.getLinkedCombination(), Dice.getSortedValues(combination)));
+				if(!b.isKilled())
+					b.setText("" + KniffSheet.calcPoints(b.getLinkedCombination(), Dice.getSortedValues(combination)));
 			}
+		
+		// oberer Teil
+		int sumUp = btnOne.value + btnTwo.value + btnThr.value + btnFou.value + btnFiv.value + btnSix.value;
+		int bonus = 0;
+		int sumDown = btn3oA.value + btn4oA.value + btn5oA.value + btnFul.value + btnCnc.value + btnSml.value + btnBig.value;
+		
+		this.lbSumUp.setText(sumUp + "");
+		if (sumUp >= 63)
+			bonus = 35;
+		this.lbBonus.setText(bonus + "");
+		this.lbSumUpAll.setText(sumUp + bonus + "");
+		
+		// unterer Teil
+		this.lbSumDown.setText(sumDown + "");
+		this.lbSumUpAllValue.setText(this.lbSumUpAll.getText());
+		this.lbSumAll.setText(sumDown + sumUp + bonus + "");
 	}
 	
 	public void paintComponent(Graphics g)

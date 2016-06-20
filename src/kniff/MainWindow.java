@@ -45,7 +45,7 @@ public class MainWindow
 	private void initialize()
 	{
 		frmKniffelig = new JFrame();
-		frmKniffelig.setResizable(false);
+		frmKniffelig.setResizable(true);
 		frmKniffelig.setTitle("Kniffelig");
 		frmKniffelig.setBounds(100, 100, 800, 900);
 		frmKniffelig.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		

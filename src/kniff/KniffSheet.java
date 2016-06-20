@@ -59,17 +59,17 @@ public class KniffSheet
 		switch (combi)
 		{
 		case BigStr:
-			return 40;
+			return isBigStr(diceValues) ? 40 : 0;
 		case FivoA:
-			return 50;
+			return isFivoA(diceValues) ? 40 : 0;
 		case FouoA:
-			return countAnyValue(diceValues);
+			return isFouoA(diceValues) ? countAnyValue(diceValues) : 0;
 		case FullHouse:
-			return 25;
+			return isFullHouse(diceValues) ? 25 : 0;
 		case SmlStr:
-			return 30;
+			return isSmlStr(diceValues) ? 30 : 0;
 		case ThroA:
-			return countAnyValue(diceValues);
+			return isThroA(diceValues) ? countAnyValue(diceValues) : 0;
 		case One:
 			return countAny(1, diceValues);
 		case Two:
