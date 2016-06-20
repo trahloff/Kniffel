@@ -11,7 +11,7 @@ public class CombiButton extends KniffButton
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private boolean isKilled = false;
 	//
 	
 	public static Dictionary<DiceCombination, CombiButton> combiButtons = new Hashtable<DiceCombination, CombiButton>();
@@ -103,5 +103,24 @@ public class CombiButton extends KniffButton
 	{
 		Design.drawButton(this, g);
 		super.paintComponent(g);
+	}
+	
+	public void kill()
+	{
+		this.isKilled = true;
+		this.setEnabled(false);
+	}
+	
+	public void setEnabled(boolean b)
+	{
+		if (this.isKilled)
+			super.setEnabled(false);
+		else
+			super.setEnabled(b);
+	}
+
+	public boolean isKilled()
+	{
+		return this.isKilled;
 	}
 }

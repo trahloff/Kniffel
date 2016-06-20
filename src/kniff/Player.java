@@ -8,8 +8,7 @@ public class Player implements Comparable<Player>
 	
 	public String name = "Spieler " + Player.objCount;
 	public String shortName;
-	public Sheet sheet = new Sheet();
-	public KniffSheet KniffSheet = new KniffSheet();
+	public Sheet sheet = new Sheet(true);
 	
 	public Player(String name, String shortName) throws Exception
 	{

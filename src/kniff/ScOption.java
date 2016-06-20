@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,7 +20,8 @@ public class ScOption extends Screen
 	private JPanel pnPlayers;
 	KniffButton btnStart = new KniffButton("Start");
 	KniffButton btnAdd, btnRmv;
-
+	private static TreeSet<Player> players = new TreeSet<Player>();
+	
 	public ScOption()
 	{
 		this.setLayout(null);
@@ -41,7 +43,17 @@ public class ScOption extends Screen
 			public void mouseClicked(MouseEvent e) {
 				try
 				{
-					Controller.startGame();
+						players.clear();
+//						players.add(new Player("Anna", "AnA"));
+//						players.add(new Player("Barbara", "B$L"));
+//						players.add(new Player("Charlie", "Cha"));
+						players.add(new Player("Dennis", "God"));
+						players.add(new Player("Eduard", "Edu"));
+						players.add(new Player("Frederike", "Frd"));
+						players.add(new Player("Galadriel", "Gal"));
+						players.add(new Player("Henrik", "Hrk"));
+					
+					Controller.startGame(players);
 				} catch (Exception e1)
 				{
 					// TODO Auto-generated catch block

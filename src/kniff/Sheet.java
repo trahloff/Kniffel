@@ -17,11 +17,10 @@ import javax.swing.JButton;
 public class Sheet extends JPanel
 {
 	private CombiButton btn3oA, btn4oA, btn5oA, btnFul, btnCnc, btnSml, btnBig, btnOne, btnTwo, btnThr, btnFou, btnFiv, btnSix;
-	private CombiButton btnThroA;
 	private JPanel content;
 	private JLabel playerName;
 	
-	public Sheet()
+	public Sheet(boolean cleared)
 	{
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
@@ -147,6 +146,8 @@ public class Sheet extends JPanel
 		
 		add(playerName);
 		initButtons();
+		if (cleared)
+			vanish();
 	}
 	
 	private void initButtons()
@@ -174,8 +175,8 @@ public class Sheet extends JPanel
 		                 CombiButton button = (CombiButton) e.getSource();
 		                 if (button.isEnabled())
 		                 {
+		                	 button.kill();
 		                	 Controller.nextPlayer();
-		                	 button.setEnabled(false);
 		                 }
 		             }
 		     }
@@ -185,6 +186,16 @@ public class Sheet extends JPanel
 	{
 		for (Component c : content.getComponents())
 			c.setEnabled(b);
+	}
+	
+	public void updateSheetValues(Dice[] combination)
+	{
+		for (Component c : content.getComponents())
+			if (c.getClass().equals(CombiButton.class))
+			{
+				CombiButton b = (CombiButton) c;
+				b.setText("" + KniffSheet.calcPoints(b.getLinkedCombination(), Dice.getSortedValues(combination)));
+			}
 	}
 	
 	public void paintComponent(Graphics g)
@@ -199,5 +210,16 @@ public class Sheet extends JPanel
 	public void setTitle(String shortName)
 	{
 		this.playerName.setText(shortName);
+	}
+
+	public void vanish()
+	{
+		for (Component c : content.getComponents())
+			if (c.getClass().equals(CombiButton.class))
+			{
+				CombiButton b = (CombiButton) c;
+				if (!b.isKilled())
+					b.setText("");
+			}
 	}
 }

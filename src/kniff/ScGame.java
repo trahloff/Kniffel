@@ -26,17 +26,22 @@ public class ScGame extends Screen
 	private JPanel pnSheets;
 	private JPanel pnDiceContainer;
 	
+	public KniffButton getBtnRoll()
+	{
+		return this.btnRoll;
+	}
+	
 	public ScGame()	
 	{
 		this.setLayout(null);
 		this.setName("game");
 		
 		
-		btnEnd = new KniffButton("Pause");
+		btnEnd = new KniffButton("Ende");
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.show(Controller.scStart);
+				Controller.stopGame();
 			}
 		});
 		btnEnd.bdt = ButtonDesignType.menuButton;
@@ -48,7 +53,8 @@ public class ScGame extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Controller.rollDice();
+				if (((KniffButton)e.getSource()).isEnabled())
+					Controller.rollDice();
 			}
 		});
 		btnRoll.setBounds(204, 767, 540, 71);
@@ -62,11 +68,11 @@ public class ScGame extends Screen
 		this.add(lblInfolabel);
 		
 		pnSheets = new JPanel();
-		pnSheets.setBounds(204, 70, 540, 576);
+		pnSheets.setBounds(204, 66, 540, 579);
 		this.add(pnSheets);
 		pnSheets.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		Sheet sheet = new Sheet();
+		Sheet sheet = new Sheet(false);
 		sheet.setPreferredSize(new Dimension(150, 677));
 		sheet.setEnabled(false);
 		sheet.setBounds(20, 70, 174, 687);
@@ -76,8 +82,7 @@ public class ScGame extends Screen
 		pnDiceContainer.setBounds(204, 657, 540, 99);
 		this.add(pnDiceContainer);
 		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		initSheets();	
+	
 		initDice();
 	}
 	
@@ -90,6 +95,7 @@ public class ScGame extends Screen
 
 	private void initSheets()
 	{
+		pnSheets.removeAll();
 		for (Player p : Controller.players)
 		{
 			p.sheet.setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight()));
@@ -103,16 +109,27 @@ public class ScGame extends Screen
 		this.lblInfolabel.setText(string);
 	}
 
-	public void enableSheetForPlayer(Player currentPlayer)
+	public void init()
+	{
+		initSheets();
+		initDice();
+	}
+	
+	public void enableSheetForPlayer(Player player)
+	{
+		setEnableSheets(false);
+		player.sheet.setEnabled(true);
+	}
+	
+	public void setEnableSheets(boolean b)
 	{
 		for (Component s : pnSheets.getComponents())
-			((Sheet) s).setEnabled(false);
-		currentPlayer.sheet.setEnabled(true);
+			s.setEnabled(b);
 	}
 	
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		initSheets();
+		this.repaint();
 	}
 }

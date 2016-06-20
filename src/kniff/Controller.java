@@ -17,6 +17,8 @@ public class Controller
 	public static Player currentPlayer;
 	public static Iterator<Player> ip;
 	public static Dice[] kniffDice = new Dice[5];
+	public static int remainingRolls = 3;
+	private static int remainingRounds = 13;
 	
 	public static ScStart scStart;
 	public static ScGame scGame;
@@ -28,24 +30,7 @@ public class Controller
 		Design.setColorScheme(ColorScheme.Fire);
 		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		kniffDice = Dice.initDiceCollection();
-		initScreens();
-		
-		try
-		{
-			addPlayer(new Player("Anna", "AnA"));
-			//addPlayer(new Player("Barbara", "B$L"));
-			//addPlayer(new Player("Charlie", "Cha"));
-			//addPlayer(new Player("Dennis", "God"));
-			//addPlayer(new Player("Eduard", "Edu"));
-			//addPlayer(new Player("Frederike", "Frd"));
-			//addPlayer(new Player("Galadriel", "Gal"));
-			//addPlayer(new Player("Henrik", "Hrk"));
-		} catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		initScreens();		
 		MainWindow.main(args);
 		show(scStart);
 	}
@@ -55,38 +40,88 @@ public class Controller
 	    clController.show(scContainer, sc.getName());
 	}
 	
-	public static void startGame() throws Exception
+	public static void startGame(TreeSet<Player> p) throws Exception
 	{
 		Controller.show(scGame);
+		players.addAll(p);
+		ip = players.iterator();
+		remainingRounds = 12;
+		
 		if (ip.hasNext())
 			currentPlayer = ip.next();
 		else
 			throw new Exception("Es scheint keine Spieler zu geben.");
-		
-		scGame.enableSheetForPlayer(currentPlayer);
+	
+		scGame.init();
+		scGame.getBtnRoll().setEnabled(true);
+		scGame.setEnableSheets(false);
+		Dice.setAllEnabled(true);
+		Dice.setAllInitial(true);
 		scGame.writeMessage("jetzt wird gekniffelt und " + currentPlayer.name + " fängt an");
 	}
 	
 	public static void nextPlayer()
 	{
+		vanishSheetValues(currentPlayer);
 		if (!ip.hasNext())
+		{
 			ip = players.iterator();
+			if (remainingRounds <= 0)
+			{
+				stopGame();
+				return;
+			}
+			remainingRounds--;
+		}
 		if (ip.hasNext())
 			currentPlayer = ip.next();	
 		
 		scGame.writeMessage(currentPlayer.name + " ist an der Reihe");
-		scGame.enableSheetForPlayer(currentPlayer);
+		remainingRolls = 3;
+		
+		scGame.getBtnRoll().setEnabled(true);
+		scGame.setEnableSheets(false);
+		Dice.setAllEnabled(true);
+		Dice.setAllInitial(true);
+	}
+	
+	private static void vanishSheetValues(Player p)
+	{
+		p.sheet.vanish();
+	}
+
+	public static void stopGame()
+	{
+		show(scStart);
+		currentPlayer = null;
+		players.clear();
 	}
 	
 	public static void rollDice()
 	{
-		Dice.rollAll();
+		if (!currentPlayer.sheet.isEnabled())
+			currentPlayer.sheet.setEnabled(true);
+		if (remainingRolls > 0)
+		{
+			Dice.rollAll();
+			updateSheetValue(currentPlayer, kniffDice);
+			remainingRolls--;
+		}
+		if (remainingRolls < 1)
+			scGame.getBtnRoll().setEnabled(false);
+		scGame.enableSheetForPlayer(currentPlayer);
 	}
 	
-	private static void addPlayer(Player p)
+	private static void updateSheetValue(Player p, Dice[] kniffDice)
 	{
-		players.add(p);
-		ip = players.iterator();
+		p.sheet.updateSheetValues(kniffDice);
+	}
+
+	public static void updateBtnRoll()
+	{
+		scGame.getBtnRoll().setEnabled(!Dice.allDeactivated());
+		if (remainingRolls <= 0)
+			scGame.getBtnRoll().setEnabled(false);
 	}
 	
 	private static void initScreens()

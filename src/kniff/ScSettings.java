@@ -21,7 +21,7 @@ public class ScSettings extends Screen
 		lblNewLabel.setBounds(10, 10, 750, 50);
 		add(lblNewLabel);
 		
-		JComboBox<ColorScheme> cBoxColor = new JComboBox<ColorScheme>();
+		final JComboBox<ColorScheme> cBoxColor = new JComboBox<ColorScheme>();
 		cBoxColor.setModel(new DefaultComboBoxModel<ColorScheme>(ColorScheme.values()));
 		cBoxColor.setSelectedIndex(0);
 		cBoxColor.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
@@ -48,6 +48,13 @@ public class ScSettings extends Screen
 		add(btnBack);
 		
 		KniffButton btnAnwenden = new KniffButton("anwenden");
+		btnAnwenden.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Design.setColorScheme((ColorScheme)cBoxColor.getSelectedItem());
+			}
+		});
 		btnAnwenden.bdt = ButtonDesignType.menuButton;
 		btnAnwenden.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		btnAnwenden.setBounds(370, 450, 120, 40);

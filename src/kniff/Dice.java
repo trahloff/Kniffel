@@ -35,7 +35,13 @@ public class Dice extends JButton
 	public void setInitial(boolean v)
 	{
 		this.isInitial = v;
-		this.value = -1;
+		this.value = 0;
+	}
+	
+	public static void setAllEnabled(boolean v)
+	{
+		for (Dice d : Controller.kniffDice)
+			d.setEnabled(v);
 	}
 	
 	public static void setAllInitial(boolean v)
@@ -223,6 +229,7 @@ public class Dice extends JButton
 		                	 button.setEnabled(false);
 		                 else
 		                	 button.setEnabled(true);
+		                 Controller.updateBtnRoll();
 		             }
 		     }
 	};
