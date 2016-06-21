@@ -1,6 +1,6 @@
 package helper;
 
-public enum EButtonDesign
+public enum EComponentDesign
 {
 	startButton,
 	menuButton,

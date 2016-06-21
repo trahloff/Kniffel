@@ -129,7 +129,7 @@ public class Design
         Graphics2D antiAlias = (Graphics2D)g;
         antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
-        switch (b.bdt)
+        switch (b.getComponentDesign())
 		{
 		case menuButton:
 			paintMenuButton(b, g);

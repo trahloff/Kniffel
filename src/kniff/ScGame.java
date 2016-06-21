@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import helper.EButtonDesign;
+import helper.EComponentDesign;
 
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
@@ -47,7 +47,7 @@ public class ScGame extends Screen
 				Controller.stopGame(1);
 			}
 		});
-		btnEnd.bdt = EButtonDesign.menuButton;
+		btnEnd.setComponentDesign(EComponentDesign.menuButton);
 		btnEnd.setBounds(32, 768, 162, 71);
 		this.add(btnEnd);
 		
@@ -61,7 +61,7 @@ public class ScGame extends Screen
 			}
 		});
 		btnRoll.setBounds(204, 767, 540, 71);
-		btnRoll.bdt = EButtonDesign.menuButton;
+		btnRoll.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnRoll);
 		
 		lblInfolabel = new JLabel("Spielinfo");

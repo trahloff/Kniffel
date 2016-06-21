@@ -2,7 +2,7 @@ package kniff;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import helper.EButtonDesign;
+import helper.EComponentDesign;
 import helper.EColorScheme;
 
 import java.awt.Font;
@@ -42,7 +42,7 @@ public class ScSettings extends Screen
 		add(lbInfoA);
 		
 		KniffButton btnBack = new KniffButton("zur\u00FCck");
-		btnBack.bdt = EButtonDesign.menuButton;
+		btnBack.setComponentDesign(EComponentDesign.menuButton);
 		btnBack.addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -63,7 +63,7 @@ public class ScSettings extends Screen
 				Design.setColorScheme((EColorScheme)cBoxColor.getSelectedItem());
 			}
 		});
-		btnAnwenden.bdt = EButtonDesign.menuButton;
+		btnAnwenden.setComponentDesign(EComponentDesign.menuButton);
 		btnAnwenden.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		btnAnwenden.setBounds(370, 450, 120, 40);
 		add(btnAnwenden);

@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import helper.EButtonDesign;
+import helper.EComponentDesign;
 
 import java.awt.FlowLayout;
 
@@ -65,7 +65,7 @@ public class ScOption extends Screen
 			}
 		});
 		btnStart.setBounds(343, 512, 100, 100);
-		btnStart.bdt = EButtonDesign.startButton;
+		btnStart.setComponentDesign(EComponentDesign.startButton);
 		this.add(btnStart);
 		
 		btnAdd = new KniffButton("+");
@@ -76,12 +76,12 @@ public class ScOption extends Screen
 			}
 		});
 		btnAdd.setBounds(453, 532, 60, 60);
-		btnAdd.bdt = EButtonDesign.startButton;
+		btnAdd.setComponentDesign(EComponentDesign.startButton);
 		this.add(btnAdd);
 		
 		btnRmv = new KniffButton("-");
 		btnRmv.setBounds(273, 532, 60, 60);
-		btnRmv.bdt = EButtonDesign.startButton;
+		btnRmv.setComponentDesign(EComponentDesign.startButton);
 		this.add(btnRmv);
 		
 		KniffButton btnback = new KniffButton("Start");
@@ -111,7 +111,7 @@ public class ScOption extends Screen
 			e.printStackTrace();
 		}
 		final KniffButton b = new KniffButton(player + i);
-		b.bdt = EButtonDesign.menuButton;
+		b.setComponentDesign(EComponentDesign.menuButton);
 		b.setPreferredSize(new Dimension(pnPlayers.getWidth(), 50));
 		pnPlayers.add(b);
 		

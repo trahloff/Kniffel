@@ -1,59 +1,115 @@
 package kniff;
 
 import java.awt.Graphics;
-import java.util.*;
+import helper.*;
 
-import javax.swing.JButton;
-
-import helper.EDiceCombination;
+/*	Der CombiButton
+ * 	Erweiterter KniffButton zum speichern eines Wertes
+ * 	einer bestimmten Würfelkombination, die diesem
+ * 	Button zugeordnet werden muss.
+ * 	Er kann dauerhaft deaktiviert werden um ein mehrfaches
+ * 	wählen gleicher Kombinationen zu verhindern.
+ * 	Die Zeichenlogik ist in der PaintComponent(*) Methode
+ * 	übersteuert, um den CombiButton entsprechend darzustellen.	
+ */
 
 public class CombiButton extends KniffButton
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private boolean isKilled = false;
-	//
-	
-	public static Dictionary<EDiceCombination, CombiButton> combiButtons = new Hashtable<EDiceCombination, CombiButton>();
-	private EDiceCombination linkedCombination;
-	private String customText = "";
-	public int value;
+
+	private EDiceCombination combination;	// die dem Button zugeordnete Kombination
+	private boolean isKilled;				// übersteuert setEnabled(true) mit false
+	private String customText;				//
+	private int value;
 	
 	public CombiButton(String text, EDiceCombination combi)
 	{
 		super(text);
-		this.value = 0;
-		this.linkedCombination = combi;
 		this.customText = text;
-		CombiButton.combiButtons.put(combi, this);
+		
+		this.combination = combi;
+		
+		this.value = 0;
+		this.isKilled = false;
 	}
 	
 	public CombiButton(EDiceCombination combi)
 	{
-		super(getDefaultText(combi));
-		this.value = 0;
-		this.linkedCombination = combi;
-		this.customText = "";
-		CombiButton.combiButtons.put(combi, this);
+		this(getDefaultText(combi), combi);
 	}
 	
 	public void setCombination(EDiceCombination combi)
 	{
-		this.linkedCombination = combi;
+		this.combination = combi;
 	}
 	
-	public EDiceCombination getLinkedCombination()
+	// gibt die dem CombiButton zugeordnete Kombination zurück
+	public EDiceCombination getCombination()
 	{
-		return this.linkedCombination;
+		return this.combination;
 	}
 	
+	// erweitert um abfrage isKilled einzuführen.
+	public void setEnabled(boolean b)
+	{
+		if (this.isKilled)
+			super.setEnabled(false);
+		else
+			super.setEnabled(b);
+	}
+	
+	// legt die Textausgabe auf den Wert fest
+	public void setTextToValue()
+	{
+		this.setText(this.value + "");
+	}
+	
+	// legt den Wert für die Kombination fest
+	public void setValue(int[] dice)
+	{
+		this.value = KniffSheet.calcPoints(this.combination, dice);
+		this.setTextToValue();
+	}
+	
+	// gibt den Wert der Kombination an
+	public int getValue()
+	{
+		return this.value;
+	}
+	
+	// legt die Textausgabe auf die Bezeichnung der Kombination fest
+	public void setTextToDefault()
+	{
+		this.setText(getDefaultText());
+	}
+	
+	// 
 	public String getDefaultText()
 	{
-		return getDefaultText(this.linkedCombination);
+		return getDefaultText(this.combination);
 	}
 	
+	// übersteuert die setEnabled(*) Methode mit false für diesen Button entgültig
+	public void kill()
+	{
+		try
+		{
+			this.value = Integer.parseInt(this.getText());
+		} catch (Exception e)
+		{
+			this.value = 0;
+		}
+		this.isKilled = true;
+		this.setEnabled(false);
+	}
+
+	// gibt an, ob der Button tot ist
+	public boolean isKilled()
+	{
+		return this.isKilled;
+	}
+	
+	// gibt den String zurück, der eine Kombination darstellt
 	public static String getDefaultText(EDiceCombination combi)
 	{
 		switch (combi)
@@ -89,50 +145,11 @@ public class CombiButton extends KniffButton
 		}
 	}
 	
-	public void setDefaultText()
-	{
-		this.setText(getDefaultText());
-	}
-	
-	public void setCustomText()
-	{
-		this.setText(this.customText);
-	}
-	
-	public void finalize()
-	{
-		CombiButton.combiButtons.remove(this);
-	}
-	
+	// übersteuerrung um CombiButton nach bestimmten Schema zu Zeichen
 	public void paintComponent(Graphics g)
 	{
 		Design.drawButton(this, g);
 		super.paintComponent(g);
 	}
 	
-	public void kill()
-	{
-		try
-		{
-			this.value = Integer.parseInt(this.getText());
-		} catch (Exception e)
-		{
-			this.value = 0;
-		}
-		this.isKilled = true;
-		this.setEnabled(false);
-	}
-	
-	public void setEnabled(boolean b)
-	{
-		if (this.isKilled)
-			super.setEnabled(false);
-		else
-			super.setEnabled(b);
-	}
-
-	public boolean isKilled()
-	{
-		return this.isKilled;
-	}
 }
