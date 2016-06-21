@@ -138,4 +138,13 @@ public class Controller
 		scContainer.add(scGame, scGame.getName());
 		scContainer.add(scSettings, scSettings.getName());
 	}
+
+	public static boolean addPlayer(Player player) {
+		if(players.size() <= 8) {
+			players.add(player);
+			return true;
+		}
+		return false;
+		
+	}
 }
