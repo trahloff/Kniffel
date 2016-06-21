@@ -28,6 +28,9 @@ public class Design
 		case Fire:
 			setFire();
 			break;
+		case Blue:
+			setBlue();
+			break;
 		default:
 			break;
 		}
@@ -43,6 +46,7 @@ public class Design
 		case 1:
 		case 2:
 		case 3:
+			s = ColorScheme.Blue;
 		case 4:
 			s = ColorScheme.Fire;
 			break;
@@ -91,6 +95,22 @@ public class Design
 		colorDictionary.put(Colors.disabled_dice_b, Color.decode("#E0E0E0"));
 	}
 
+	private static void setBlue()
+	{
+		colorDictionary = new Hashtable<Colors, Color>();
+		colorDictionary.put(Colors.bg_dark, 		Color.decode("#222222"));
+		colorDictionary.put(Colors.bg_light, 		Color.decode("#DDDDDD"));
+		colorDictionary.put(Colors.fg_dark, 		Color.decode("#666666"));
+		colorDictionary.put(Colors.fg_light, 		Color.decode("#CCCCCC"));
+		colorDictionary.put(Colors.accent_a_dark, 	Color.decode("#0000ab"));
+		colorDictionary.put(Colors.accent_a_light, 	Color.decode("#0000ab"));
+		colorDictionary.put(Colors.accent_b_dark, 	Color.decode("#0000ab"));
+		colorDictionary.put(Colors.accent_b_light,  Color.decode("#FFDD99"));
+		colorDictionary.put(Colors.light_glow_a,  	Color.decode("#DDDDDD"));
+		colorDictionary.put(Colors.disabled_dice_a, Color.decode("#EFEFEF"));
+		colorDictionary.put(Colors.disabled_dice_b, Color.decode("#E0E0E0"));
+	}
+	
 	public static Font getFont()
 	{
 		return globalFont;
@@ -144,6 +164,9 @@ public class Design
 				g.fillOval(0, 0, b.getWidth() - 1, b.getHeight() - 1);
 				g.setColor(Design.getColor(Colors.bg_dark));
 				g.fillOval(5, 5, b.getWidth() - 11, b.getHeight() - 11);
+				
+//				g.setColor(Design.getColor(Colors.accent_a_light));					// Leonard Test
+//				g.fillRect(b.getWidth()/ 2 -50, b.getHeight()/ 2 -10, 100, 20);  // Leonard Test
 				
 				// final Color setting for Text
 				b.setForeground(Design.getColor(Colors.fg_light));

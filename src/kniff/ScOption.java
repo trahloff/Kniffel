@@ -61,7 +61,7 @@ public class ScOption extends Screen
 				}
 			}
 		});
-		btnStart.setBounds(329, 537, 100, 100);
+		btnStart.setBounds(343, 512, 100, 100);
 		btnStart.bdt = ButtonDesignType.startButton;
 		this.add(btnStart);
 		
@@ -72,14 +72,28 @@ public class ScOption extends Screen
 				addPlayerButton("Spielername");
 			}
 		});
-		btnAdd.setBounds(576, 346, 60, 60);
+		btnAdd.setBounds(453, 532, 60, 60);
 		btnAdd.bdt = ButtonDesignType.startButton;
 		this.add(btnAdd);
 		
 		btnRmv = new KniffButton("-");
-		btnRmv.setBounds(152, 346, 60, 60);
+		btnRmv.setBounds(273, 532, 60, 60);
 		btnRmv.bdt = ButtonDesignType.startButton;
 		this.add(btnRmv);
+		
+		KniffButton btnback = new KniffButton("Start");
+		btnback.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controller.show(Controller.scStart);   // Leonard Text
+				
+			}
+			
+		});
+		btnback.setText("zur\u00FCck");
+		btnback.setBounds(52, 619, 100, 41);
+		add(btnback);
 	}
 	private int i = 0;
 	private void addPlayerButton(String player)
