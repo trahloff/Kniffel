@@ -3,10 +3,14 @@ package kniff;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import helper.EDiceCombination;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,6 +24,7 @@ public class Sheet extends JPanel
 	private JLabel lbSumUp, lbBonus, lbSumUpAll, lbSumDown, lbSumUpAllValue, lbSumAll;
 	private JPanel content;
 	private JLabel playerName;
+	private ArrayList<CombiButton> combinations = new ArrayList<CombiButton>();
 	
 	public Sheet(boolean cleared)
 	{
@@ -33,102 +38,102 @@ public class Sheet extends JPanel
 		add(content);
 		content.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		btnOne = new CombiButton(DiceCombination.One);
+		btnOne = new CombiButton(EDiceCombination.One);
 		btnOne.setToolTipText("1er Augen");
 		btnOne.addMouseListener(CombiButtonListener);
 		content.add(btnOne);
 		
-		btnTwo = new CombiButton(DiceCombination.Two);
+		btnTwo = new CombiButton(EDiceCombination.Two);
 		btnTwo.setToolTipText("2er Augen");
 		btnTwo.setBounds(114, 129, 100, 30);
 		btnTwo.addMouseListener(CombiButtonListener);
 		content.add(btnTwo);
 		
-		btnThr = new CombiButton(DiceCombination.Thr);
+		btnThr = new CombiButton(EDiceCombination.Thr);
 		btnThr.setToolTipText("3er Augen");
 		btnThr.setBounds(114, 170, 100, 30);
 		btnThr.addMouseListener(CombiButtonListener);
 		content.add(btnThr);
 		
-		btnFou = new CombiButton(DiceCombination.Fou);
+		btnFou = new CombiButton(EDiceCombination.Fou);
 		btnFou.setToolTipText("4er Augen");
 		btnFou.setBounds(223, 88, 100, 30);
 		btnFou.addMouseListener(CombiButtonListener);
 		content.add(btnFou);
 		
-		btnFiv = new CombiButton(DiceCombination.Fiv);
+		btnFiv = new CombiButton(EDiceCombination.Fiv);
 		btnFiv.setToolTipText("5er Augen");
 		btnFiv.setBounds(224, 129, 100, 30);
 		btnFiv.addMouseListener(CombiButtonListener);
 		content.add(btnFiv);
 		
-		btnSix = new CombiButton(DiceCombination.Six);
+		btnSix = new CombiButton(EDiceCombination.Six);
 		btnSix.setToolTipText("6er Augen");
 		btnSix.setBounds(224, 170, 100, 30);
 		btnSix.addMouseListener(CombiButtonListener);
 		content.add(btnSix);
 		
-		lbSumUp = new JLabel("oben");
+		lbSumUp = new JLabel("gesamt");
 		lbSumUp.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumUp.setToolTipText("Summe des oberen Teils (ohne Bonus)");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbSumUp);
 		
-		lbBonus = new JLabel("bonus");
+		lbBonus = new JLabel("Bonus bei 63 oder mehr");
 		lbBonus.setHorizontalAlignment(SwingConstants.CENTER);
-		lbBonus.setToolTipText("35 Bonuspunkte wenn +75 Punkte im oberen Teil");
+		lbBonus.setToolTipText("35 Bonuspunkte wenn mehr als 63 Punkte im oberen Teil");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbBonus);
 		
-		lbSumUpAll = new JLabel("oben gesamt");
+		lbSumUpAll = new JLabel("gesamt oberer Teil");
 		lbSumUpAll.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumUpAll.setToolTipText("Summe des oberen Teils");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
 		content.add(lbSumUpAll);
 		
-		btnFul = new CombiButton(DiceCombination.FullHouse);
+		btnFul = new CombiButton(EDiceCombination.FullHouse);
 		btnFul.setToolTipText("Full House");
 		btnFul.setBounds(114, 289, 100, 30);
 		btnFul.addMouseListener(CombiButtonListener);
 		content.add(btnFul);
 		
-		btn3oA = new CombiButton(DiceCombination.ThroA);
+		btn3oA = new CombiButton(EDiceCombination.ThroA);
 		btn3oA.setToolTipText("3er Pasch");
 		btn3oA.setBounds(114, 321, 100, 30);
 		btn3oA.addMouseListener(CombiButtonListener);
 		content.add(btn3oA);
 		
-		btn4oA = new CombiButton(DiceCombination.FouoA);
+		btn4oA = new CombiButton(EDiceCombination.FouoA);
 		btn4oA.setToolTipText("4er Pasch");
 		btn4oA.setBounds(114, 353, 100, 30);
 		btn4oA.addMouseListener(CombiButtonListener);
 		content.add(btn4oA);
 		
-		btnSml = new CombiButton(DiceCombination.SmlStr);
+		btnSml = new CombiButton(EDiceCombination.SmlStr);
 		btnSml.setToolTipText("kleine Stra\u00DFe");
 		btnSml.setBounds(114, 385, 100, 30);
 		btnSml.addMouseListener(CombiButtonListener);
 		content.add(btnSml);
 		
-		btnBig = new CombiButton(DiceCombination.BigStr);
+		btnBig = new CombiButton(EDiceCombination.BigStr);
 		btnBig.setToolTipText("gro\u00DFe Stra\u00DFe");
 		btnBig.setBounds(114, 417, 100, 30);
 		btnBig.addMouseListener(CombiButtonListener);
 		content.add(btnBig);
 		
-		btn5oA = new CombiButton(DiceCombination.FivoA);
+		btn5oA = new CombiButton(EDiceCombination.FivoA);
 		btn5oA.setToolTipText("Kniffel");
 		btn5oA.setBounds(114, 449, 100, 30);
 		btn5oA.addMouseListener(CombiButtonListener);
 		content.add(btn5oA);
 		
-		btnCnc = new CombiButton(DiceCombination.Cnc);
+		btnCnc = new CombiButton(EDiceCombination.Cnc);
 		btnCnc.setToolTipText("Chance");
 		btnCnc.setBounds(114, 481, 100, 30);
 		btnCnc.addMouseListener(CombiButtonListener);
 		content.add(btnCnc);
 		
-		lbSumDown = new JLabel("unterer Teil");
+		lbSumDown = new JLabel("gesamt unterer Teil");
 		lbSumDown.setHorizontalAlignment(SwingConstants.CENTER);
 		lbSumDown.setToolTipText("Summe des unteren Teils");
 		lbSumUp.setPreferredSize(new Dimension(100, 20));
@@ -203,6 +208,21 @@ public class Sheet extends JPanel
 		     }
 	};
 
+	
+	// initialisiert alle CombiButtons im Sheet eines Spielers
+	private void initCombiButtons()
+	{
+		// für jede Kombination wird ein Button angelegt
+		// und die entsprechende Kombination zugewiesen
+		for (EDiceCombination c : EDiceCombination.values())
+		{
+			CombiButton b = new CombiButton(c);
+			b.addMouseListener(CombiButtonListener);
+			this.combinations.add(b);
+		}
+		//content.add(b);
+	}
+	
 	public void setEnabled(boolean b)
 	{
 		for (Component c : content.getComponents())

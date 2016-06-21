@@ -1,6 +1,6 @@
-package kniff;
+package helper;
 
-public enum DiceCombination
+public enum EDiceCombination
 {
 	ThroA,
 	FouoA,

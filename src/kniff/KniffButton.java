@@ -6,9 +6,11 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+import helper.EButtonDesign;
+
 public class KniffButton extends JButton
 {
-	public ButtonDesignType bdt = ButtonDesignType.menuButton;
+	public EButtonDesign bdt = EButtonDesign.menuButton;
 	
 	public boolean isClicked, isEntered, isExited, isPressed, isReleased;
 	private MouseListener la = new MouseListener()

@@ -12,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import helper.EButtonDesign;
+
 import java.awt.FlowLayout;
 
 public class ScOption extends Screen
@@ -62,7 +65,7 @@ public class ScOption extends Screen
 			}
 		});
 		btnStart.setBounds(343, 512, 100, 100);
-		btnStart.bdt = ButtonDesignType.startButton;
+		btnStart.bdt = EButtonDesign.startButton;
 		this.add(btnStart);
 		
 		btnAdd = new KniffButton("+");
@@ -73,12 +76,12 @@ public class ScOption extends Screen
 			}
 		});
 		btnAdd.setBounds(453, 532, 60, 60);
-		btnAdd.bdt = ButtonDesignType.startButton;
+		btnAdd.bdt = EButtonDesign.startButton;
 		this.add(btnAdd);
 		
 		btnRmv = new KniffButton("-");
 		btnRmv.setBounds(273, 532, 60, 60);
-		btnRmv.bdt = ButtonDesignType.startButton;
+		btnRmv.bdt = EButtonDesign.startButton;
 		this.add(btnRmv);
 		
 		KniffButton btnback = new KniffButton("Start");
@@ -100,7 +103,7 @@ public class ScOption extends Screen
 	{
 		i++;
 		final KniffButton b = new KniffButton(player + i);
-		b.bdt = ButtonDesignType.menuButton;
+		b.bdt = EButtonDesign.menuButton;
 		b.setPreferredSize(new Dimension(pnPlayers.getWidth(), 50));
 		pnPlayers.add(b);
 		

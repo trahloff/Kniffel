@@ -28,7 +28,7 @@ public class Controller
 	public static void main(String[] args)
 	{
 		Design.setRandom();
-		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 10));
 		kniffDice = Dice.initDiceCollection();
 		initScreens();		
 		MainWindow.main(args);

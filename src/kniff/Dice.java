@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
+import helper.EColor;
+
 public class Dice extends JButton
 {
 	/**
@@ -130,7 +132,7 @@ public class Dice extends JButton
 		}
         else
         {
-        	g.setColor(Design.getColor(Colors.disabled_dice_a));
+        	g.setColor(Design.getColor(EColor.disabled_dice_a));
             g.fillRoundRect(12, 12, 76, 76, 15, 15);
             g.setColor(Color.decode("#E0E0E0"));
         	g.drawRoundRect(12, 12, 76, 76, 15, 15);

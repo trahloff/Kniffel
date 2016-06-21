@@ -11,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import helper.EButtonDesign;
+
 import java.awt.event.ActionEvent;
 
 public class ScStart extends Screen
@@ -48,7 +51,7 @@ public class ScStart extends Screen
 				Controller.show(Controller.scOption);
 			}
 		});
-		btnStart.bdt = ButtonDesignType.startButton;
+		btnStart.bdt = EButtonDesign.startButton;
 		this.add(btnStart);
 		
 		// End-Button
@@ -61,7 +64,7 @@ public class ScStart extends Screen
 				System.exit(0);
 			}
 		});
-		btnEnd.bdt = ButtonDesignType.menuButton;
+		btnEnd.bdt = EButtonDesign.menuButton;
 		this.add(btnEnd);
 		
 		KniffButton btnSettings = new KniffButton("Einstellungen");
@@ -73,7 +76,7 @@ public class ScStart extends Screen
 			}
 		});
 		btnSettings.setFont(null);
-		btnSettings.bdt = ButtonDesignType.menuButton;
+		btnSettings.bdt = EButtonDesign.menuButton;
 		btnSettings.setBounds(250, 570, 180, 50);
 		add(btnSettings);
 	}

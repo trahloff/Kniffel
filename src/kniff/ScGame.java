@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import helper.EButtonDesign;
+
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
@@ -44,7 +47,7 @@ public class ScGame extends Screen
 				Controller.stopGame(1);
 			}
 		});
-		btnEnd.bdt = ButtonDesignType.menuButton;
+		btnEnd.bdt = EButtonDesign.menuButton;
 		btnEnd.setBounds(32, 768, 162, 71);
 		this.add(btnEnd);
 		
@@ -58,7 +61,7 @@ public class ScGame extends Screen
 			}
 		});
 		btnRoll.setBounds(204, 767, 540, 71);
-		btnRoll.bdt = ButtonDesignType.menuButton;
+		btnRoll.bdt = EButtonDesign.menuButton;
 		this.add(btnRoll);
 		
 		lblInfolabel = new JLabel("Spielinfo");
@@ -73,6 +76,7 @@ public class ScGame extends Screen
 		pnSheets.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		Sheet sheet = new Sheet(false);
+		sheet.setTitle("Kombinationen");
 		sheet.setPreferredSize(new Dimension(150, 677));
 		sheet.setEnabled(false);
 		sheet.setBounds(20, 70, 174, 687);

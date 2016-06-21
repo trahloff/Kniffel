@@ -1,6 +1,10 @@
 package kniff;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import helper.EButtonDesign;
+import helper.EColorScheme;
+
 import java.awt.Font;
 import java.awt.Graphics;
 
@@ -25,8 +29,8 @@ public class ScSettings extends Screen
 		lblNewLabel.setBounds(10, 10, 750, 50);
 		add(lblNewLabel);
 		
-		final JComboBox<ColorScheme> cBoxColor = new JComboBox<ColorScheme>();
-		cBoxColor.setModel(new DefaultComboBoxModel<ColorScheme>(ColorScheme.values()));
+		final JComboBox<EColorScheme> cBoxColor = new JComboBox<EColorScheme>();
+		cBoxColor.setModel(new DefaultComboBoxModel<EColorScheme>(EColorScheme.values()));
 		cBoxColor.setSelectedIndex(0);
 		cBoxColor.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		cBoxColor.setBounds(290, 151, 200, 35);
@@ -38,7 +42,7 @@ public class ScSettings extends Screen
 		add(lbInfoA);
 		
 		KniffButton btnBack = new KniffButton("zur\u00FCck");
-		btnBack.bdt = ButtonDesignType.menuButton;
+		btnBack.bdt = EButtonDesign.menuButton;
 		btnBack.addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -56,10 +60,10 @@ public class ScSettings extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Design.setColorScheme((ColorScheme)cBoxColor.getSelectedItem());
+				Design.setColorScheme((EColorScheme)cBoxColor.getSelectedItem());
 			}
 		});
-		btnAnwenden.bdt = ButtonDesignType.menuButton;
+		btnAnwenden.bdt = EButtonDesign.menuButton;
 		btnAnwenden.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		btnAnwenden.setBounds(370, 450, 120, 40);
 		add(btnAnwenden);

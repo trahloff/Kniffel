@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.swing.JButton;
 
+import helper.EDiceCombination;
+
 public class CombiButton extends KniffButton
 {
 	/**
@@ -14,12 +16,12 @@ public class CombiButton extends KniffButton
 	private boolean isKilled = false;
 	//
 	
-	public static Dictionary<DiceCombination, CombiButton> combiButtons = new Hashtable<DiceCombination, CombiButton>();
-	private DiceCombination linkedCombination;
+	public static Dictionary<EDiceCombination, CombiButton> combiButtons = new Hashtable<EDiceCombination, CombiButton>();
+	private EDiceCombination linkedCombination;
 	private String customText = "";
 	public int value;
 	
-	public CombiButton(String text, DiceCombination combi)
+	public CombiButton(String text, EDiceCombination combi)
 	{
 		super(text);
 		this.value = 0;
@@ -28,7 +30,7 @@ public class CombiButton extends KniffButton
 		CombiButton.combiButtons.put(combi, this);
 	}
 	
-	public CombiButton(DiceCombination combi)
+	public CombiButton(EDiceCombination combi)
 	{
 		super(getDefaultText(combi));
 		this.value = 0;
@@ -37,12 +39,12 @@ public class CombiButton extends KniffButton
 		CombiButton.combiButtons.put(combi, this);
 	}
 	
-	public void setCombination(DiceCombination combi)
+	public void setCombination(EDiceCombination combi)
 	{
 		this.linkedCombination = combi;
 	}
 	
-	public DiceCombination getLinkedCombination()
+	public EDiceCombination getLinkedCombination()
 	{
 		return this.linkedCombination;
 	}
@@ -52,7 +54,7 @@ public class CombiButton extends KniffButton
 		return getDefaultText(this.linkedCombination);
 	}
 	
-	public static String getDefaultText(DiceCombination combi)
+	public static String getDefaultText(EDiceCombination combi)
 	{
 		switch (combi)
 		{
