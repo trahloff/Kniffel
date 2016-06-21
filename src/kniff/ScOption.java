@@ -94,14 +94,22 @@ public class ScOption extends Screen
 			}
 			
 		});
-		btnback.setText("zur\u00FCck");
+		btnback.setText("Zur\u00FCck");
 		btnback.setBounds(52, 619, 100, 41);
 		add(btnback);
 	}
 	private int i = 0;
 	private void addPlayerButton(String player)
 	{
-		i++;
+		
+		
+		
+		try {
+			Controller.addPlayer(new Player("Name", "abc"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		final KniffButton b = new KniffButton(player + i);
 		b.bdt = EButtonDesign.menuButton;
 		b.setPreferredSize(new Dimension(pnPlayers.getWidth(), 50));

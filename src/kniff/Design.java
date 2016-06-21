@@ -69,17 +69,17 @@ public class Design
 	private static void setFire()
 	{
 		colorDictionary = new Hashtable<EColor, Color>();
-		colorDictionary.put(EColor.bg_dark, 		Color.decode("#555555"));
-		colorDictionary.put(EColor.bg_light, 		Color.decode("#DDDDDD"));
-		colorDictionary.put(EColor.fg_dark, 		Color.decode("#111111"));
-		colorDictionary.put(EColor.fg_light, 		Color.decode("#FFFFFF"));
+		colorDictionary.put(EColor.bg_dark, 		Color.decode("#555555")); // Rahmen von MenüButton und Hintergrund von allen Button bei Maus über Button
+		colorDictionary.put(EColor.bg_light, 		Color.decode("#DDDDDD")); // Rahmen vom StartButton und Hintergrung von Menübutton
+		colorDictionary.put(EColor.fg_dark, 		Color.decode("#111111")); // Schrifft der Menübutton
+		colorDictionary.put(EColor.fg_light, 		Color.decode("#FFFFFF")); // Schriff der Startbutton
 		colorDictionary.put(EColor.accent_a_dark, 	Color.decode("#DDAA33"));
-		colorDictionary.put(EColor.accent_a_light, 	Color.decode("#F47755"));
-		colorDictionary.put(EColor.accent_b_dark, 	Color.decode("#00FFAA"));
+		colorDictionary.put(EColor.accent_a_light, 	Color.decode("#F47755")); // Schrifft der Menübutton bei Maus über Button
+		colorDictionary.put(EColor.accent_b_dark, 	Color.decode("#00FFAA")); // Rahmen von Startbutton bei Maus über Button
 		colorDictionary.put(EColor.accent_b_light,  Color.decode("#00AADD"));
 		colorDictionary.put(EColor.light_glow_a,  	Color.decode("#DDEEFF"));
-		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF"));
-		colorDictionary.put(EColor.disabled_dice_b, Color.decode("#E0E0E0"));
+		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF")); //  HintergrundButton Kniffell-Tabelle 
+		colorDictionary.put(EColor.disabled_dice_b, Color.decode("#E0E0E0")); //  Rahmen von HintergrundButton Kniffel-Tabelle
 	}
 	
 	private static void setDefault()
@@ -101,13 +101,13 @@ public class Design
 	private static void setBlue()
 	{
 		colorDictionary = new Hashtable<EColor, Color>();
-		colorDictionary.put(EColor.bg_dark, 		Color.decode("#222222"));
+		colorDictionary.put(EColor.bg_dark, 		Color.decode("#666666"));
 		colorDictionary.put(EColor.bg_light, 		Color.decode("#DDDDDD"));
-		colorDictionary.put(EColor.fg_dark, 		Color.decode("#666666"));
-		colorDictionary.put(EColor.fg_light, 		Color.decode("#CCCCCC"));
+		colorDictionary.put(EColor.fg_dark, 		Color.decode("#222222"));
+		colorDictionary.put(EColor.fg_light, 		Color.decode("#DDDDDD"));
 		colorDictionary.put(EColor.accent_a_dark, 	Color.decode("#55AA55"));
-		colorDictionary.put(EColor.accent_a_light, 	Color.decode("#0000ab"));
-		colorDictionary.put(EColor.accent_b_dark, 	Color.decode("#0000ab"));
+		colorDictionary.put(EColor.accent_a_light, 	Color.decode("#6666FF"));
+		colorDictionary.put(EColor.accent_b_dark, 	Color.decode("#AAAA55"));
 		colorDictionary.put(EColor.accent_b_light,  Color.decode("#FFDD99"));
 		colorDictionary.put(EColor.light_glow_a,  	Color.decode("#DDDDDD"));
 		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF"));
@@ -119,7 +119,7 @@ public class Design
 		return globalFont;
 	}
 	
-	public static void drawButton(KniffButton b, Graphics g)
+	public static void drawButton(KniffButton b, Graphics g) 
 	{
 		b.setBorderPainted(false);
 		b.setFocusPainted(false);
@@ -143,7 +143,7 @@ public class Design
 		}
 	}
 	
-	private static void paintStartButton(KniffButton b, Graphics g)
+	private static void paintStartButton(KniffButton b, Graphics g) // Startbutton
 	{
 		g.setColor(Design.getColor(EColor.bg_dark));
 		
@@ -214,7 +214,7 @@ public class Design
 		
 	}
 
-	private static void paintMenuButton(KniffButton b, Graphics g)
+	private static void paintMenuButton(KniffButton b, Graphics g) // Menübutton
 	{		
 		int r = 5;
 		
