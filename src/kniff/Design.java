@@ -102,7 +102,7 @@ public class Design
 		colorDictionary.put(Colors.bg_light, 		Color.decode("#DDDDDD"));
 		colorDictionary.put(Colors.fg_dark, 		Color.decode("#666666"));
 		colorDictionary.put(Colors.fg_light, 		Color.decode("#CCCCCC"));
-		colorDictionary.put(Colors.accent_a_dark, 	Color.decode("#0000ab"));
+		colorDictionary.put(Colors.accent_a_dark, 	Color.decode("#55AA55"));
 		colorDictionary.put(Colors.accent_a_light, 	Color.decode("#0000ab"));
 		colorDictionary.put(Colors.accent_b_dark, 	Color.decode("#0000ab"));
 		colorDictionary.put(Colors.accent_b_light,  Color.decode("#FFDD99"));
