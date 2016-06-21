@@ -41,7 +41,7 @@ public class ScGame extends Screen
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.stopGame();
+				Controller.stopGame(1);
 			}
 		});
 		btnEnd.bdt = ButtonDesignType.menuButton;

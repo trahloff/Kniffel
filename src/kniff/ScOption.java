@@ -45,7 +45,7 @@ public class ScOption extends Screen
 				{
 						players.clear();
 						players.add(new Player("Anna", "AnA"));
-//						players.add(new Player("Barbara", "B$L"));
+						players.add(new Player("Barbara", "B$L"));
 //						players.add(new Player("Charlie", "Cha"));
 //						players.add(new Player("Dennis", "God"));
 //						players.add(new Player("Eduard", "Edu"));

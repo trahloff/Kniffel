@@ -154,9 +154,22 @@ public class Sheet extends JPanel
 		add(playerName);
 		initButtons();
 		if (cleared)
+		{
 			vanish();
+			setZeroResultLbs();
+		}
 	}
 	
+	private void setZeroResultLbs()
+	{
+		for (Component c : content.getComponents())
+			if (c.getClass().equals(JLabel.class))
+			{
+				JLabel l = (JLabel) c;
+					l.setText("0");
+			}
+	}
+
 	private void initButtons()
 	{
 		btn3oA.setText("3er Pasch");

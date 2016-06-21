@@ -68,7 +68,7 @@ public class Controller
 			ip = players.iterator();
 			if (remainingRounds <= 0)
 			{
-				stopGame();
+				stopGame(0);
 				return;
 			}
 			remainingRounds--;
@@ -90,8 +90,20 @@ public class Controller
 		p.sheet.vanish();
 	}
 
-	public static void stopGame()
+	public static void stopGame(int i)
 	{
+		switch (i)
+		{
+		case 0:
+			System.out.println("Spielende");
+			break;
+		case 1:
+			System.out.println("Spielabbruch durch Spieler");
+			break;
+		default:
+			System.out.println("Spielabbruch undefiniert");
+			break;
+		}
 		show(scStart);
 		currentPlayer = null;
 		players.clear();
