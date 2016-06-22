@@ -8,9 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.TreeSet;
-
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -26,8 +23,8 @@ public class ScOption extends Screen
 	private JPanel pnPlayers;
 	KniffButton btnStart = new KniffButton("Start");
 	KniffButton btnAdd, btnRmv;
-	private static ArrayList<Player> spielerListe = new ArrayList<Player>();
-	private JPanel addPlayer;
+	private static ArrayList<Player> players = new ArrayList<Player>();
+	private JPanel pnInput;
 	static JTextField nameValue;
 	static JTextField kurzValue;
 	
@@ -38,7 +35,7 @@ public class ScOption extends Screen
 		
 		pnPlayers = new JPanel();
 		pnPlayers.setBackground(Color.GRAY);
-		pnPlayers.setBounds(249, 167, 286, 328);
+		pnPlayers.setBounds(249, 225, 286, 270);
 		add(pnPlayers);
 		pnPlayers.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -52,17 +49,8 @@ public class ScOption extends Screen
 			public void mouseClicked(MouseEvent e) {
 				try
 				{
-						spielerListe.clear();
-						spielerListe.add(new Player("Anna", "AnA"));
-						spielerListe.add(new Player("Barbara", "B$L"));
-//						players.add(new Player("Charlie", "Cha"));
-//						players.add(new Player("Dennis", "God"));
-//						players.add(new Player("Eduard", "Edu"));
-//						players.add(new Player("Frederike", "Frd"));
-//						players.add(new Player("Galadriel", "Gal"));
-//						players.add(new Player("Henrik", "Hrk"));
-					
-					//Controller.startGame();
+						Controller.startGame(players);
+						players.clear();
 				} catch (Exception e1)
 				{
 					// TODO Auto-generated catch block
@@ -78,7 +66,7 @@ public class ScOption extends Screen
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				addPlayerButton("Spielername");
+				addPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
 			}
 		});
 		btnAdd.setBounds(453, 532, 60, 60);
@@ -95,8 +83,7 @@ public class ScOption extends Screen
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Controller.show(Controller.scStart);   // Leonard Text
-				
+				Controller.show(Controller.scStart);   // Leonard Text	
 			}
 			
 		});
@@ -104,83 +91,59 @@ public class ScOption extends Screen
 		btnback.setBounds(52, 619, 100, 41);
 		add(btnback);
 		
-		addPlayer = new JPanel();
-		addPlayer.setBackground(Color.WHITE);
-		addPlayer.setBounds(249, 147, 286, 100);
-		addPlayer.setLayout(new GridLayout(2,2));
+		pnInput = new JPanel();
+		pnInput.setBackground(Color.WHITE);
+		pnInput.setBounds(249, 147, 286, 67);
+		pnInput.setLayout(new GridLayout(2,2));
 		JLabel nameLabel = new JLabel ("Name");
 		JLabel kurzLabel = new JLabel ("Kürzel");
 		nameValue = new JTextField();
 		kurzValue = new JTextField();
 		
-		addPlayer.add(nameLabel);
-		addPlayer.add(kurzLabel);
-		addPlayer.add(nameValue);
-		addPlayer.add(kurzValue);
-		add(addPlayer);
-		
-		btnStart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e){
-				//Controller.startGame(null);
-			}
-		});
+		pnInput.add(nameLabel);
+		pnInput.add(kurzLabel);
+		pnInput.add(nameValue);
+		pnInput.add(kurzValue);
+		add(pnInput);
+
 		btnStart.setBounds(329, 637, 100, 100);
-		//btnStart = EDesign.startButton;
+		btnStart.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnStart);
-		
-		btnAdd = new KniffButton("+");
-		btnAdd.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {			
-				try
-				{
-					ScOption.createPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
-				}
-				catch(Exception e)
-				{
-					System.out.println(e.getMessage());
-				}
-			//	addPlayerButton("Spielername");
-				
-			
-			}
-			});
-		btnAdd.setBounds(576, 346, 60, 60);
-		//btnAdd.bdt = ButtonDesignType.startButton;
-		this.add(btnAdd);
 	}
-	
-	private int i = 0;
-	private void addPlayerButton(String player)
+
+	//
+	private void addPlayer(String playerName, String shortName)
 	{
-	
-		try {
-			Controller.addPlayer(new Player("Name", "abc"));
-		} catch (Exception e) {
+		try
+		{
+			createPlayer(playerName, shortName);
+			final KniffButton b = new KniffButton(playerName + " [" + shortName + "]");
+			b.setComponentDesign(EComponentDesign.menuButton);
+			b.setPreferredSize(new Dimension(pnPlayers.getWidth(), 50));
+			pnPlayers.add(b);
+			
+			b.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0)
+				{
+					pnPlayers.remove(b);
+				}
+			});
+		}
+		catch (Exception e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		final KniffButton b = new KniffButton(player + i);
-		b.setComponentDesign(EComponentDesign.menuButton);
-		b.setPreferredSize(new Dimension(pnPlayers.getWidth(), 50));
-		pnPlayers.add(b);
-		
-		b.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0)
-			{
-				pnPlayers.remove(b);
-			}
-		});
 	}
 	
+	//
 	public static void createPlayer(String name, String kurz) throws Exception{
 		
 		if (ScOption.nameValue.getText() == null || ScOption.kurzValue.getText() == null)
 			throw new Exception ("Bitte einen Spielernamen und ein Kürzel eingeben!");
 
-			Iterator<Player> i = spielerListe.iterator();
+			Iterator<Player> i = players.iterator();
 			
 			while(i.hasNext())
 			{
@@ -193,7 +156,7 @@ public class ScOption extends Screen
 				
 			}
 			
-			ScOption.spielerListe.add(new Player(ScOption.nameValue.getText(), ScOption.kurzValue.getText()));
+			ScOption.players.add(new Player(ScOption.nameValue.getText(), ScOption.kurzValue.getText()));
 			ScOption.nameValue.setText("");
 			ScOption.kurzValue.setText("");	
 	}

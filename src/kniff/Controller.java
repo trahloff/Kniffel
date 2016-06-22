@@ -16,7 +16,6 @@ public class Controller
 	public static TreeSet<Player> players = new TreeSet<Player>();
 	public static Player currentPlayer;
 	public static Iterator<Player> ip;
-	public static Dice[] kniffDice = new Dice[5];
 	public static int remainingRolls = 3;
 	private static int remainingRounds = 13;
 	
@@ -24,11 +23,14 @@ public class Controller
 	public static ScGame scGame;
 	public static ScOption scOption;
 	public static ScSettings scSettings;
+	public static Dice[] kniffDice;
 	
 	public static void main(String[] args)
 	{
 		Design.setRandom();
-		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 10));
+		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
+		Design.setSize(1);
+		
 		kniffDice = Dice.initDiceCollection();
 		initScreens();		
 		MainWindow.main(args);
@@ -40,7 +42,7 @@ public class Controller
 	    clController.show(scContainer, sc.getName());
 	}
 	
-	public static void startGame(TreeSet<Player> p) throws Exception
+	public static void startGame(ArrayList<Player> p) throws Exception
 	{
 		Controller.show(scGame);
 		players.addAll(p);

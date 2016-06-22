@@ -92,7 +92,7 @@ public class ScGame extends Screen
 			pnDiceContainer.add(d);	
 		Dice.rollAll();
 	}
-
+	
 	private void initSheets()
 	{
 		pnSheets.removeAll();

@@ -79,8 +79,11 @@ public class Sheet extends JPanel
 		                 CombiButton button = (CombiButton) e.getSource();
 		                 if (button.isEnabled())
 		                 {
+		                	 // tötet den Button entgültig um gewählte Kombination fest zu setzen
 		                	 button.kill();
+		                	 // aktualisiere alle Zwischenergebnisse
 		                	 updateSheetValues(Controller.kniffDice);
+		                	 // der nächste Spieler ist an der Reihe
 		                	 Controller.nextPlayer();
 		                 }
 		             }
@@ -117,8 +120,9 @@ public class Sheet extends JPanel
 		for (int i = 0; i < index.length; i++)
 		{
 			JLabel l = new JLabel(value[i]);
+			l.setFont(Design.getFont());
 			l.setHorizontalAlignment(SwingConstants.CENTER);
-			l.setPreferredSize(new Dimension(100, 20));
+			l.setBounds(0, 0, 10, 0);
 			content.add(l, index[i]);
 		}
 	}
@@ -211,8 +215,12 @@ public class Sheet extends JPanel
 	{
 		title.setBounds(10, 10, this.getWidth(), 30);
 		content.setBounds(0, 40, this.getWidth(), this.getHeight() - 50);
-
+		
 		for (Component c : content.getComponents())
 			c.setPreferredSize(new Dimension(content.getWidth(), 30));
+		
+		
+		
+		super.paintComponent(g);
 	}
 }

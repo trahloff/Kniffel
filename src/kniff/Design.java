@@ -19,6 +19,7 @@ public class Design
 	private static Dictionary<EColor, Color> colorDictionary = new Hashtable<EColor, Color>();
 	private static EColorScheme eColorScheme;
 	private static Font globalFont;
+	private static int globalSize;
 	
 	public static void setColorScheme(EColorScheme s)
 	{
@@ -124,7 +125,7 @@ public class Design
 		b.setBorderPainted(false);
 		b.setFocusPainted(false);
 		b.setContentAreaFilled(false);
-		b.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		b.setFont(getFont());
 		
         Graphics2D antiAlias = (Graphics2D)g;
         antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -298,8 +299,13 @@ public class Design
 		globalFont = font;
 	}
 
-	public static Object getColorScheme()
+	public static EColorScheme getColorScheme()
 	{
 		return eColorScheme;
+	}
+
+	public static void setSize(int s)
+	{
+		globalSize = s;
 	}
 }

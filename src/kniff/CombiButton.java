@@ -26,9 +26,7 @@ public class CombiButton extends KniffButton
 	{
 		super(text);
 		this.customText = text;
-		
-		this.combination = combi;
-		
+		this.combination = combi;	
 		this.value = 0;
 		this.isKilled = false;
 	}
