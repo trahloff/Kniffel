@@ -25,13 +25,13 @@ public class Design
 		eColorScheme = s;
 		switch (s)
 		{
-		case Default:
+		case Standard:
 			setDefault();
 			break;
-		case Fire:
+		case Feuer:
 			setFire();
 			break;
-		case Blue:
+		case Wasser:
 			setBlue();
 			break;
 		default:
@@ -49,12 +49,12 @@ public class Design
 		case 1:
 		case 2:
 		case 3:
-			s = EColorScheme.Blue;
+			s = EColorScheme.Wasser;
 		case 4:
-			s = EColorScheme.Fire;
+			s = EColorScheme.Feuer;
 			break;
 		default:
-			s = EColorScheme.Default;
+			s = EColorScheme.Standard;
 			break;
 		}
 		

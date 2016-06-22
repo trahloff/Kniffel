@@ -1,18 +1,13 @@
 package kniff;
 
-import java.util.*;
-
 public class Player implements Comparable<Player>
 {
-	private static int objCount;
-	
-	public String name = "Spieler " + Player.objCount;
-	public String shortName;
-	public Sheet sheet = new Sheet(true);
-	
+	private String name;
+	private String shortName;
+	private Sheet sheet;
+
 	public Player(String name, String shortName) throws Exception
 	{
-		Player.objCount++;
 		if (name.length() == 0)
 			throw new Exception("Der Name des Spielers darf nicht leer sein!");
 		if (name.length() > 20)
@@ -21,14 +16,37 @@ public class Player implements Comparable<Player>
 			throw new Exception("Das Kürzel des Spielers darf nicht leer sein!");
 		if (shortName.length() > 3)
 			throw new Exception("Das Kürzel darf nicht länger als 3 Zeichen sein!");
+		
 		this.name = name;
 		this.shortName = shortName;
+		
+		this.sheet = new Sheet(true);
 		this.sheet.setTitle(this.shortName);
 	}
 	
-	public void finalize()
+	public String getName()
 	{
-		Player.objCount--;
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getShortName()
+	{
+		return shortName;
+	}
+
+	public void setShortName(String shortName)
+	{
+		this.shortName = shortName;
+	}
+
+	public Sheet getSheet()
+	{
+		return sheet;
 	}
 	
 	public int compareTo(Player p)

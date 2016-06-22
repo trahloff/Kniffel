@@ -1,24 +1,16 @@
 package kniff;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
-
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import helper.EComponentDesign;
 
-import java.awt.event.ActionEvent;
-
 public class ScStart extends Screen
-{
+{	
+	private static final long serialVersionUID = 1L;
 	public KniffButton btnStart, btnEnd;
 	JLabel lbTitle, lbMessage;
 	

@@ -1,17 +1,11 @@
 package kniff;
 
-import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.TreeSet;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -22,7 +16,9 @@ import java.awt.FlowLayout;
 
 public class ScGame extends Screen
 {
-	KniffButton btnEnd;
+	private static final long serialVersionUID = 1L;
+
+	private KniffButton btnEnd;
 	
 	private KniffButton btnRoll;
 	private JLabel lblInfolabel;
@@ -102,8 +98,8 @@ public class ScGame extends Screen
 		pnSheets.removeAll();
 		for (Player p : Controller.players)
 		{
-			p.sheet.setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight()));
-			pnSheets.add(p.sheet);
+			p.getSheet().setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight()));
+			pnSheets.add(p.getSheet());
 		}
 		this.repaint();
 	}
@@ -122,7 +118,7 @@ public class ScGame extends Screen
 	public void enableSheetForPlayer(Player player)
 	{
 		setEnableSheets(false);
-		player.sheet.setEnabled(true);
+		player.getSheet().setEnabled(true);
 	}
 	
 	public void setEnableSheets(boolean b)

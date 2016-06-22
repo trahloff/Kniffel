@@ -57,7 +57,7 @@ public class Controller
 		scGame.setEnableSheets(false);
 		Dice.setAllEnabled(true);
 		Dice.setAllInitial(true);
-		scGame.writeMessage("jetzt wird gekniffelt und " + currentPlayer.name + " fängt an");
+		scGame.writeMessage("jetzt wird gekniffelt und " + currentPlayer.getName() + " fängt an");
 	}
 	
 	public static void nextPlayer()
@@ -76,7 +76,7 @@ public class Controller
 		if (ip.hasNext())
 			currentPlayer = ip.next();	
 		
-		scGame.writeMessage(currentPlayer.name + " ist an der Reihe");
+		scGame.writeMessage(currentPlayer.getName() + " ist an der Reihe");
 		remainingRolls = 3;
 		
 		scGame.getBtnRoll().setEnabled(true);
@@ -87,7 +87,7 @@ public class Controller
 	
 	private static void vanishSheetValues(Player p)
 	{
-		p.sheet.vanish();
+		p.getSheet().vanish();
 	}
 
 	public static void stopGame(int i)
@@ -111,8 +111,8 @@ public class Controller
 	
 	public static void rollDice()
 	{
-		if (!currentPlayer.sheet.isEnabled())
-			currentPlayer.sheet.setEnabled(true);
+		if (!currentPlayer.getSheet().isEnabled())
+			currentPlayer.getSheet().setEnabled(true);
 		if (remainingRolls > 0)
 		{
 			Dice.rollAll();
@@ -126,7 +126,7 @@ public class Controller
 	
 	private static void updateSheetValue(Player p, Dice[] kniffDice)
 	{
-		p.sheet.updateSheetValues(kniffDice);
+		p.getSheet().updateSheetValues(kniffDice);
 	}
 
 	public static void updateBtnRoll()

@@ -12,16 +12,14 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.TreeSet;
 import java.awt.FlowLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.JButton;
-
 public class Sheet extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel content;
 	private JLabel title;
 	private ArrayList<CombiButton> combinations = new ArrayList<CombiButton>();
@@ -60,11 +58,11 @@ public class Sheet extends JPanel
 		try
 		{
 			// Positionen der Labels: 6, 7, 8, 16, 17, 18
-			((JLabel)this.content.getComponent(6)).setText("0"); 		// 6:"gesamt"
-			((JLabel)this.content.getComponent(7)).setText("0"); 		// 7:"Bonus bei 63 oder mehr"
+			((JLabel)this.content.getComponent(6)).setText("0"); 	// 6:"gesamt"
+			((JLabel)this.content.getComponent(7)).setText("0"); 	// 7:"Bonus bei 63 oder mehr"
 			((JLabel)this.content.getComponent(8)).setText("0"); 	// 8:"gesamt oberer Teil"
-			((JLabel)this.content.getComponent(16)).setText("0"); 		// 16:"gesamt unterer Teil"
-			((JLabel)this.content.getComponent(17)).setText("0"); 		// 17:"gesamt oberer Teil"
+			((JLabel)this.content.getComponent(16)).setText("0"); 	// 16:"gesamt unterer Teil"
+			((JLabel)this.content.getComponent(17)).setText("0"); 	// 17:"gesamt oberer Teil"
 			((JLabel)this.content.getComponent(18)).setText("0");	// 18:"Endsumme"
 		} catch (Exception e)
 		{
@@ -127,6 +125,7 @@ public class Sheet extends JPanel
 	
 	// Gibt den CombiButton des Sheets zurück,
 	// der der entsprechenden Kombination zugeordnet ist
+	@SuppressWarnings("unused")
 	private CombiButton getCombiButton(EDiceCombination c)
 	{
 		// für jeden CombiButton wird geprüft,
