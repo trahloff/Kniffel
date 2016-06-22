@@ -1,9 +1,7 @@
 package poi;
 
 import java.awt.BorderLayout;
-import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 import javax.swing.JDialog;
@@ -16,6 +14,7 @@ import javax.swing.ScrollPaneConstants;
 
 
 
+@SuppressWarnings("serial")
 public class Scores extends JFrame {
 
 	public static void create(TreeMap<Integer, String> scores){
