@@ -10,10 +10,8 @@ import helper.EColor;
 
 public class Dice extends JButton
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2847346976374468132L;	
+	private static final long serialVersionUID = 1L;
+	
 	private int value;
 	private boolean isInitial;
 	

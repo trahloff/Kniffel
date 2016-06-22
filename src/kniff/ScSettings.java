@@ -2,23 +2,21 @@ package kniff;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import helper.EComponentDesign;
-import helper.EColorScheme;
+import helper.*;
 
 import java.awt.Font;
 import java.awt.Graphics;
-
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ScSettings extends Screen
 {
-	private JComboBox cBoxColor;
-	
-	public ScSettings() {
+	private static final long serialVersionUID = 1L;
+
+	public ScSettings()
+	{
 		setLayout(null);
 		
 		this.setName("settings");
@@ -68,8 +66,8 @@ public class ScSettings extends Screen
 		btnAnwenden.setBounds(370, 450, 120, 40);
 		add(btnAnwenden);
 		
-		JComboBox cBoxDesign = new JComboBox();
-		cBoxDesign.setModel(new DefaultComboBoxModel<Object>(new String[] {"default", "edgy", "triggi"}));
+		JComboBox<EDesign> cBoxDesign = new JComboBox<EDesign>();
+		cBoxDesign.setModel(new DefaultComboBoxModel<EDesign>(EDesign.values()));
 		cBoxDesign.setSelectedIndex(0);
 		cBoxDesign.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		cBoxDesign.setBounds(290, 238, 200, 35);

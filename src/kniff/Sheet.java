@@ -12,16 +12,14 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.TreeSet;
 import java.awt.FlowLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.JButton;
-
 public class Sheet extends JPanel
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel content;
 	private JLabel title;
 	private ArrayList<CombiButton> combinations = new ArrayList<CombiButton>();
@@ -60,11 +58,11 @@ public class Sheet extends JPanel
 		try
 		{
 			// Positionen der Labels: 6, 7, 8, 16, 17, 18
-			((JLabel)this.content.getComponent(6)).setText("0"); 		// 6:"gesamt"
-			((JLabel)this.content.getComponent(7)).setText("0"); 		// 7:"Bonus bei 63 oder mehr"
+			((JLabel)this.content.getComponent(6)).setText("0"); 	// 6:"gesamt"
+			((JLabel)this.content.getComponent(7)).setText("0"); 	// 7:"Bonus bei 63 oder mehr"
 			((JLabel)this.content.getComponent(8)).setText("0"); 	// 8:"gesamt oberer Teil"
-			((JLabel)this.content.getComponent(16)).setText("0"); 		// 16:"gesamt unterer Teil"
-			((JLabel)this.content.getComponent(17)).setText("0"); 		// 17:"gesamt oberer Teil"
+			((JLabel)this.content.getComponent(16)).setText("0"); 	// 16:"gesamt unterer Teil"
+			((JLabel)this.content.getComponent(17)).setText("0"); 	// 17:"gesamt oberer Teil"
 			((JLabel)this.content.getComponent(18)).setText("0");	// 18:"Endsumme"
 		} catch (Exception e)
 		{
@@ -81,8 +79,11 @@ public class Sheet extends JPanel
 		                 CombiButton button = (CombiButton) e.getSource();
 		                 if (button.isEnabled())
 		                 {
+		                	 // tötet den Button entgültig um gewählte Kombination fest zu setzen
 		                	 button.kill();
+		                	 // aktualisiere alle Zwischenergebnisse
 		                	 updateSheetValues(Controller.kniffDice);
+		                	 // der nächste Spieler ist an der Reihe
 		                	 Controller.nextPlayer();
 		                 }
 		             }
@@ -119,14 +120,16 @@ public class Sheet extends JPanel
 		for (int i = 0; i < index.length; i++)
 		{
 			JLabel l = new JLabel(value[i]);
+			l.setFont(Design.getFont());
 			l.setHorizontalAlignment(SwingConstants.CENTER);
-			l.setPreferredSize(new Dimension(100, 20));
+			l.setBounds(0, 0, 10, 0);
 			content.add(l, index[i]);
 		}
 	}
 	
 	// Gibt den CombiButton des Sheets zurück,
 	// der der entsprechenden Kombination zugeordnet ist
+	@SuppressWarnings("unused")
 	private CombiButton getCombiButton(EDiceCombination c)
 	{
 		// für jeden CombiButton wird geprüft,
@@ -212,8 +215,12 @@ public class Sheet extends JPanel
 	{
 		title.setBounds(10, 10, this.getWidth(), 30);
 		content.setBounds(0, 40, this.getWidth(), this.getHeight() - 50);
-
+		
 		for (Component c : content.getComponents())
 			c.setPreferredSize(new Dimension(content.getWidth(), 30));
+		
+		
+		
+		super.paintComponent(g);
 	}
 }
