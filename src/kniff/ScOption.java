@@ -78,9 +78,12 @@ public class ScOption extends Screen
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {			
-				try{
-				ScOption.createPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
-				}catch(Exception e){
+				try
+				{
+					ScOption.createPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
+				}
+				catch(Exception e)
+				{
 					System.out.println(e.getMessage());
 				}
 			//	addPlayerButton("Spielername");
@@ -117,22 +120,25 @@ public class ScOption extends Screen
 	
 	public static void createPlayer(String name, String kurz) throws Exception{
 		
-		if (ScOption.nameValue.getText() == null || ScOption.kurzValue.getText() == null){
+		if (ScOption.nameValue.getText() == null || ScOption.kurzValue.getText() == null)
 			throw new Exception ("Bitte einen Spielernamen und ein Kürzel eingeben!");
-		} else{
+
 			Iterator<Player> i = spielerListe.iterator();
 			
-			while(i.hasNext()){
+			while(i.hasNext())
+			{
 				Player tmp = i.next();
-				if (ScOption.nameValue.getText() == tmp.name){
-					
-				}
+				if (ScOption.nameValue.getText().equals(tmp.name))
+					throw new Exception ("Der Spielername ist bereits vergeben");
+				
+				if (ScOption.kurzValue.getText().equals(tmp.shortName))
+					throw new Exception ("Das Kürzel ist bereits vergeben");
+				
 			}
 			
 			ScOption.spielerListe.add(new Player(ScOption.nameValue.getText(), ScOption.kurzValue.getText()));
 			ScOption.nameValue.setText("");
-			ScOption.kurzValue.setText("");
-		}
+			ScOption.kurzValue.setText("");	
 	}
 	
 }
