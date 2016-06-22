@@ -1,31 +1,34 @@
 package poi;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
-import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EmptyBorder;
-import java.awt.CardLayout;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
+
+
+
 
 public class Scores extends JFrame {
 
-	public static void create(){
-		String plaetze = "<html><h1>Platz:</h1>";
-		String spieler = "<html><h1>Spieler:</h1>";
+	public static void create(TreeMap<Integer, String> scores){
 		
-		for (int i = 0; i < 100; i++) {
-			plaetze+="<br>stuff";
-			spieler+="<br>stuff";
-		}
-		plaetze += "</html>";
+		String punkte = "<html><h1>score:</h1>";
+		String spieler = "<html><h1>Spieler:</h1>";
+				
+		for(Entry<Integer, String> entry : scores.entrySet()) {
+			punkte+="<br>"+entry.getKey();
+			spieler+="<br>"+entry.getValue();
+			}
+		
+		punkte += "</html>";
 		spieler += "</html>";
 		
 
@@ -38,7 +41,7 @@ public class Scores extends JFrame {
 
 	    JPanel panel = new JPanel(new BorderLayout());
 
-	    panel.add(new JLabel(plaetze),BorderLayout.WEST);
+	    panel.add(new JLabel(punkte),BorderLayout.WEST);
 	    panel.add(new JLabel(spieler),BorderLayout.EAST);
 
 

@@ -1,30 +1,48 @@
 package testing;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.io.IOException;
 import java.util.Iterator;
-import javax.swing.*;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import poi.*;
 
 public class TesterClass {
-
-	public static void main(String[] args) throws IOException {
-		
-
-        
-        Scores.create();
-        
 	
-//		POI_Service.resetSaveFile();
-		POI_Service.deletePlayer("Harthmuasdasht");
-		POI_Service.createPlayer("Harthmuasdasht");
+	private static void testPOI() throws IOException {
+			
+
+
 		
-		Iterator<String> i = POI_Service.getPlayerList().iterator();
+		POI.savePlayerScores("Hanssss", 12345);
+		
+		Iterator<String> i = POI.getPlayerList().iterator();
 		while (i.hasNext()) {
 			System.out.println(i.next());
 		}
+		
+	}
+	
+
+private static void testSave() throws IOException {
+
+System.out.println(POI.getAllScores());
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) throws IOException {
+		
+		testSave();
+
+
+
 
 	}
 
