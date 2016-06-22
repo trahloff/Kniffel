@@ -1,4 +1,4 @@
-package kniff;
+ package kniff;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ public class Player implements Comparable<Player>
 {
 	private static int objCount;
 	
-	public String name = "Spieler " + Player.objCount;
+	public String name;
 	public String shortName;
 	public Sheet sheet = new Sheet();
 	public KniffSheet KniffSheet = new KniffSheet();
