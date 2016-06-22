@@ -1,22 +1,25 @@
 package kniff;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
+
+import helper.EColor;
 
 public class Dice extends JButton
 {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2847346976374468132L;
-	public static Dice[] KniffDice = new Dice[5];	
+	private static final long serialVersionUID = -2847346976374468132L;	
 	private int value;
 	private boolean isInitial;
 	
 	public Dice()
 	{
 		super();
-		initDesign();
 	}
 	
 	public int roll()
@@ -34,26 +37,32 @@ public class Dice extends JButton
 	public void setInitial(boolean v)
 	{
 		this.isInitial = v;
-		this.value = -1;
+		this.value = 0;
+	}
+	
+	public static void setAllEnabled(boolean v)
+	{
+		for (Dice d : Controller.kniffDice)
+			d.setEnabled(v);
 	}
 	
 	public static void setAllInitial(boolean v)
 	{
-		for (Dice d : KniffDice)
+		for (Dice d : Controller.kniffDice)
 			d.setInitial(v);
 	}
 	
 	public static Dice[] rollAll()
 	{
-		for (Dice d : KniffDice)
+		for (Dice d : Controller.kniffDice)
 			d.roll();
-		return KniffDice;
+		return Controller.kniffDice;
 	} 
 	
 	public static boolean allDeactivated()
 	{
-        for (int i = 0; i < KniffDice.length; i++)
-       	 if (KniffDice[i].isEnabled())
+        for (int i = 0; i < Controller.kniffDice.length; i++)
+       	 if (Controller.kniffDice[i].isEnabled())
        		 return false;
         return true;
 	}
@@ -107,6 +116,11 @@ public class Dice extends JButton
 	public void paintComponent(Graphics g)
     {
         //super.paintComponent(g);
+		
+		this.setBorderPainted(false);
+		this.setFocusPainted(false);
+		this.setContentAreaFilled(false);
+		
         Graphics2D antiAlias = (Graphics2D)g;
         antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
@@ -118,7 +132,7 @@ public class Dice extends JButton
 		}
         else
         {
-        	g.setColor(Design.getColor(Colors.disabled_dice_a));
+        	g.setColor(Design.getColor(EColor.disabled_dice_a));
             g.fillRoundRect(12, 12, 76, 76, 15, 15);
             g.setColor(Color.decode("#E0E0E0"));
         	g.drawRoundRect(12, 12, 76, 76, 15, 15);
@@ -172,10 +186,53 @@ public class Dice extends JButton
         }
     }
 	
-	private void initDesign()
+	public static Dice[] initDiceCollection()
 	{
-		this.setBorderPainted(false);
-		this.setFocusPainted(false);
-		this.setContentAreaFilled(false);
+		Dice die1 = new Dice();
+		die1.addMouseListener(DieButtonListener);
+		die1.setPreferredSize(new Dimension(100, 100));
+		die1.setText("1");
+		die1.setFont(Design.getFont());
+		
+		Dice die2 = new Dice();
+		die2.addMouseListener(DieButtonListener);
+		die2.setPreferredSize(new Dimension(100, 100));
+		die2.setText("2");
+		die2.setFont(Design.getFont());
+		
+		Dice die3 = new Dice();
+		die3.addMouseListener(DieButtonListener);
+		die3.setPreferredSize(new Dimension(100, 100));
+		die3.setText("3");
+		die3.setFont(Design.getFont());
+		
+		Dice die4 = new Dice();
+		die4.addMouseListener(DieButtonListener);
+		die4.setPreferredSize(new Dimension(100, 100));
+		die4.setText("4");
+		die4.setFont(Design.getFont());
+		
+		Dice die5 = new Dice();
+		die5.addMouseListener(DieButtonListener);
+		die5.setPreferredSize(new Dimension(100, 100));
+		die5.setText("5");
+		die5.setFont(Design.getFont());
+		
+		return new Dice[]{die1, die2, die3, die4, die5};
 	}
+	
+	private static MouseAdapter DieButtonListener = new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		         if(e.getSource() instanceof Dice)
+		             {
+		                 Dice button = (Dice) e.getSource();
+		                 if (button.isEnabled())
+		                	 button.setEnabled(false);
+		                 else
+		                	 button.setEnabled(true);
+		                 Controller.updateBtnRoll();
+		             }
+		     }
+	};
 }

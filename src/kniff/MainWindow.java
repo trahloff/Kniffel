@@ -45,32 +45,11 @@ public class MainWindow
 	private void initialize()
 	{
 		frmKniffelig = new JFrame();
-		frmKniffelig.setResizable(false);
+		frmKniffelig.setResizable(true);
 		frmKniffelig.setTitle("Kniffelig");
 		frmKniffelig.setBounds(100, 100, 800, 900);
 		frmKniffelig.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		frmKniffelig.getContentPane().setLayout(new CardLayout(0, 0));	
 		frmKniffelig.getContentPane().add(Controller.scContainer, "container");
-	}
-	
-	private void updateButtonForPlayer(Player p)
-	{
-		ArrayList<DiceCombination> combis = p.KniffSheet.getFixedCombinations();
-		Enumeration<CombiButton> iCombiButton = CombiButton.combiButtons.elements();
-		CombiButton button;
-		
-		while(iCombiButton.hasMoreElements())
-		{
-			button = iCombiButton.nextElement();
-			button.setEnabled(true);
-			button.setText("" + KniffSheet.calcPoints(button.getLinkedCombination(), Dice.getSortedValues(Dice.KniffDice)));
-		}
-		
-		for (DiceCombination combi : combis)
-		{
-			button = CombiButton.combiButtons.get(combi);
-			button.setEnabled(false);
-			button.setText(p.KniffSheet.getPoints(combi) + "");
-		}	
 	}
 }

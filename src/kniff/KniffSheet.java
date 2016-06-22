@@ -2,42 +2,44 @@ package kniff;
 
 import java.util.*;
 
+import helper.EDiceCombination;
+
 public class KniffSheet
 {
-	public static ArrayList<DiceCombination> possibleCombinations = new ArrayList<DiceCombination>();
-	private Dictionary<DiceCombination, int[]> results = new Hashtable<DiceCombination, int[]>();
+	public static ArrayList<EDiceCombination> possibleCombinations = new ArrayList<EDiceCombination>();
+	private Dictionary<EDiceCombination, int[]> results = new Hashtable<EDiceCombination, int[]>();
 	
 	public KniffSheet()
 	{
 		
 	}
 	
-	public static ArrayList<DiceCombination> getPossibleCombinations(Dice[] kniffDice)
+	public static ArrayList<EDiceCombination> getPossibleCombinations(Dice[] kniffDice)
 	{
 		int[] sortedValues = Dice.getSortedValues(kniffDice);
 		return getPossibleCombinations(sortedValues);
 	}
 	
-	public static ArrayList<DiceCombination> getPossibleCombinations(int[] values)
+	public static ArrayList<EDiceCombination> getPossibleCombinations(int[] values)
 	{
 		possibleCombinations.clear();
 		int[] sortedValues = Dice.sortKniffelDiceValues(values);
 		if(isThroA(sortedValues))
-			possibleCombinations.add(DiceCombination.ThroA);
+			possibleCombinations.add(EDiceCombination.ThroA);
 		if(isFouoA(sortedValues))
-			possibleCombinations.add(DiceCombination.FouoA);
+			possibleCombinations.add(EDiceCombination.FouoA);
 		if(isFullHouse(sortedValues))
-			possibleCombinations.add(DiceCombination.FullHouse);
+			possibleCombinations.add(EDiceCombination.FullHouse);
 		if(isFivoA(sortedValues))
-			possibleCombinations.add(DiceCombination.FivoA);
+			possibleCombinations.add(EDiceCombination.FivoA);
 		if(isSmlStr(sortedValues))
-			possibleCombinations.add(DiceCombination.SmlStr);
+			possibleCombinations.add(EDiceCombination.SmlStr);
 		if(isBigStr(sortedValues))
-			possibleCombinations.add(DiceCombination.BigStr);	
+			possibleCombinations.add(EDiceCombination.BigStr);	
 		return possibleCombinations;
 	}
 
-	public boolean fixCombination(DiceCombination combi, Dice[] kniffDice)
+	public boolean fixCombination(EDiceCombination combi, Dice[] kniffDice)
 	{	
 		int[] sortedValues = Dice.getSortedValues(kniffDice);
 		if (results.put(combi, sortedValues) == null)
@@ -45,7 +47,7 @@ public class KniffSheet
 		return false;
 	}	
 	
-	public int getPoints(DiceCombination combi)
+	public int getPoints(EDiceCombination combi)
 	{
 		int[] diceValues = results.get(combi);
 		if (diceValues == null)
@@ -54,22 +56,22 @@ public class KniffSheet
 		return calcPoints(combi, diceValues);
 	}
 	
-	public static int calcPoints(DiceCombination combi, int[] diceValues)
+	public static int calcPoints(EDiceCombination combi, int[] diceValues)
 	{
 		switch (combi)
 		{
 		case BigStr:
-			return 40;
+			return isBigStr(diceValues) ? 40 : 0;
 		case FivoA:
-			return 50;
+			return isFivoA(diceValues) ? 40 : 0;
 		case FouoA:
-			return countAnyValue(diceValues);
+			return isFouoA(diceValues) ? countAnyValue(diceValues) : 0;
 		case FullHouse:
-			return 25;
+			return isFullHouse(diceValues) ? 25 : 0;
 		case SmlStr:
-			return 30;
+			return isSmlStr(diceValues) ? 30 : 0;
 		case ThroA:
-			return countAnyValue(diceValues);
+			return isThroA(diceValues) ? countAnyValue(diceValues) : 0;
 		case One:
 			return countAny(1, diceValues);
 		case Two:
@@ -82,6 +84,8 @@ public class KniffSheet
 			return countAny(5, diceValues);
 		case Six:
 			return countAny(6, diceValues);
+		case Cnc:
+			return countAnyValue(diceValues);
 		default:
 			return 0;
 		}
@@ -179,10 +183,10 @@ public class KniffSheet
 		return false;
 	}
 
-	public ArrayList<DiceCombination> getFixedCombinations()
+	public ArrayList<EDiceCombination> getFixedCombinations()
 	{
-		ArrayList<DiceCombination> combis = new ArrayList<DiceCombination>();
-		Enumeration<DiceCombination> enumer = this.results.keys();
+		ArrayList<EDiceCombination> combis = new ArrayList<EDiceCombination>();
+		Enumeration<EDiceCombination> enumer = this.results.keys();
 		while(enumer.hasMoreElements())
 			combis.add(enumer.nextElement());
 		
