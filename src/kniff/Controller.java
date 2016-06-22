@@ -16,7 +16,6 @@ public class Controller
 	public static TreeSet<Player> players = new TreeSet<Player>();
 	public static Player currentPlayer;
 	public static Iterator<Player> ip;
-	public static Dice[] kniffDice = new Dice[5];
 	public static int remainingRolls = 3;
 	private static int remainingRounds = 13;
 	
@@ -24,11 +23,14 @@ public class Controller
 	public static ScGame scGame;
 	public static ScOption scOption;
 	public static ScSettings scSettings;
+	public static Dice[] kniffDice;
 	
 	public static void main(String[] args)
 	{
 		Design.setRandom();
-		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
+		Design.setSize(1);
+		
 		kniffDice = Dice.initDiceCollection();
 		initScreens();		
 		MainWindow.main(args);
@@ -40,7 +42,7 @@ public class Controller
 	    clController.show(scContainer, sc.getName());
 	}
 	
-	public static void startGame(TreeSet<Player> p) throws Exception
+	public static void startGame(ArrayList<Player> p) throws Exception
 	{
 		Controller.show(scGame);
 		players.addAll(p);
@@ -57,7 +59,7 @@ public class Controller
 		scGame.setEnableSheets(false);
 		Dice.setAllEnabled(true);
 		Dice.setAllInitial(true);
-		scGame.writeMessage("jetzt wird gekniffelt und " + currentPlayer.name + " fängt an");
+		scGame.writeMessage("jetzt wird gekniffelt und " + currentPlayer.getName() + " fängt an");
 	}
 	
 	public static void nextPlayer()
@@ -68,7 +70,7 @@ public class Controller
 			ip = players.iterator();
 			if (remainingRounds <= 0)
 			{
-				stopGame();
+				stopGame(0);
 				return;
 			}
 			remainingRounds--;
@@ -76,7 +78,7 @@ public class Controller
 		if (ip.hasNext())
 			currentPlayer = ip.next();	
 		
-		scGame.writeMessage(currentPlayer.name + " ist an der Reihe");
+		scGame.writeMessage(currentPlayer.getName() + " ist an der Reihe");
 		remainingRolls = 3;
 		
 		scGame.getBtnRoll().setEnabled(true);
@@ -87,11 +89,23 @@ public class Controller
 	
 	private static void vanishSheetValues(Player p)
 	{
-		p.sheet.vanish();
+		p.getSheet().vanish();
 	}
 
-	public static void stopGame()
+	public static void stopGame(int i)
 	{
+		switch (i)
+		{
+		case 0:
+			System.out.println("Spielende");
+			break;
+		case 1:
+			System.out.println("Spielabbruch durch Spieler");
+			break;
+		default:
+			System.out.println("Spielabbruch undefiniert");
+			break;
+		}
 		show(scStart);
 		currentPlayer = null;
 		players.clear();
@@ -99,8 +113,8 @@ public class Controller
 	
 	public static void rollDice()
 	{
-		if (!currentPlayer.sheet.isEnabled())
-			currentPlayer.sheet.setEnabled(true);
+		if (!currentPlayer.getSheet().isEnabled())
+			currentPlayer.getSheet().setEnabled(true);
 		if (remainingRolls > 0)
 		{
 			Dice.rollAll();
@@ -114,7 +128,7 @@ public class Controller
 	
 	private static void updateSheetValue(Player p, Dice[] kniffDice)
 	{
-		p.sheet.updateSheetValues(kniffDice);
+		p.getSheet().updateSheetValues(kniffDice);
 	}
 
 	public static void updateBtnRoll()
@@ -137,5 +151,14 @@ public class Controller
 		scContainer.add(scOption, scOption.getName());
 		scContainer.add(scGame, scGame.getName());
 		scContainer.add(scSettings, scSettings.getName());
+	}
+
+	public static boolean addPlayer(Player player) {
+		if(players.size() <= 8) {
+			players.add(player);
+			return true;
+		}
+		return false;
+		
 	}
 }

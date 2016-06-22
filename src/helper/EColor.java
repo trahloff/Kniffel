@@ -1,8 +1,8 @@
-package kniff;
+package helper;
 
 import java.awt.Color;
 
-public enum Colors
+public enum EColor
 {
 	text_light,
 	text_intense,

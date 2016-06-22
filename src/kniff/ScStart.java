@@ -1,20 +1,16 @@
 package kniff;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
-
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionEvent;
+
+import helper.EComponentDesign;
 
 public class ScStart extends Screen
-{
+{	
+	private static final long serialVersionUID = 1L;
 	public KniffButton btnStart, btnEnd;
 	JLabel lbTitle, lbMessage;
 	
@@ -48,7 +44,7 @@ public class ScStart extends Screen
 				Controller.show(Controller.scOption);
 			}
 		});
-		btnStart.bdt = ButtonDesignType.startButton;
+		btnStart.setComponentDesign(EComponentDesign.startButton);
 		this.add(btnStart);
 		
 		// End-Button
@@ -61,7 +57,7 @@ public class ScStart extends Screen
 				System.exit(0);
 			}
 		});
-		btnEnd.bdt = ButtonDesignType.menuButton;
+		btnEnd.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnEnd);
 		
 		KniffButton btnSettings = new KniffButton("Einstellungen");
@@ -73,7 +69,7 @@ public class ScStart extends Screen
 			}
 		});
 		btnSettings.setFont(null);
-		btnSettings.bdt = ButtonDesignType.menuButton;
+		btnSettings.setComponentDesign(EComponentDesign.menuButton);
 		btnSettings.setBounds(250, 570, 180, 50);
 		add(btnSettings);
 	}
@@ -115,5 +111,12 @@ public class ScStart extends Screen
 	public void writeRandomMessage()
 	{
 		lbMessage.setText(getRandomMessage());
+	}
+	
+	// Übersteuerung um RandomText auszugeben
+	public void setVisible(boolean b)
+	{
+		super.setVisible(b);
+		this.lbMessage.setText(this.getRandomMessage());
 	}
 }

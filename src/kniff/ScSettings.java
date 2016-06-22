@@ -1,20 +1,22 @@
 package kniff;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import helper.*;
+
 import java.awt.Font;
 import java.awt.Graphics;
-
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ScSettings extends Screen
 {
-	private JComboBox cBoxColor;
-	
-	public ScSettings() {
+	private static final long serialVersionUID = 1L;
+
+	public ScSettings()
+	{
 		setLayout(null);
 		
 		this.setName("settings");
@@ -25,8 +27,8 @@ public class ScSettings extends Screen
 		lblNewLabel.setBounds(10, 10, 750, 50);
 		add(lblNewLabel);
 		
-		final JComboBox<ColorScheme> cBoxColor = new JComboBox<ColorScheme>();
-		cBoxColor.setModel(new DefaultComboBoxModel<ColorScheme>(ColorScheme.values()));
+		final JComboBox<EColorScheme> cBoxColor = new JComboBox<EColorScheme>();
+		cBoxColor.setModel(new DefaultComboBoxModel<EColorScheme>(EColorScheme.values()));
 		cBoxColor.setSelectedIndex(0);
 		cBoxColor.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		cBoxColor.setBounds(290, 151, 200, 35);
@@ -38,7 +40,7 @@ public class ScSettings extends Screen
 		add(lbInfoA);
 		
 		KniffButton btnBack = new KniffButton("zur\u00FCck");
-		btnBack.bdt = ButtonDesignType.menuButton;
+		btnBack.setComponentDesign(EComponentDesign.menuButton);
 		btnBack.addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -56,16 +58,16 @@ public class ScSettings extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Design.setColorScheme((ColorScheme)cBoxColor.getSelectedItem());
+				Design.setColorScheme((EColorScheme)cBoxColor.getSelectedItem());
 			}
 		});
-		btnAnwenden.bdt = ButtonDesignType.menuButton;
+		btnAnwenden.setComponentDesign(EComponentDesign.menuButton);
 		btnAnwenden.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		btnAnwenden.setBounds(370, 450, 120, 40);
 		add(btnAnwenden);
 		
-		JComboBox cBoxDesign = new JComboBox();
-		cBoxDesign.setModel(new DefaultComboBoxModel<Object>(new String[] {"default", "edgy", "triggi"}));
+		JComboBox<EDesign> cBoxDesign = new JComboBox<EDesign>();
+		cBoxDesign.setModel(new DefaultComboBoxModel<EDesign>(EDesign.values()));
 		cBoxDesign.setSelectedIndex(0);
 		cBoxDesign.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		cBoxDesign.setBounds(290, 238, 200, 35);

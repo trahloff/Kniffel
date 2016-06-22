@@ -1,25 +1,24 @@
 package kniff;
 
-import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.TreeSet;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import helper.EComponentDesign;
+
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
 public class ScGame extends Screen
 {
-	KniffButton btnEnd;
+	private static final long serialVersionUID = 1L;
+
+	private KniffButton btnEnd;
 	
 	private KniffButton btnRoll;
 	private JLabel lblInfolabel;
@@ -41,10 +40,10 @@ public class ScGame extends Screen
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.stopGame();
+				Controller.stopGame(1);
 			}
 		});
-		btnEnd.bdt = ButtonDesignType.menuButton;
+		btnEnd.setComponentDesign(EComponentDesign.menuButton);
 		btnEnd.setBounds(32, 768, 162, 71);
 		this.add(btnEnd);
 		
@@ -58,7 +57,7 @@ public class ScGame extends Screen
 			}
 		});
 		btnRoll.setBounds(204, 767, 540, 71);
-		btnRoll.bdt = ButtonDesignType.menuButton;
+		btnRoll.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnRoll);
 		
 		lblInfolabel = new JLabel("Spielinfo");
@@ -73,6 +72,7 @@ public class ScGame extends Screen
 		pnSheets.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		Sheet sheet = new Sheet(false);
+		sheet.setTitle("Kombinationen");
 		sheet.setPreferredSize(new Dimension(150, 677));
 		sheet.setEnabled(false);
 		sheet.setBounds(20, 70, 174, 687);
@@ -92,14 +92,14 @@ public class ScGame extends Screen
 			pnDiceContainer.add(d);	
 		Dice.rollAll();
 	}
-
+	
 	private void initSheets()
 	{
 		pnSheets.removeAll();
 		for (Player p : Controller.players)
 		{
-			p.sheet.setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight()));
-			pnSheets.add(p.sheet);
+			p.getSheet().setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight()));
+			pnSheets.add(p.getSheet());
 		}
 		this.repaint();
 	}
@@ -118,7 +118,7 @@ public class ScGame extends Screen
 	public void enableSheetForPlayer(Player player)
 	{
 		setEnableSheets(false);
-		player.sheet.setEnabled(true);
+		player.getSheet().setEnabled(true);
 	}
 	
 	public void setEnableSheets(boolean b)
