@@ -152,14 +152,12 @@ public class POI {
 		Iterator<Sheet> sheetIterator= getWorkbook().iterator();
 
 		while (sheetIterator.hasNext()) {
-			System.out.println(sheetIterator.next().getRow(0).getCell(0));
-			
-			
-			Iterator<Row> rowIterator = sheetIterator.next().iterator();
+			Sheet tmp = sheetIterator.next();
+			Iterator<Row> rowIterator = tmp.iterator();
 			while(rowIterator.hasNext()) {
 				Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
 				while(cellIterator.hasNext()) {
-					map.put(sheetIterator.next().getSheetName(), (int) cellIterator.next().getNumericCellValue());
+					map.put(tmp.getSheetName(), (int) cellIterator.next().getNumericCellValue());
 				}
 			}
 		}
