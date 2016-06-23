@@ -150,7 +150,11 @@ public class POI {
 			}
 		}
 
+<<<<<<< HEAD
 		return map;
+=======
+		return MapUtil.sortByValue(map);
+>>>>>>> branch 'master' of https://github.com/trahloff/kniffel.git
 
 	}
 	public static ArrayList<String> getPlayerList() {
