@@ -15,6 +15,9 @@ public class Player implements Comparable<Player>
 
 	public Player(String name, String shortName) throws Exception
 	{
+		name = name.trim();
+		shortName = shortName.trim();
+		
 		if (name.length() == 0)
 			throw new Exception("Der Name des Spielers darf nicht leer sein!");
 		if (name.length() > 20)

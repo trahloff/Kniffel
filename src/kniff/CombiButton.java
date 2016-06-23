@@ -65,7 +65,7 @@ public class CombiButton extends KniffButton
 	// legt den Wert für die Kombination fest
 	public void setValue(int[] dice)
 	{
-		this.value = KniffSheet.calcPoints(this.combination, dice);
+		this.value = Sheet.calcPoints(this.combination, dice);
 		this.setTextToValue();
 	}
 	

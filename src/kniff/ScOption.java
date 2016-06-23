@@ -83,10 +83,10 @@ public class ScOption extends Screen
 						plrs.add(i.nextElement());
 					Controller.startGame(plrs);
 					players = new Hashtable<KniffButton, Player>();
-				} catch (Exception e1)
+				} catch (Exception e2)
 				{
 					
-					e1.printStackTrace();
+					Controller.show(Controller.scOption);
 				}
 			}
 		});

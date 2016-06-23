@@ -44,7 +44,7 @@ public class ScGame extends Screen
 			}
 		});
 		btnEnd.setComponentDesign(EComponentDesign.menuButton);
-		btnEnd.setBounds(32, 768, 162, 71);
+		btnEnd.setBounds(20, 742, 174, 30);
 		this.add(btnEnd);
 		
 		btnRoll = new KniffButton("W\u00FCrfel rollen");
@@ -56,7 +56,7 @@ public class ScGame extends Screen
 					Controller.rollDice();
 			}
 		});
-		btnRoll.setBounds(204, 767, 540, 71);
+		btnRoll.setBounds(204, 701, 540, 71);
 		btnRoll.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnRoll);
 		
@@ -67,7 +67,7 @@ public class ScGame extends Screen
 		this.add(lblInfolabel);
 		
 		pnSheets = new JPanel();
-		pnSheets.setBounds(204, 66, 540, 690);
+		pnSheets.setBounds(204, 66, 540, 624);
 		this.add(pnSheets);
 		pnSheets.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -75,13 +75,19 @@ public class ScGame extends Screen
 		sheet.setTitle("Kombinationen");
 		sheet.setPreferredSize(new Dimension(150, 677));
 		sheet.setEnabled(false);
-		sheet.setBounds(20, 70, 174, 687);
+		sheet.setBounds(20, 70, 174, 620);
 		this.add(sheet);
 		
 		pnDiceContainer = new JPanel();
-		pnDiceContainer.setBounds(758, 146, 119, 549);
+		pnDiceContainer.setBounds(758, 144, 119, 576);
 		this.add(pnDiceContainer);
 		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		KniffButton knfbtnHilfe = new KniffButton("Ende");
+		knfbtnHilfe.setText("Hilfe");
+		knfbtnHilfe.setComponentDesign(EComponentDesign.menuButton);
+		knfbtnHilfe.setBounds(20, 701, 174, 30);
+		add(knfbtnHilfe);
 	
 		initDice();
 	}
@@ -110,9 +116,15 @@ public class ScGame extends Screen
 	}
 
 	public void init()
-	{
+	{		
 		initSheets();
 		initDice();
+		
+		Dice.setAllEnabled(true);
+		Dice.setAllInitial(true);
+		
+		btnRoll.setEnabled(true);
+		setEnableSheets(false);
 	}
 	
 	public void enableSheetForPlayer(Player player)

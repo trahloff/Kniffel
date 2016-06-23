@@ -41,7 +41,6 @@ public class Controller
 	
 	public static void startGame(ArrayList<Player> p) throws Exception
 	{
-		Controller.show(scGame);
 		players.addAll(p);
 		ip = players.iterator();
 		remainingRounds = 12;
@@ -51,12 +50,9 @@ public class Controller
 		else
 			throw new Exception("Es scheint keine Spieler zu geben.");
 	
+		Controller.show(scGame);
 		scGame.init();
-		scGame.getBtnRoll().setEnabled(true);
-		scGame.setEnableSheets(false);
-		Dice.setAllEnabled(true);
-		Dice.setAllInitial(true);
-		scGame.writeMessage("jetzt wird gekniffelt und " + currentPlayer.getName() + " fängt an");
+		scGame.writeMessage(currentPlayer.getName() + " macht den ersten Wurf");
 	}
 	
 	public static void nextPlayer()
@@ -150,6 +146,7 @@ public class Controller
 		scContainer.add(scSettings, scSettings.getName());
 	}
 
+	
 	public static boolean addPlayer(Player player) {
 		if(players.size() <= 8) {
 			players.add(player);
