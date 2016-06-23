@@ -1,10 +1,10 @@
 package poi;
 
-import java.awt.List;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 @SuppressWarnings({"unused" })
@@ -31,7 +31,7 @@ public class POI {
 	private static Workbook getWorkbook() throws IOException {
 
 		// much safer check than .exist(), because with .isFile() return==true ONLY when it exists & valid file
-		if(saveFile.isFile()) { 
+		if(saveFile.isFile()) {
 			return getSave();
 		}else {
 			createSave("overview");
@@ -40,7 +40,7 @@ public class POI {
 
 	}
 	private static void createSave(String sheetName) throws IOException {
-		
+
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		workbook.createSheet(sheetName).createRow(0);
 
@@ -72,7 +72,7 @@ public class POI {
 
 	}
 	private static void deletePlayer(String playerName) throws IOException {
-		
+
 		HSSFWorkbook workbook = (HSSFWorkbook) getWorkbook();
 
 		try {
@@ -111,19 +111,25 @@ public class POI {
 	}
 
 	public static SortedArrayList<Integer> getScoreByPlayer(String player) throws IOException {
-		
+
 		SortedArrayList<Integer> scores = new SortedArrayList<Integer>();
 		Workbook wb = getWorkbook();
 
-		Iterator<Row> rowIterator = wb.getSheetAt(wb.getSheetIndex(player)).iterator();
+		try {
+			Iterator<Row> rowIterator = wb.getSheetAt(wb.getSheetIndex(player)).iterator();
+			while (rowIterator.hasNext()) {
+				Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
+				while (cellIterator.hasNext()) {
+					scores.insertSorted((int) cellIterator.next().getNumericCellValue());
 
-		while (rowIterator.hasNext()) {
-			Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
-			while (cellIterator.hasNext()) {
-				scores.insertSorted((int) cellIterator.next().getNumericCellValue());
-
+				}
 			}
+		} catch (Exception e) {
+			return null;
 		}
+
+
+
 
 		return scores;
 
@@ -145,7 +151,7 @@ public class POI {
 		}
 
 		return map;
-		
+
 	}
 	public static ArrayList<String> getPlayerList() {
 
@@ -156,7 +162,7 @@ public class POI {
 			Iterator<Sheet> sheetIterator= getWorkbook().iterator();
 
 			while (sheetIterator.hasNext()) {
-				players.add(sheetIterator.next().getSheetName());		
+				players.add(sheetIterator.next().getSheetName());
 			}
 
 
@@ -166,7 +172,7 @@ public class POI {
 		}
 
 		return players;
-		
+
 	}
 	public static void savePlayerScores(String player, Integer score) throws IOException {
 
@@ -177,9 +183,14 @@ public class POI {
 			saveScore(player, score);
 		}
 
+
 	}
 	public static void resetSaveFile() throws IOException {
 		createSave("overview");
 	}
+
+
+
+
 
 }

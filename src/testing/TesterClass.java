@@ -2,7 +2,8 @@ package testing;
 
 import java.io.IOException;
 import java.util.Iterator;
-import poi.*;
+
+import poi.POI;
 
 public class TesterClass {
 
@@ -21,13 +22,15 @@ public class TesterClass {
 	private static void testSave() throws IOException {
 
 		System.out.println(POI.getAllScores());
-		System.out.println(POI.getScoreByPlayer("overview"));
+		System.out.println(POI.getScoreByPlayer("User4"));
 
 	}
 
 	public static void main(String[] args) throws IOException {
 
+		//		Scores.create(POI.getAllScores());
 		testSave();
+
 
 	}
 
