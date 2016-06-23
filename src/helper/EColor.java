@@ -16,5 +16,7 @@ public enum EColor
 	accent_b_dark,
 	light_glow_a,
 	disabled_dice_a,
-	disabled_dice_b
+	disabled_dice_b,
+	error_text,
+	warn_text
 }

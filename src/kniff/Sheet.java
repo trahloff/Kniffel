@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import helper.EColor;
 import helper.EComponentDesign;
 import helper.EDiceCombination;
 
@@ -12,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.awt.FlowLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -22,6 +24,8 @@ public class Sheet extends JPanel
 	
 	private JPanel content;
 	private JLabel title;
+	private int componentHeight = 30;
+
 	private ArrayList<CombiButton> combinations = new ArrayList<CombiButton>();
 	
 	public Sheet(boolean cleared)
@@ -40,6 +44,12 @@ public class Sheet extends JPanel
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setVerticalAlignment(SwingConstants.CENTER);
 		add(title);
+		
+		//
+		//
+		this.componentHeight = 25;
+		//
+		//
 		
 		initCombiButtons();		// Hinzufügen aller CombiButtons zum content JPanel	
 		insertLabels();			// Einfügen der JLabel für Punkteausgabe
@@ -91,6 +101,8 @@ public class Sheet extends JPanel
 	};
 	
 	// initialisiert alle CombiButtons im Sheet
+	
+	//
 	private void initCombiButtons()
 	{
 		// für jede Kombination wird ein Button angelegt
@@ -101,7 +113,8 @@ public class Sheet extends JPanel
 			CombiButton b = new CombiButton(c);
 			b.setComponentDesign(EComponentDesign.menuButton);
 			b.addMouseListener(CombiButtonListener);
-			b.setBounds(0, 0, 100, 25);
+			b.setBounds(0, 0, 20, 15);
+			b.setPreferredSize(new Dimension(20, 50));
 			this.combinations.add(b);
 			this.content.add(b);
 		}
@@ -122,9 +135,13 @@ public class Sheet extends JPanel
 			JLabel l = new JLabel(value[i]);
 			l.setFont(Design.getFont());
 			l.setHorizontalAlignment(SwingConstants.CENTER);
-			l.setBounds(0, 0, 10, 0);
+			if (index[i] == 18)
+				l.setFont(l.getFont().deriveFont(1, 20));
+			
 			content.add(l, index[i]);
 		}
+		
+		
 	}
 	
 	// Gibt den CombiButton des Sheets zurück,
@@ -141,6 +158,7 @@ public class Sheet extends JPanel
 		return null;
 	}
 
+	//
 	public void updateSheetValues(Dice[] combination)
 	{
 		// für jede Kombination, die noch nicht gewählt wurde, wird der neue Wert gesetzt.
@@ -177,7 +195,7 @@ public class Sheet extends JPanel
 			((JLabel)this.content.getComponent(8)).setText("" + (a + b)); 	// 8:"gesamt oberer Teil"
 			((JLabel)this.content.getComponent(16)).setText("" + c); 		// 16:"gesamt unterer Teil"
 			((JLabel)this.content.getComponent(17)).setText("" + a); 		// 17:"gesamt oberer Teil"
-			((JLabel)this.content.getComponent(18)).setText("" + a + c);	// 18:"Endsumme"
+			((JLabel)this.content.getComponent(18)).setText("" + (a + c));	// 18:"Endsumme"
 		} catch (Exception e)
 		{
 			System.err.println("Fehlerhafte Indexzuweisung verhindert korrekte Berrechnung der Ergebnisse!");
@@ -210,6 +228,18 @@ public class Sheet extends JPanel
 			c.setEnabled(b);
 	}
 	
+	//
+	public int getButtonHeight()
+	{
+		return componentHeight;
+	}
+
+	//
+	public void setButtonHeight(int buttonHeight)
+	{
+		this.componentHeight = buttonHeight;
+	}
+	
 	// Übersteuerung um Darstellung an gegebene Größen anzupassen
 	public void paintComponent(Graphics g)
 	{
@@ -217,10 +247,218 @@ public class Sheet extends JPanel
 		content.setBounds(0, 40, this.getWidth(), this.getHeight() - 50);
 		
 		for (Component c : content.getComponents())
-			c.setPreferredSize(new Dimension(content.getWidth(), 30));
+			c.setPreferredSize(new Dimension(content.getWidth(), this.componentHeight));
 		
 		
 		
 		super.paintComponent(g);
+	}
+
+	
+	//-----------------------------------------------------------------
+	//
+	//	Logischer Teil
+	//
+	//-----------------------------------------------------------------
+	
+	/**
+	 * calculates the points for a specific dice combination
+	 * @param combi - the combination for which the points should be calculated
+	 * @param values - the dice values
+	 * @return returns the points for the combination with specific dice values
+	 */
+	public static int calcPoints(EDiceCombination combi, int[] values)
+	{
+		// über die switch-Anweisung wird die Berechnung an die entsprechende
+		// Methode weiterdelegiert.
+		switch (combi)
+		{
+		case BigStr:
+			return isBigStr(values) ? 40 : 0;
+		case FivoA:
+			return isFivoA(values) ? 40 : 0;
+		case FouoA:
+			return isFouoA(values) ? countAny(values) : 0;
+		case FullHouse:
+			return isFullHouse(values) ? 25 : 0;
+		case SmlStr:
+			return isSmlStr(values) ? 30 : 0;
+		case ThroA:
+			return isThroA(values) ? countAny(values) : 0;
+		case One:
+			return countAny(1, values);
+		case Two:
+			return countAny(2, values);
+		case Thr:
+			return countAny(3, values);
+		case Fou:
+			return countAny(4, values);
+		case Fiv:
+			return countAny(5, values);
+		case Six:
+			return countAny(6, values);
+		case Cnc:
+			return countAny(values);
+		default:
+			return 0;
+		}
+	}
+	
+	public int getPoints(EDiceCombination combi)
+	{
+		return this.getCombiButton(combi).getValue();
+	}
+	
+	/**
+	 * Calculates the sum of occurrence of a specific dice value
+	 * @param value - specific value
+	 * @param values - the dice values
+	 * @return returns the sum
+	 */
+	private static int countAny(int value, int[] values)
+	{
+		int j = 0;
+		for (int i = 0; i < values.length; i++)
+				if (values[i] == value)
+					j += values[i];
+		return j;
+	}
+
+	/**
+	 * Calculates the sum of all dice values
+	 * @param values - the dice values
+	 * @return returns the sum
+	 */
+	private static int countAny(int[] values)
+	{
+		int result = 0;
+		for (int i = 0; i < values.length; i++)
+			if (!Dice.isInitialValue(values[i]))
+				result += values[i];
+		return result;
+	}
+	
+	/**
+	 * returns true if the dice value combination is a BIG STRAIGHT
+	 * @param values - the dice values
+	 * @return returns true if BIG STRAIGHT else false
+	 */
+	private static boolean isBigStr(int[] values)
+	{
+		if (Arrays.equals(values, new int[]{1,2,3,4,5}))
+			return true;
+		if (Arrays.equals(values, new int[]{2,3,4,5,6}))
+			return true;
+		return false;
+	}
+
+	/**
+	 * returns true if the dice value combination is a SMALL STRAIGHT
+	 * @param values - the dice values
+	 * @return returns true if SMALL STRAIGHT else false
+	 */
+	private static boolean isSmlStr(int[] values)
+	{
+		int j = 0;
+		for (int i = 1; i < values.length; i++)
+		{
+			if (values[i - 1]+1 == values[i])
+				j++;
+			if (values[i - 1] == values[i])
+				continue;
+			else if (values[i - 1]+1 > values[i])
+				j = 0;
+			
+			if (j == 3)
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * returns true if all (five) dice values are equal (KNIFFEL)
+	 * @param values - the dice values
+	 * @return returns true if all values are equal else false
+	 */
+	private static boolean isFivoA(int[] values)
+	{
+		for (int i = 0; i < values.length-1; i++)
+		{
+			if (values[i] > 0 && values[i] < 7)
+				return false;
+			if (values[i] != values[i+1])
+				return false;
+		}
+		return true;
+	}
+
+	/**
+	 * returns true if the combination consists of
+	 * two equal values and three more values which are equal too [FULL-HOUSE]
+	 * Example:
+	 * [2] [2] [2] [3] [3] returns true
+	 * [2] [2] [3] [3] [3] returns true
+	 * [2] [2] [2] [2] [3] returns false
+	 * @param values - the dice values
+	 * @return returns true if FULL-HOUSE else false
+	 */
+	private static boolean isFullHouse(int[] values)
+	{
+		for (int i = 0; i < values.length - 1; i++)
+		{
+			if (values[i] != values[i+1])
+			{
+				if (Dice.isInitialValue(values[i]) || Dice.isInitialValue(values[i+1]))		// Sicherheitsabfrage falls Buttons mit Initialwerten
+					return false;
+				int a = getOcc(values[i], values);
+				int b = getOcc(values[i+1], values);
+				if (a == 3 && b == 2 || a == 2 && b == 3)
+					return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * returns true if three dice values are equal (3er PASCH)
+	 * @param values - the dice values
+	 * @return returns true if 3er PASCH else false
+	 */
+	private static boolean isThroA(int[] values)
+	{
+		for (int i = 0; i < values.length - 1; i++)
+			if (!Dice.isInitialValue(values[i]))				// Sicherheitsabfrage falls Buttons mit Initialwerten
+				if (getOcc(values[i], values) >= 3)
+					return true;
+		return false;
+	}
+
+	/**
+	 * returns true if four dice values are equal (3er PASCH)
+	 * @param values - the dice values
+	 * @return returns true if 4er PASCH else false
+	 */
+	private static boolean isFouoA(int[] values)
+	{
+		for (int i = 0; i < values.length - 1; i++)
+			if (!Dice.isInitialValue(values[i]))				// Sicherheitsabfrage falls Buttons mit Initialwerten
+				if (getOcc(values[i], values) >= 4)
+					return true;
+		return false;
+	}
+
+	/**
+	 * counts the amount of occurrences of a specific value 
+	 * @param value - value of which occurrence should determined
+	 * @param values - the dice values
+	 * @return returns the amount of occurrences
+	 */
+	private static int getOcc(int value, int[] values)
+	{
+		int j = 0;
+		for (int i = 0; i < values.length; i++)
+			if (values[i] == value)
+				j++;
+		return j;
 	}
 }

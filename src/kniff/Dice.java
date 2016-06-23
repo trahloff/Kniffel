@@ -14,7 +14,8 @@ public class Dice extends JButton
 	
 	private int value;
 	private boolean isInitial;
-	
+	private final static int initialValue = 0;
+
 	public Dice()
 	{
 		super();
@@ -35,7 +36,7 @@ public class Dice extends JButton
 	public void setInitial(boolean v)
 	{
 		this.isInitial = v;
-		this.value = 0;
+		this.value = this.initialValue;
 	}
 	
 	public static void setAllEnabled(boolean v)
@@ -109,6 +110,18 @@ public class Dice extends JButton
 				sortNext(values, i-1);
 			}
 		return values;
+	}
+	
+	
+	public int getInitialValue()
+	{
+		return initialValue;
+	}
+	
+
+	public static boolean isInitialValue(int i)
+	{
+		return i == initialValue;
 	}
 	
 	public void paintComponent(Graphics g)
