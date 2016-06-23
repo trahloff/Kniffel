@@ -167,23 +167,17 @@ public class Sheet extends JPanel
 				b.setValue(Dice.getSortedValues(Controller.kniffDice));		
 		
 		// Berechnung zur Ausgabe auf den Zwischenergebnis Labels		
-		int a = 0,	// gesamt & gesamt oberer Teil
-			b = 0,	// bonus
-			c = 0;	// gesamt unterer Teil
+		int b = 0;	// bonus
 		
-		// oberer Teil
-		for (int i = 0; i < 6; i++)
-			if (this.combinations.get(i).isKilled())
-				a += this.combinations.get(i).getValue();
-		
-		// unterer Teil
-		for (int i = 6; i < combinations.size(); i++)
-			if (this.combinations.get(i).isKilled())
-				c += this.combinations.get(i).getValue();
+		// gesamt & gesamt oberer Teil
+		int a = getPointsOfUpperPart();
 		
 		// Bonus wenn mehr als 63 im oberen Teil
 		if (a >= 63)
 			b = 35;
+		
+		// gesamt unterer Teil
+		int c = getPointsOfLowerPart();
 		
 		try
 		{
@@ -200,6 +194,40 @@ public class Sheet extends JPanel
 		{
 			System.err.println("Fehlerhafte Indexzuweisung verhindert korrekte Berrechnung der Ergebnisse!");
 		}
+	}
+	
+	// oberer Teil
+	public int getPointsOfUpperPart()
+	{
+		int a = 0;
+		for (int i = 0; i < 6; i++)
+			if (this.combinations.get(i).isKilled())
+				a += this.combinations.get(i).getValue();
+		return a;
+	}
+	
+	// gibt es einen Bonus?
+	public boolean hasBonus()
+	{
+		return getPointsOfUpperPart() >= 63;
+	}
+	
+	// unterer Teil
+	public int getPointsOfLowerPart()
+	{
+		int a = 0;
+		for (int i = 6; i < combinations.size(); i++)
+			if (this.combinations.get(i).isKilled())
+				a += this.combinations.get(i).getValue();
+		return a;
+	}
+	
+	public int getEndresult()
+	{
+		int a = getPointsOfUpperPart();
+		if (a >= 63)
+			a += 35;
+		return  a + getPointsOfLowerPart();
 	}
 
 	// legt den Titel des Sheets fest

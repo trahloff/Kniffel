@@ -146,7 +146,7 @@ public class CombiButton extends KniffButton
 	// übersteuerrung um CombiButton nach bestimmten Schema zu Zeichen
 	public void paintComponent(Graphics g)
 	{
-		Design.drawButton(this, g);
+		//Design.drawButton(this, g);
 		super.paintComponent(g);
 	}
 	

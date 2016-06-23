@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.RenderingHints.Key;
 import java.awt.event.MouseAdapter;
@@ -36,24 +37,26 @@ import java.beans.PropertyChangeEvent;
 
 public class ScOption extends Screen
 {
+	private static final long serialVersionUID = 1L;
+	
 	private JLabel lbTitle = new JLabel("Spieleinstellungen");
-	private JPanel pnPlayers;
+	private KniffPanel pnPlayers;
 	private JLabel lbInfoMessage;
-	KniffButton btnStart;
-	KniffButton btnAdd, btnRmv;
+	private KniffButton btnStart;
+	private KniffButton btnAdd, btnRmv;
 	private static Dictionary<KniffButton, Player> players = new Hashtable<KniffButton, Player>();
 	private JPanel pnInput;
-	static JTextField nameValue;
-	static JTextField kurzValue;
+	private static JTextField nameValue;
+	private static JTextField kurzValue;
 	
 	public ScOption()
 	{
 		this.setLayout(null);
 		this.setName("option");
 		
-		pnPlayers = new JPanel();
+		pnPlayers = new KniffPanel();
 		pnPlayers.setBackground(Color.GRAY);
-		pnPlayers.setBounds(229, 220, 286, 334);
+		pnPlayers.setBounds(229, 220, 280, 365);
 		add(pnPlayers);
 		pnPlayers.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -82,7 +85,7 @@ public class ScOption extends Screen
 					while(i.hasMoreElements())
 						plrs.add(i.nextElement());
 					Controller.startGame(plrs);
-					players = new Hashtable<KniffButton, Player>();
+					//players = new Hashtable<KniffButton, Player>();
 				} catch (Exception e2)
 				{
 					
@@ -102,7 +105,7 @@ public class ScOption extends Screen
 				addPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
 			}
 		});
-		btnAdd.setBounds(525, 353, 60, 60);
+		btnAdd.setBounds(455, 122, 60, 60);
 		btnAdd.setComponentDesign(EComponentDesign.startButton);
 		this.add(btnAdd);
 		
@@ -120,11 +123,11 @@ public class ScOption extends Screen
 			}
 			
 		});
-		btnback.setBounds(229, 584, 100, 41);
+		btnback.setBounds(229, 609, 100, 41);
 		add(btnback);
 		
 		pnInput = new JPanel();
-		pnInput.setBounds(229, 122, 287, 60);
+		pnInput.setBounds(229, 122, 200, 60);
 		JLabel nameLabel = new JLabel ("Name");
 		nameLabel.setBounds(0, 0, 0, 0);
 		JLabel kurzLabel = new JLabel ("Kürzel");
@@ -132,12 +135,12 @@ public class ScOption extends Screen
 		nameLabel.setFont(Design.getFont());
 		kurzLabel.setFont(Design.getFont());
 		nameValue = new JTextField();
-		nameValue.setBounds(0, 25, 220, 30);
-		nameValue.setFont(Design.getFont());
+		nameValue.setBounds(10, 25, 130, 30);
+		nameValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		kurzValue = new JTextField();
 		
-		kurzValue.setBounds(230, 25, 57, 30);
-		kurzValue.setFont(Design.getFont());
+		kurzValue.setBounds(150, 25, 45, 30);
+		kurzValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		pnInput.setLayout(null);
 		
 		pnInput.add(nameLabel);
@@ -146,7 +149,7 @@ public class ScOption extends Screen
 		pnInput.add(kurzValue);
 		add(pnInput);
 
-		btnStart.setBounds(415, 584, 100, 41);
+		btnStart.setBounds(414, 609, 100, 41);
 		btnStart.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnStart);
 	
@@ -163,7 +166,8 @@ public class ScOption extends Screen
 			Player p = createPlayer(playerName, shortName);		
 			
 			KniffButton b = p.getPlayerButton();
-			b.setPreferredSize(new Dimension(this.pnPlayers.getWidth(), 40));
+			b.setFont(Design.getFont().deriveFont(0, 15));
+			b.setPreferredSize(new Dimension(this.pnPlayers.getWidth() - 10, 40));
 			
 			b.addMouseListener(new MouseAdapter() {
 				@Override
@@ -251,7 +255,7 @@ public class ScOption extends Screen
 	{
 		if (players.size() < 1)
 		{
-			this.err("Ohne Spieler kein Spiel!");
+			this.err("Kein Spiel ohne Spieler!");
 			this.btnStart.setEnabled(false);
 		}
 		else if (players.size() > 8)

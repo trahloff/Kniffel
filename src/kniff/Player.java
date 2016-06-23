@@ -15,45 +15,68 @@ public class Player implements Comparable<Player>
 
 	public Player(String name, String shortName) throws Exception
 	{
-		name = name.trim();
-		shortName = shortName.trim();
-		
-		if (name.length() == 0)
-			throw new Exception("Der Name des Spielers darf nicht leer sein!");
-		if (name.length() > 20)
-			throw new Exception("Der Name des Spielers darf nicht länger als 20 Zeichen sein!");
-		if (shortName.length() == 0)
-			throw new Exception("Das Kürzel des Spielers darf nicht leer sein!");
-		if (shortName.length() > 3)
-			throw new Exception("Das Kürzel darf nicht länger als 3 Zeichen sein!");
-		
-		this.name = name;
-		this.shortName = shortName;
+		this.setName(name);
+		this.setShortName(shortName);
 		
 		this.sheet = new Sheet(true);
 		this.sheet.setTitle(this.shortName);
 	}
 	
+	public void resetSheet()
+	{
+		this.sheet = new Sheet(true);
+		this.sheet.setTitle(shortName);
+	}
+	
+	public int getPoints()
+	{
+		return this.sheet.getEndresult();
+	}
+	
+	public String getFullName()
+	{
+		return this.getName() + " [" + this.getShortName() + "]";
+	}
+	
+	public void setName(String name) throws Exception
+	{
+		name = name.trim();
+		
+		if (name.length() == 0)
+			throw new Exception("Der Name des Spielers darf nicht leer sein!");
+		if (name.length() > 20)
+			throw new Exception("Der Name des Spielers darf nicht länger als 20 Zeichen sein!");
+		this.name = name;
+	}
+
 	public String getName()
 	{
 		return name;
 	}
-
-	public void setName(String name)
+	
+	public void setShortName(String shortName) throws Exception
 	{
-		this.name = name;
+		shortName = shortName.trim();
+		
+		if (shortName.length() == 0)
+			throw new Exception("Das Kürzel des Spielers darf nicht leer sein!");
+		if (shortName.length() > 3)
+			throw new Exception("Das Kürzel darf nicht länger als 3 Zeichen sein!");
+		this.shortName = shortName;
 	}
-
+	
 	public String getShortName()
 	{
 		return shortName;
 	}
 
-	public void setShortName(String shortName)
+	public KniffButton getPlayerButton()
 	{
-		this.shortName = shortName;
+		if (this.button == null)
+			this.button = new KniffButton(this.getFullName());
+		return this.button;
 	}
-
+	
 	public Sheet getSheet()
 	{
 		return sheet;
@@ -62,15 +85,5 @@ public class Player implements Comparable<Player>
 	public int compareTo(Player p)
 	{
 		return p.name.compareTo(this.name);
-	}
-	
-	public KniffButton getPlayerButton()
-	{
-		if (this.button == null)
-		{
-			this.button = new KniffButton(this.getName() + " : " + this.getShortName());
-			this.button.setComponentDesign(EComponentDesign.menuButton);
-		}
-		return this.button;
 	}
 }

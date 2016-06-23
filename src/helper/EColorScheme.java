@@ -4,5 +4,6 @@ public enum EColorScheme
 {
 	Standard,
 	Feuer,
-	Wasser
+	Wasser,
+	Erde
 }

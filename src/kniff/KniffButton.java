@@ -11,6 +11,42 @@ import helper.EComponentDesign;
 public class KniffButton extends JButton
 {
 	private EComponentDesign design = EComponentDesign.menuButton;
+	public EComponentDesign getDesign()
+	{
+		return design;
+	}
+
+	public void setDesign(EComponentDesign design)
+	{
+		this.design = design;
+	}
+
+	public boolean isClicked()
+	{
+		return isClicked;
+	}
+
+	public boolean isEntered()
+	{
+		return isEntered;
+	}
+
+	public boolean isExited()
+	{
+		return isExited;
+	}
+
+	public boolean isPressed()
+	{
+		return isPressed;
+	}
+
+	public boolean isReleased()
+	{
+		return isReleased;
+	}
+
+	private boolean isClicked, isEntered, isExited, isPressed, isReleased;
 	
 	public void setComponentDesign(EComponentDesign d)
 	{
@@ -21,9 +57,8 @@ public class KniffButton extends JButton
 	{
 		return this.design;
 	}
-	
-	public boolean isClicked, isEntered, isExited, isPressed, isReleased;
-	private MouseListener la = new MouseListener()
+
+	private MouseListener mouseListener = new MouseListener()
 			{
 				public void reset()
 				{
@@ -74,7 +109,7 @@ public class KniffButton extends JButton
 	public KniffButton(String string)
 	{
 		super(string);
-		this.addMouseListener(la);
+		this.addMouseListener(mouseListener);
 	}
 
 	public void paintComponent(Graphics g)
