@@ -18,6 +18,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import helper.MapUtil;
+
 @SuppressWarnings({"unused" })
 public class POI {
 
@@ -150,11 +152,9 @@ public class POI {
 			}
 		}
 
-<<<<<<< HEAD
-		return map;
-=======
+
 		return MapUtil.sortByValue(map);
->>>>>>> branch 'master' of https://github.com/trahloff/kniffel.git
+
 
 	}
 	public static ArrayList<String> getPlayerList() {

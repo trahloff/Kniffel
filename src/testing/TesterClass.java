@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import poi.POI;
+import poi.Scores;
 
+@SuppressWarnings("unused")
 public class TesterClass {
 
-	@SuppressWarnings("unused")
 	private static void testPOI() throws IOException {
 
 		POI.savePlayerScores("Hanssss", 12345);
@@ -19,6 +20,7 @@ public class TesterClass {
 
 	}
 
+
 	private static void testSave() throws IOException {
 
 		System.out.println(POI.getAllScores());
@@ -28,8 +30,8 @@ public class TesterClass {
 
 	public static void main(String[] args) throws IOException {
 
-		//		Scores.create(POI.getAllScores());
-		testSave();
+		Scores.create(POI.getAllScores());
+		//		testSave();
 
 
 	}

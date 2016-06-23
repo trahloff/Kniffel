@@ -19,16 +19,15 @@ public class Scores extends JFrame {
 
 	public static void create(Map<String, Integer> map){
 
-		String punkte = "<html><h1>Score:</h1>";
-		String spieler = "<html><h1>Spieler:</h1>";
+		String spieler="",punkte="";
 
 		for(Entry<String, Integer> entry : map.entrySet()) {
-			punkte+="<br>"+entry.getValue();
-			spieler+="<br>"+entry.getKey();
+			punkte=entry.getValue()+"<br>"+punkte;
+			spieler=entry.getKey()+"<br>"+spieler;
 		}
 
-		punkte += "</html>";
-		spieler += "</html>";
+		punkte = "<html><h1>Score:</h1>"+punkte+"</html>";
+		spieler = "<html><h1>Spieler:</h1>"+spieler+"</html>";
 
 
 		JDialog dialog = new JDialog();

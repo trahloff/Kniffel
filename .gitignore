@@ -1,2 +1,6 @@
+bin/**
 *.class
 *.xls
+*.log
+*.zip
+*.jar
