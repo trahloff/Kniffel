@@ -46,9 +46,9 @@ public class MainWindow
 	private void initialize()
 	{
 		frmKniffelig = new JFrame();
-		frmKniffelig.setResizable(true);
+		frmKniffelig.setResizable(false);
 		frmKniffelig.setTitle("Kniffelig");
-		frmKniffelig.setBounds(100, 100, 800, 900);
+		frmKniffelig.setBounds(100, 100, 870, 820);
 		frmKniffelig.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		frmKniffelig.getContentPane().setLayout(new CardLayout(0, 0));	
 		frmKniffelig.getContentPane().add(Controller.scContainer, "container");

@@ -22,7 +22,7 @@ public class ScGame extends Screen
 	
 	private KniffButton btnRoll;
 	private JLabel lblInfolabel;
-	private JPanel pnSheets;
+	private KniffPanel pnSheets;
 	private JPanel pnDiceContainer;
 	
 	public KniffButton getBtnRoll()
@@ -66,7 +66,7 @@ public class ScGame extends Screen
 		lblInfolabel.setHorizontalAlignment(SwingConstants.CENTER);		
 		this.add(lblInfolabel);
 		
-		pnSheets = new JPanel();
+		pnSheets = new KniffPanel();
 		pnSheets.setBounds(204, 66, 540, 624);
 		this.add(pnSheets);
 		pnSheets.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -79,7 +79,7 @@ public class ScGame extends Screen
 		this.add(sheet);
 		
 		pnDiceContainer = new JPanel();
-		pnDiceContainer.setBounds(758, 144, 119, 576);
+		pnDiceContainer.setBounds(758, 144, 100, 576);
 		this.add(pnDiceContainer);
 		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		

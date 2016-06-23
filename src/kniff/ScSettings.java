@@ -77,6 +77,17 @@ public class ScSettings extends Screen
 		lblAuswahlDesDesignschemas.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		lblAuswahlDesDesignschemas.setBounds(240, 197, 250, 30);
 		add(lblAuswahlDesDesignschemas);
+		
+//		JLabel lblAuswahlDerSchrift = new JLabel("Auswahl der Schriftart");
+//		lblAuswahlDerSchrift.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+//		lblAuswahlDerSchrift.setBounds(240, 284, 250, 30);
+//		add(lblAuswahlDerSchrift);
+//		
+//		JComboBox<EDesign> comboBox = new JComboBox<EDesign>();
+//		comboBox.setSelectedIndex(0);
+//		comboBox.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+//		comboBox.setBounds(290, 325, 200, 35);
+//		add(comboBox);
 	}
 	
 	public void paintComponent(Graphics g)

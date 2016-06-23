@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.util.*;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import helper.EColor;
 import helper.EColorScheme;
@@ -34,7 +35,10 @@ public class Design
 			setFire();
 			break;
 		case Wasser:
-			setBlue();
+			setWater();
+			break;
+		case Erde:
+			setEarth();
 			break;
 		default:
 			break;
@@ -51,6 +55,7 @@ public class Design
 		case 0:
 		case 1:
 		case 2:
+			c = EColorScheme.Erde;
 		case 3:
 			c = EColorScheme.Wasser;
 			break;
@@ -90,17 +95,36 @@ public class Design
 	private static void setFire()
 	{
 		colorDictionary = new Hashtable<EColor, Color>();
-		colorDictionary.put(EColor.bg_dark, 		Color.decode("#555555")); // Rahmen von MenüButton und Hintergrund von allen Button bei Maus über Button
-		colorDictionary.put(EColor.bg_light, 		Color.decode("#DDDDDD")); // Rahmen vom StartButton und Hintergrung von Menübutton
-		colorDictionary.put(EColor.fg_dark, 		Color.decode("#111111")); // Schrifft der Menübutton
-		colorDictionary.put(EColor.fg_light, 		Color.decode("#FFFFFF")); // Schriff der Startbutton
+		colorDictionary.put(EColor.bg_dark, 		Color.decode("#665555")); // Rahmen von MenüButton und Hintergrund von allen Button bei Maus über Button
+		colorDictionary.put(EColor.bg_light, 		Color.decode("#DDDDDD")); // Rahmen vom StartButton und Hintergrund von Menübutton
+		colorDictionary.put(EColor.fg_dark, 		Color.decode("#111111")); // Schrift der Menübutton
+		colorDictionary.put(EColor.fg_light, 		Color.decode("#FFFFFF")); // Schrift der Startbutton
 		colorDictionary.put(EColor.accent_a_dark, 	Color.decode("#DDAA33"));
-		colorDictionary.put(EColor.accent_a_light, 	Color.decode("#F47755")); // Schrifft der Menübutton bei Maus über Button
+		colorDictionary.put(EColor.accent_a_light, 	Color.decode("#F47755")); // Schrift der Menübutton bei Maus über Button
 		colorDictionary.put(EColor.accent_b_dark, 	Color.decode("#00FFAA")); // Rahmen von Startbutton bei Maus über Button
 		colorDictionary.put(EColor.accent_b_light,  Color.decode("#00AADD"));
 		colorDictionary.put(EColor.light_glow_a,  	Color.decode("#DDEEFF"));
-		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF")); //  HintergrundButton Kniffell-Tabelle 
+		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF")); //  HintergrundButton Kniffel-Tabelle 
 		colorDictionary.put(EColor.disabled_dice_b, Color.decode("#E0E0E0")); //  Rahmen von HintergrundButton Kniffel-Tabelle
+		colorDictionary.put(EColor.error_text, 		Color.decode("#DD0066")); //  Farbe für Fehler
+		colorDictionary.put(EColor.warn_text, 		Color.decode("#DDAA00")); //  Farbe für Warnungen
+	}
+	
+	// Achtung extrem hässlich!!! :D
+	private static void setEarth()
+	{
+		colorDictionary = new Hashtable<EColor, Color>();
+		colorDictionary.put(EColor.bg_dark, 		Color.decode("#666655")); // Rahmen von MenüButton und Hintergrund von allen Button bei Maus über Button
+		colorDictionary.put(EColor.bg_light, 		Color.decode("#EEE9EE")); // Rahmen vom StartButton und Hintergrund von Menübutton
+		colorDictionary.put(EColor.fg_dark, 		Color.decode("#111111")); // Schrift der Menübutton
+		colorDictionary.put(EColor.fg_light, 		Color.decode("#FFFFFF")); // Schrift der Startbutton
+		colorDictionary.put(EColor.accent_a_dark, 	Color.decode("#AA3399"));
+		colorDictionary.put(EColor.accent_a_light, 	Color.decode("#DDCC99")); // Schrift der Menübutton bei Maus über Button
+		colorDictionary.put(EColor.accent_b_dark, 	Color.decode("#00FFAA")); // Rahmen von Startbutton bei Maus über Button
+		colorDictionary.put(EColor.accent_b_light,  Color.decode("#00AADD"));
+		colorDictionary.put(EColor.light_glow_a,  	Color.decode("#DDEEFF"));
+		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#ECECE0")); //  HintergrundButton Kniffel-Tabelle 
+		colorDictionary.put(EColor.disabled_dice_b, Color.decode("#887755")); //  Rahmen von HintergrundButton Kniffel-Tabelle
 		colorDictionary.put(EColor.error_text, 		Color.decode("#DD0066")); //  Farbe für Fehler
 		colorDictionary.put(EColor.warn_text, 		Color.decode("#DDAA00")); //  Farbe für Warnungen
 	}
@@ -123,7 +147,7 @@ public class Design
 		colorDictionary.put(EColor.warn_text, 		Color.decode("#DDAA00")); //  Farbe für Warnungen
 	}
 
-	private static void setBlue()
+	private static void setWater()
 	{
 		colorDictionary = new Hashtable<EColor, Color>();
 		colorDictionary.put(EColor.bg_dark, 		Color.decode("#666666"));
@@ -184,11 +208,11 @@ public class Design
 			// final Color setting for Text
 			b.setForeground(Design.getColor(EColor.fg_light));
 			
-			if (b.isClicked)
+			if (b.isClicked())
 			{
-				
+
 			}
-			else if(b.isEntered)
+			else if(b.isEntered())
 			{
 				g.setColor(Design.getColor(EColor.accent_a_light));
 				g.fillOval(0, 0, b.getWidth() - 1, b.getHeight() - 1);
@@ -201,7 +225,7 @@ public class Design
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.fg_light));
 			}
-			else if(b.isExited)
+			else if(b.isExited())
 			{
 				g.setColor(Design.getColor(EColor.bg_light));
 				g.fillOval(0, 0, b.getWidth() - 1, b.getHeight() - 1);
@@ -211,7 +235,7 @@ public class Design
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.fg_light));
 			}
-			else if(b.isPressed)
+			else if(b.isPressed())
 			{
 				g.setColor(Design.getColor(EColor.accent_a_light));
 				g.fillOval(0, 0, b.getWidth() - 1, b.getHeight() - 1);
@@ -221,7 +245,7 @@ public class Design
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.fg_light));
 			}
-			else if(b.isReleased)
+			else if(b.isReleased())
 			{
 				
 			}
@@ -272,7 +296,7 @@ public class Design
 			// final Color setting for Text
 			b.setForeground(Design.getColor(EColor.fg_dark));
 			
-			if (b.isClicked)
+			if (b.isClicked())
 			{
 				g.setColor(Design.getColor(EColor.bg_dark));
 				g.fillRoundRect(0, 0, b.getWidth() - 1, b.getHeight() - 1, r, r);
@@ -282,7 +306,7 @@ public class Design
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.fg_light));
 			}
-			else if(b.isEntered)
+			else if(b.isEntered())
 			{
 				g.setColor(Design.getColor(EColor.bg_dark));
 				g.fillRoundRect(0, 0, b.getWidth() - 1, b.getHeight() - 1, r, r);
@@ -292,7 +316,7 @@ public class Design
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.accent_a_light));
 			}
-			else if(b.isExited)
+			else if(b.isExited())
 			{
 				g.setColor(Design.getColor(EColor.bg_light));
 				g.fillRoundRect(0, 0, b.getWidth() - 1, b.getHeight() - 1, r, r);
@@ -302,7 +326,7 @@ public class Design
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.fg_dark));
 			}
-			else if(b.isPressed)
+			else if(b.isPressed())
 			{
 				g.setColor(Design.getColor(EColor.accent_a_light));
 				g.fillRoundRect(0, 0, b.getWidth() - 1, b.getHeight() - 1, r, r);
@@ -314,7 +338,7 @@ public class Design
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.accent_a_light));
 			}
-			else if(b.isReleased)
+			else if(b.isReleased())
 			{
 				g.setColor(Design.getColor(EColor.bg_dark));
 				g.fillRoundRect(0, 0, b.getWidth() - 1, b.getHeight() - 1, r, r);
@@ -335,6 +359,20 @@ public class Design
 			// final Color setting for Text
 			b.setForeground(Design.getColor(EColor.fg_light));
 		}
+	}
+	
+	public static void drawPanel(KniffPanel p, Graphics g) 
+	{
+		p.setFont(getFont());		
+        Graphics2D antiAlias = (Graphics2D)g;
+        antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+		int r = 5;
+        
+		g.setColor(Design.getColor(EColor.disabled_dice_a));
+		g.fillRoundRect(0, 0, p.getWidth() - 1, p.getHeight() - 1, r, r);
+		g.setColor(Design.getColor(EColor.disabled_dice_b));
+        g.drawRoundRect(0, 0, p.getWidth() - 1, p.getHeight() - 1, r, r);
 	}
 	
 	public static void setFont(Font font)

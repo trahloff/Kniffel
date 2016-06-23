@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
+import helper.EColorScheme;
+
 public class Controller
 {
 	public static Screen scContainer 		= new Screen(new CardLayout());
@@ -25,7 +27,8 @@ public class Controller
 	
 	public static void main(String[] args)
 	{
-		Design.setRandom();
+		//Design.setRandom();
+		Design.setColorScheme(EColorScheme.Erde);
 		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
 		
 		kniffDice = Dice.initDiceCollection();
@@ -52,7 +55,7 @@ public class Controller
 	
 		Controller.show(scGame);
 		scGame.init();
-		scGame.writeMessage(currentPlayer.getName() + " macht den ersten Wurf");
+		scGame.writeMessage(currentPlayer.getFullName() + " macht den ersten Wurf");
 	}
 	
 	public static void nextPlayer()
@@ -71,7 +74,7 @@ public class Controller
 		if (ip.hasNext())
 			currentPlayer = ip.next();	
 		
-		scGame.writeMessage(currentPlayer.getName() + " ist an der Reihe");
+		scGame.writeMessage(currentPlayer.getFullName() + " ist an der Reihe");
 		remainingRolls = 3;
 		
 		scGame.getBtnRoll().setEnabled(true);
@@ -99,9 +102,14 @@ public class Controller
 			System.out.println("Spielabbruch undefiniert");
 			break;
 		}
-		show(scStart);
+		
+		for (Player p : players)
+			p.resetSheet();
+		
 		currentPlayer = null;
 		players.clear();
+		show(scStart);
+
 	}
 	
 	public static void rollDice()

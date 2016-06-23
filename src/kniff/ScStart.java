@@ -1,6 +1,7 @@
 package kniff;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
@@ -11,7 +12,7 @@ import helper.EComponentDesign;
 public class ScStart extends Screen
 {	
 	private static final long serialVersionUID = 1L;
-	public KniffButton btnStart, btnEnd;
+	public KniffButton btnStart, btnEnd, btnSettings;
 	JLabel lbTitle, lbMessage;
 	
 	public ScStart()
@@ -22,7 +23,7 @@ public class ScStart extends Screen
 		
 		// Title-Label
 		lbTitle = new JLabel("Kniffelig");
-		lbTitle.setBounds(10, 150, 650, 150);
+		lbTitle.setBounds(0, 150, 650, 150);
 		lbTitle.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 90));
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(lbTitle);
@@ -60,7 +61,7 @@ public class ScStart extends Screen
 		btnEnd.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnEnd);
 		
-		KniffButton btnSettings = new KniffButton("Einstellungen");
+		btnSettings = new KniffButton("Einstellungen");
 		btnSettings.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e)
@@ -118,5 +119,24 @@ public class ScStart extends Screen
 	{
 		super.setVisible(b);
 		this.lbMessage.setText(this.getRandomMessage());
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		
+		// repositioning in the center of the parent
+		if (this.getParent() == null)
+			return;
+		
+		int halfWidth = this.getParent().getWidth() / 2;
+		
+		this.lbTitle.setBounds(0, 130, this.getParent().getWidth(), 150);
+		
+		this.btnStart.setBounds(halfWidth - 200 / 2, 300, 200, 200);	
+		this.btnSettings.setBounds(halfWidth - 180 / 2, 570, 180, 50);
+		this.btnEnd.setBounds(halfWidth - 180 / 2, 630, 180, 50);
+		
+		this.lbMessage.setBounds(0, 700, this.getParent().getWidth(), 30);
 	}
 }
