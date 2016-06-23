@@ -13,17 +13,18 @@ import javax.swing.JButton;
 
 import helper.EColor;
 import helper.EColorScheme;
+import helper.EDesign;
 
 public class Design
 {
 	private static Dictionary<EColor, Color> colorDictionary = new Hashtable<EColor, Color>();
-	private static EColorScheme eColorScheme;
-	private static Font globalFont;
-	private static int globalSize;
+	private static EColorScheme globalColorScheme = EColorScheme.Standard;
+	private static Font globalFont = new Font("OCR A Extended", Font.PLAIN, 12);
+	private static EDesign globalDesignScheme = EDesign.Standard;
 	
 	public static void setColorScheme(EColorScheme s)
 	{
-		eColorScheme = s;
+		globalColorScheme = s;
 		switch (s)
 		{
 		case Standard:
@@ -42,7 +43,8 @@ public class Design
 	
 	public static void setRandom()
 	{
-		EColorScheme s;
+		EColorScheme c;
+		EDesign d;
 		
 		switch ((int) (Math.random() * 10))
 		{
@@ -50,16 +52,34 @@ public class Design
 		case 1:
 		case 2:
 		case 3:
-			s = EColorScheme.Wasser;
+			c = EColorScheme.Wasser;
+			break;
 		case 4:
-			s = EColorScheme.Feuer;
+			c = EColorScheme.Feuer;
 			break;
 		default:
-			s = EColorScheme.Standard;
+			c = EColorScheme.Standard;
 			break;
 		}
 		
-		setColorScheme(s);
+		switch ((int) (Math.random() * 10))
+		{
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+			d = EDesign.Sap;
+			break;
+		case 4:
+			d = EDesign.Episch;
+			break;
+		default:
+			d = EDesign.Standard;
+			break;
+		}
+		
+		setColorScheme(c);
+		setDesignScheme(d);
 	}
 	
 	public static Color getColor(EColor c)
@@ -81,6 +101,8 @@ public class Design
 		colorDictionary.put(EColor.light_glow_a,  	Color.decode("#DDEEFF"));
 		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF")); //  HintergrundButton Kniffell-Tabelle 
 		colorDictionary.put(EColor.disabled_dice_b, Color.decode("#E0E0E0")); //  Rahmen von HintergrundButton Kniffel-Tabelle
+		colorDictionary.put(EColor.error_text, 		Color.decode("#DD0066")); //  Farbe für Fehler
+		colorDictionary.put(EColor.warn_text, 		Color.decode("#DDAA00")); //  Farbe für Warnungen
 	}
 	
 	private static void setDefault()
@@ -97,6 +119,8 @@ public class Design
 		colorDictionary.put(EColor.light_glow_a,  	Color.decode("#DDDDDD"));
 		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF"));
 		colorDictionary.put(EColor.disabled_dice_b, Color.decode("#E0E0E0"));
+		colorDictionary.put(EColor.error_text, 		Color.decode("#DD0066")); //  Farbe für Fehler
+		colorDictionary.put(EColor.warn_text, 		Color.decode("#DDAA00")); //  Farbe für Warnungen
 	}
 
 	private static void setBlue()
@@ -113,6 +137,8 @@ public class Design
 		colorDictionary.put(EColor.light_glow_a,  	Color.decode("#DDDDDD"));
 		colorDictionary.put(EColor.disabled_dice_a, Color.decode("#EFEFEF"));
 		colorDictionary.put(EColor.disabled_dice_b, Color.decode("#E0E0E0"));
+		colorDictionary.put(EColor.error_text, 		Color.decode("#DD0066")); //  Farbe für Fehlertexte
+		colorDictionary.put(EColor.warn_text, 		Color.decode("#DDAA00")); //  Farbe für Warnungen
 	}
 	
 	public static Font getFont()
@@ -215,8 +241,25 @@ public class Design
 		
 	}
 
-	private static void paintMenuButton(KniffButton b, Graphics g) // Menübutton
+	// MenuButton
+	private static void paintMenuButton(KniffButton b, Graphics g)
 	{		
+		switch (globalDesignScheme)
+		{
+		case Episch:
+			// break;
+		case Sap:
+			// break;
+		case Standard:
+		default:
+			paintMenuButtonDefault(b, g);
+			break;
+		}
+	}
+
+	// MenuButton : Default
+	private static void paintMenuButtonDefault(KniffButton b, Graphics g)
+	{
 		int r = 5;
 		
 		if (b.isEnabled())
@@ -293,7 +336,7 @@ public class Design
 			b.setForeground(Design.getColor(EColor.fg_light));
 		}
 	}
-
+	
 	public static void setFont(Font font)
 	{
 		globalFont = font;
@@ -301,11 +344,16 @@ public class Design
 
 	public static EColorScheme getColorScheme()
 	{
-		return eColorScheme;
+		return globalColorScheme;
 	}
-
-	public static void setSize(int s)
+	
+	public static void setDesignScheme(EDesign d)
 	{
-		globalSize = s;
+		globalDesignScheme = d;
+	}
+	
+	public static EDesign getDesignScheme()
+	{
+		return globalDesignScheme;
 	}
 }

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import javax.swing.JPanel;
-
 public class Controller
 {
 	public static Screen scContainer 		= new Screen(new CardLayout());
@@ -29,10 +27,9 @@ public class Controller
 	{
 		Design.setRandom();
 		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
-		Design.setSize(1);
 		
 		kniffDice = Dice.initDiceCollection();
-		initScreens();		
+		initScreens();
 		MainWindow.main(args);
 		show(scStart);
 	}

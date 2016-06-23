@@ -1,10 +1,17 @@
  package kniff;
 
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import helper.EComponentDesign;
+
 public class Player implements Comparable<Player>
 {
 	private String name;
 	private String shortName;
 	private Sheet sheet;
+	private KniffButton button;
 
 	public Player(String name, String shortName) throws Exception
 	{
@@ -52,5 +59,15 @@ public class Player implements Comparable<Player>
 	public int compareTo(Player p)
 	{
 		return p.name.compareTo(this.name);
+	}
+	
+	public KniffButton getPlayerButton()
+	{
+		if (this.button == null)
+		{
+			this.button = new KniffButton(this.getName() + " : " + this.getShortName());
+			this.button.setComponentDesign(EComponentDesign.menuButton);
+		}
+		return this.button;
 	}
 }

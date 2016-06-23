@@ -32,6 +32,7 @@ public class MainWindow
 				} catch (Exception e)
 				{
 					e.printStackTrace();
+					Controller.show(Controller.scStart);
 				}
 			}
 		});
