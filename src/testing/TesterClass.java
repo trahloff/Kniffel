@@ -2,7 +2,8 @@ package testing;
 
 import java.io.IOException;
 import java.util.Iterator;
-import poi.*;
+
+import poi.POI;
 
 public class TesterClass {
 
