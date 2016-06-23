@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import helper.EColor;
 import helper.EComponentDesign;
 import helper.EDiceCombination;
 
@@ -100,6 +101,8 @@ public class Sheet extends JPanel
 	};
 	
 	// initialisiert alle CombiButtons im Sheet
+	
+	//
 	private void initCombiButtons()
 	{
 		// für jede Kombination wird ein Button angelegt
@@ -132,9 +135,13 @@ public class Sheet extends JPanel
 			JLabel l = new JLabel(value[i]);
 			l.setFont(Design.getFont());
 			l.setHorizontalAlignment(SwingConstants.CENTER);
-			l.setBounds(0, 0, 10, 0);
+			if (index[i] == 18)
+				l.setFont(l.getFont().deriveFont(1, 20));
+			
 			content.add(l, index[i]);
 		}
+		
+		
 	}
 	
 	// Gibt den CombiButton des Sheets zurück,
@@ -151,6 +158,7 @@ public class Sheet extends JPanel
 		return null;
 	}
 
+	//
 	public void updateSheetValues(Dice[] combination)
 	{
 		// für jede Kombination, die noch nicht gewählt wurde, wird der neue Wert gesetzt.
@@ -302,7 +310,7 @@ public class Sheet extends JPanel
 	}
 	
 	/**
-	 * Calculates the sum of occurence of a specific dice value
+	 * Calculates the sum of occurrence of a specific dice value
 	 * @param value - specific value
 	 * @param values - the dice values
 	 * @return returns the sum
