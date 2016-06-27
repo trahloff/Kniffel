@@ -62,7 +62,7 @@ public class ScGame extends Screen
 		
 		lblInfolabel = new JLabel("Spielinfo");
 		lblInfolabel.setFont(new Font("OCR A Extended", Font.PLAIN, 20));
-		lblInfolabel.setBounds(10, 11, 734, 48);
+		lblInfolabel.setBounds(20, 11, 734, 48);
 		lblInfolabel.setHorizontalAlignment(SwingConstants.CENTER);		
 		this.add(lblInfolabel);
 		
