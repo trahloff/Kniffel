@@ -23,14 +23,18 @@ public class TesterClass {
 
 	private static void testSave() throws IOException {
 
-		System.out.println(POI.getAllScores());
-		System.out.println(POI.getScoreByPlayer("User4"));
+		//		for (int i = 0; i < 14; i++) {
+		//			POI.savePlayerScores("Hans", (int)(Math.random() * 1000));
+		//		}
+
+		//		Scores.highscoreAll(POI.getAllScores());
+		Scores.highscorePlayer(POI.getScoreByPlayer("Hans"));
+		//		Scores.highscorePlayer(POI.getScoreByPlayer("Haafsdxrsns"));
 
 	}
 
 	public static void main(String[] args) throws IOException {
-		POI.savePlayerScores("Hans", 123456);
-		Scores.create(POI.getAllScores());
+
 		testSave();
 
 

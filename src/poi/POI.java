@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,12 +21,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import helper.MapUtil;
-import helper.SortedArrayList;
 
 @SuppressWarnings({"unused" })
 public class POI {
 
 	private static File saveFile = new File("save.xls");
+
+	// private funtions
 	private static Workbook getSave() throws IOException {
 		FileInputStream input = new FileInputStream(saveFile);
 		Workbook wb = new HSSFWorkbook(input);
@@ -112,10 +115,13 @@ public class POI {
 
 
 	}
+	private static void showReadError() {
+		JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
+	}
 
-	public static SortedArrayList<Integer> getScoreByPlayer(String player) {
+	public static List<Integer> getScoreByPlayer(String player) {
 
-		SortedArrayList<Integer> scores = new SortedArrayList<Integer>();
+		List<Integer> scores = new ArrayList<Integer>();
 		try {
 
 			Workbook wb = getWorkbook();
@@ -126,7 +132,7 @@ public class POI {
 				while (rowIterator.hasNext()) {
 					Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
 					while (cellIterator.hasNext()) {
-						scores.insert((int) cellIterator.next().getNumericCellValue());
+						scores.add((int) cellIterator.next().getNumericCellValue());
 					}
 				}
 
@@ -141,7 +147,11 @@ public class POI {
 			return scores; // man könnte hier auch sich code sparen und in einem finally block scores zurückgeben, ist aber bad practice. return gehört nicht in finally blocks
 		}
 
+		Collections.sort(scores, Collections.reverseOrder()); // so stehen die besten Ergebnisse an erster Stelle
 		return scores;
+
+
+
 
 	}
 	public static Map<String, Integer>getAllScores() {
@@ -154,11 +164,15 @@ public class POI {
 
 			while (sheetIterator.hasNext()) {
 				Sheet tmp = sheetIterator.next();
+				String sheetName = tmp.getSheetName();
 				Iterator<Row> rowIterator = tmp.iterator();
 				while(rowIterator.hasNext()) {
 					Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
 					while(cellIterator.hasNext()) {
-						map.put(tmp.getSheetName(), (int) cellIterator.next().getNumericCellValue());
+						int value = (int) cellIterator.next().getNumericCellValue();
+						if (map.get(sheetName)==null || map.get(sheetName) < value) {
+							map.put(sheetName, value);
+						}
 					}
 				}
 			}
@@ -186,7 +200,7 @@ public class POI {
 
 		} catch (Exception e) {
 			System.out.println(e);
-			JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
+			showReadError();
 		}
 
 		return players;
@@ -208,7 +222,7 @@ public class POI {
 		try {
 			createSave();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
+			showReadError();
 		}
 
 	}
@@ -218,7 +232,7 @@ public class POI {
 			try {
 				createSave();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
+				showReadError();
 			}
 		}
 
