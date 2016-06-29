@@ -23,12 +23,18 @@ import org.apache.poi.ss.usermodel.Workbook;
 import helper.MapUtil;
 import helper.SystemUtil;
 
+/*
+ *  'POI' ist eine Helferklasse.
+ *  Es wurde sich explizit dazu entschieden sie als Service in Anlehnung an bestimmte MVC patterns zu designen und alles Funktionen statisch zu realisieren.
+ *  Eine instanzierbare Klasse würde im Projektkontext nicht helfen.
+ *  */
+
 @SuppressWarnings({"unused" })
-public class POI {
+public class POI { //
 
 	// create/retrieve saveFile from the os specific AppData directory
 	private static final File directory = new File(SystemUtil.getAppPath()+"/Kniffel");
-	private static final File saveFile = new File(SystemUtil.getAppPath()+"/Kniffel/save.xls");
+	private static final File saveFile = new File(SystemUtil.getAppPath()+"/Kniffel/save.xlsx");
 
 	// private functions. provide logic for the publicly exposed stuff
 	private static Workbook getSave() throws IOException {
@@ -66,7 +72,7 @@ public class POI {
 				}
 
 			} catch (IllegalArgumentException e) {
-				System.err.println("No player with name: "+player+"\n"+e);
+				System.err.println("No player with name: "+player+"\n");
 				return scores;
 			}
 
