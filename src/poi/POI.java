@@ -21,13 +21,14 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import helper.MapUtil;
+import helper.SystemUtil;
 
 @SuppressWarnings({"unused" })
 public class POI {
 
 	// create/retrieve saveFile from the os specific AppData directory
-	private static final File directory = new File(System.getenv("AppData")+"\\Kniffel");
-	private static final File saveFile = new File(System.getenv("AppData")+"\\Kniffel\\save.xls");
+	private static final File directory = new File(SystemUtil.getAppPath()+"/Kniffel");
+	private static final File saveFile = new File(SystemUtil.getAppPath()+"/Kniffel/save.xls");
 
 	// private functions. provide logic for the publicly exposed stuff
 	private static Workbook getSave() throws IOException {
@@ -232,7 +233,7 @@ public class POI {
 	public static void checkSave() {
 
 		if (! directory.exists()){
-			directory.mkdir();
+			directory.mkdirs(); // 'mkdir()' is unsafe
 		}
 
 		if(!saveFile.isFile()) {
