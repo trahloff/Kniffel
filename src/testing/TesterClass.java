@@ -29,9 +29,9 @@ public class TesterClass {
 	}
 
 	public static void main(String[] args) throws IOException {
-
+		POI.savePlayerScores("Hans", 123456);
 		Scores.create(POI.getAllScores());
-		//		testSave();
+		testSave();
 
 
 	}

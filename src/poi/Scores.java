@@ -11,9 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-
-
-
 @SuppressWarnings("serial")
 public class Scores extends JFrame {
 
@@ -43,13 +40,13 @@ public class Scores extends JFrame {
 		panel.add(new JLabel(spieler),BorderLayout.EAST);
 
 
-
 		JScrollPane scrollPane = new JScrollPane (panel,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 
 		dialog.add(scrollPane);
+		dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		dialog.setVisible(true);
 	}

@@ -10,7 +10,7 @@ import java.util.Map;
 public class MapUtil
 {
 
-	//source: http://stackoverflow.com/a/2581754/5845681
+	//http://stackoverflow.com/a/2581754/5845681
 	// HashMap ordnet nicht, TreeMap ordnet nach key -> daher TreeMap zu LinkedMap um nach Value zu sortieren
 	public static <K, V extends Comparable<? super V>> Map<K, V>  sortByValue( Map<K, V> map ) // '?' als Wildcard mit um generische Referenz zu realisieren; 'super V' um compareTo benutzen zu können
 	{

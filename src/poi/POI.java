@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import helper.MapUtil;
+import helper.SortedArrayList;
 
 @SuppressWarnings({"unused" })
 public class POI {
@@ -36,15 +37,15 @@ public class POI {
 		if(saveFile.isFile()) {
 			return getSave();
 		}else {
-			createSave("overview");
+			createSave();
 			return getSave();
 		}
 
 	}
-	private static void createSave(String sheetName) throws IOException {
+	private static void createSave() throws IOException {
 
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		workbook.createSheet(sheetName).createRow(0);
+		workbook.createSheet("placeholder").createRow(0);
 
 		FileOutputStream output = new FileOutputStream(saveFile);
 		workbook.write(output);
@@ -112,46 +113,59 @@ public class POI {
 
 	}
 
-	public static SortedArrayList<Integer> getScoreByPlayer(String player) throws IOException {
+	public static SortedArrayList<Integer> getScoreByPlayer(String player) {
 
 		SortedArrayList<Integer> scores = new SortedArrayList<Integer>();
-		Workbook wb = getWorkbook();
-
 		try {
-			Iterator<Row> rowIterator = wb.getSheetAt(wb.getSheetIndex(player)).iterator();
-			while (rowIterator.hasNext()) {
-				Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
-				while (cellIterator.hasNext()) {
-					scores.insertSorted((int) cellIterator.next().getNumericCellValue());
 
+			Workbook wb = getWorkbook();
+
+			try {
+
+				Iterator<Row> rowIterator = wb.getSheetAt(wb.getSheetIndex(player)).iterator();
+				while (rowIterator.hasNext()) {
+					Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
+					while (cellIterator.hasNext()) {
+						scores.insert((int) cellIterator.next().getNumericCellValue());
+					}
 				}
+
+			} catch (IllegalArgumentException e) {
+				System.err.println("No player with name: "+player+"\n"+e);
+				return scores;
 			}
-		} catch (Exception e) {
-			return null;
+
+
+		} catch (IOException e) {
+			System.err.println(e);
+			return scores; // man könnte hier auch sich code sparen und in einem finally block scores zurückgeben, ist aber bad practice. return gehört nicht in finally blocks
 		}
-
-
-
 
 		return scores;
 
 	}
-	public static Map<String, Integer>getAllScores() throws IOException{
+	public static Map<String, Integer>getAllScores() {
+
 		Map<String, Integer> map = new TreeMap<String, Integer>();
 
-		Iterator<Sheet> sheetIterator= getWorkbook().iterator();
+		try {
 
-		while (sheetIterator.hasNext()) {
-			Sheet tmp = sheetIterator.next();
-			Iterator<Row> rowIterator = tmp.iterator();
-			while(rowIterator.hasNext()) {
-				Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
-				while(cellIterator.hasNext()) {
-					map.put(tmp.getSheetName(), (int) cellIterator.next().getNumericCellValue());
+			Iterator<Sheet> sheetIterator= getWorkbook().iterator();
+
+			while (sheetIterator.hasNext()) {
+				Sheet tmp = sheetIterator.next();
+				Iterator<Row> rowIterator = tmp.iterator();
+				while(rowIterator.hasNext()) {
+					Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
+					while(cellIterator.hasNext()) {
+						map.put(tmp.getSheetName(), (int) cellIterator.next().getNumericCellValue());
+					}
 				}
 			}
-		}
 
+		} catch (IOException e) {
+			return map; // siehe +getScoreByPlayer(String)
+		}
 
 		return MapUtil.sortByValue(map);
 
@@ -178,7 +192,7 @@ public class POI {
 		return players;
 
 	}
-	public static void savePlayerScores(String player, Integer score) throws IOException {
+	public static void savePlayerScores(String player, Integer score) throws IOException { // exception handling sollte hier nicht im service sondern auf controller ebene stattfinden
 
 		try {
 			saveScore(player, score);
@@ -189,12 +203,25 @@ public class POI {
 
 
 	}
-	public static void resetSaveFile() throws IOException {
-		createSave("overview");
+	public static void resetSaveFile() {
+
+		try {
+			createSave();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
+		}
+
 	}
+	public static void checkSave() {
 
+		if(!saveFile.isFile()) {
+			try {
+				createSave();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
+			}
+		}
 
-
-
+	}
 
 }
