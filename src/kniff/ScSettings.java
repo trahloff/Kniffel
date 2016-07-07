@@ -49,7 +49,6 @@ public class ScSettings extends Screen
 				Controller.show(Controller.scStart);
 			}
 		});
-		btnBack.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		btnBack.setBounds(240, 450, 120, 40);
 		add(btnBack);
 		
@@ -62,7 +61,6 @@ public class ScSettings extends Screen
 			}
 		});
 		btnAnwenden.setComponentDesign(EComponentDesign.menuButton);
-		btnAnwenden.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		btnAnwenden.setBounds(370, 450, 120, 40);
 		add(btnAnwenden);
 		

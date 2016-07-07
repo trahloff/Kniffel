@@ -56,7 +56,7 @@ public class ScOption extends Screen
 		
 		pnPlayers = new KniffPanel();
 		pnPlayers.setBackground(Color.GRAY);
-		pnPlayers.setBounds(229, 220, 280, 365);
+		pnPlayers.setBounds(230, 220, 280, 365);
 		add(pnPlayers);
 		pnPlayers.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -67,7 +67,7 @@ public class ScOption extends Screen
 		
 		lbInfoMessage = new JLabel("Info");
 		lbInfoMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lbInfoMessage.setBounds(10, 188, 724, 32);
+		lbInfoMessage.setBounds(10, 647, 724, 32);
 		lbInfoMessage.setFont(Design.getFont());
 		this.add(lbInfoMessage);
 		
@@ -85,7 +85,6 @@ public class ScOption extends Screen
 					while(i.hasMoreElements())
 						plrs.add(i.nextElement());
 					Controller.startGame(plrs);
-					//players = new Hashtable<KniffButton, Player>();
 				} catch (Exception e2)
 				{
 					
@@ -94,25 +93,8 @@ public class ScOption extends Screen
 			}
 		});
 		//btnStart.setBounds(216, 603, 100, 100);
-		btnStart.setComponentDesign(EComponentDesign.startButton);
+		btnStart.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnStart);
-		
-		btnAdd = new KniffButton("+");
-		btnAdd.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0)
-			{
-				addPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
-			}
-		});
-		btnAdd.setBounds(455, 122, 60, 60);
-		btnAdd.setComponentDesign(EComponentDesign.startButton);
-		this.add(btnAdd);
-		
-		btnRmv = new KniffButton("-");
-		btnRmv.setBounds(159, 353, 60, 60);
-		btnRmv.setComponentDesign(EComponentDesign.startButton);
-		this.add(btnRmv);
 		
 		KniffButton btnback = new KniffButton("zurück");
 		btnback.addMouseListener(new MouseAdapter() {
@@ -123,11 +105,11 @@ public class ScOption extends Screen
 			}
 			
 		});
-		btnback.setBounds(229, 609, 100, 41);
+		btnback.setBounds(230, 596, 100, 40);
 		add(btnback);
 		
-		pnInput = new JPanel();
-		pnInput.setBounds(229, 122, 200, 60);
+		pnInput = new KniffPanel();
+		pnInput.setBounds(235, 149, 270, 50);
 		JLabel nameLabel = new JLabel ("Name");
 		nameLabel.setBounds(0, 0, 0, 0);
 		JLabel kurzLabel = new JLabel ("Kürzel");
@@ -135,23 +117,36 @@ public class ScOption extends Screen
 		nameLabel.setFont(Design.getFont());
 		kurzLabel.setFont(Design.getFont());
 		nameValue = new JTextField();
-		nameValue.setBounds(10, 25, 130, 30);
+		nameValue.setBounds(5, 5, 214, 40);
 		nameValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
-		kurzValue = new JTextField();
-		
-		kurzValue.setBounds(150, 25, 45, 30);
-		kurzValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		pnInput.setLayout(null);
 		
 		pnInput.add(nameLabel);
 		pnInput.add(kurzLabel);
 		pnInput.add(nameValue);
-		pnInput.add(kurzValue);
 		add(pnInput);
+		
+		btnAdd = new KniffButton("+");
+		btnAdd.setBounds(225, 5, 40, 40);
+		pnInput.add(btnAdd);
+		btnAdd.setFont(btnAdd.getFont().deriveFont(12f));
+		btnAdd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0)
+			{
+				addPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
+			}
+		});
+		btnAdd.setComponentDesign(EComponentDesign.menuButton);
 
-		btnStart.setBounds(414, 609, 100, 41);
+		btnStart.setBounds(410, 596, 100, 40);
 		btnStart.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnStart);
+		
+		kurzValue = new JTextField();
+		kurzValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		kurzValue.setBounds(31, 277, 61, 38);
+		add(kurzValue);
 	
 		
 		

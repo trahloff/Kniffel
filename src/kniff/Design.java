@@ -175,7 +175,6 @@ public class Design
 		b.setBorderPainted(false);
 		b.setFocusPainted(false);
 		b.setContentAreaFilled(false);
-		b.setFont(getFont());
 		
         Graphics2D antiAlias = (Graphics2D)g;
         antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

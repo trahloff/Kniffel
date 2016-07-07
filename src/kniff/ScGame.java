@@ -104,7 +104,7 @@ public class ScGame extends Screen
 		pnSheets.removeAll();
 		for (Player p : Controller.players)
 		{
-			p.getSheet().setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight()));
+			p.getSheet().setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight() - 10));
 			pnSheets.add(p.getSheet());
 		}
 		this.repaint();
