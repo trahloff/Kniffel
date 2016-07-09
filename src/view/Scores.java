@@ -1,4 +1,4 @@
-package poi;
+package view;
 
 import java.awt.BorderLayout;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class Scores extends JFrame {
 
 
 		dialog.add(scrollPane);
-
+		dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
 	}
 

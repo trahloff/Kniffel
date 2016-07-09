@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import poi.POI;
-import poi.Scores;
+import view.Scores;
 
 @SuppressWarnings("unused")
 public class TesterClass {
