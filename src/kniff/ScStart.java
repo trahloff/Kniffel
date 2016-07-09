@@ -1,5 +1,6 @@
 package kniff;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -7,6 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import helper.EColor;
 import helper.EComponentDesign;
 
 public class ScStart extends Screen
@@ -24,6 +26,7 @@ public class ScStart extends Screen
 		// Title-Label
 		lbTitle = new JLabel("Kniffelig");
 		lbTitle.setBounds(0, 150, 650, 150);
+		lbTitle.setForeground(Color.decode("#666666"));
 		lbTitle.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 90));
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(lbTitle);
@@ -37,7 +40,7 @@ public class ScStart extends Screen
 		
 		// Start-Button
 		btnStart = new KniffButton("Spielen");
-		btnStart.setFont(Design.getFont());
+		btnStart.setFont(Design.getFont().deriveFont(0, 25));
 		btnStart.setBounds(240, 345, 200, 200);
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
@@ -50,7 +53,6 @@ public class ScStart extends Screen
 		
 		// End-Button
 		btnEnd = new KniffButton("Beenden");
-		btnEnd.setFont(Design.getFont());
 		btnEnd.setBounds(250, 630, 180, 50);
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
@@ -69,7 +71,6 @@ public class ScStart extends Screen
 				Controller.show(Controller.scSettings);
 			}
 		});
-		btnSettings.setFont(null);
 		btnSettings.setComponentDesign(EComponentDesign.menuButton);
 		btnSettings.setBounds(250, 570, 180, 50);
 		add(btnSettings);

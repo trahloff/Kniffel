@@ -11,6 +11,14 @@ import helper.EComponentDesign;
 public class KniffButton extends JButton
 {
 	private EComponentDesign design = EComponentDesign.menuButton;
+	
+	public KniffButton(String string)
+	{
+		super(string);
+		this.addMouseListener(mouseListener);
+		this.setFont(Design.getFont());
+	}
+	
 	public EComponentDesign getDesign()
 	{
 		return design;
@@ -105,12 +113,6 @@ public class KniffButton extends JButton
 				}
 		
 			};
-	
-	public KniffButton(String string)
-	{
-		super(string);
-		this.addMouseListener(mouseListener);
-	}
 
 	public void paintComponent(Graphics g)
 	{
