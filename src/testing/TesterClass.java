@@ -3,10 +3,7 @@ package testing;
 import java.io.IOException;
 
 import poi.POI;
-<<<<<<< HEAD
-import view.Scores;
-=======
->>>>>>> branch 'master' of https://github.com/trahloff/kniffel.git
+
 
 public class TesterClass {
 
