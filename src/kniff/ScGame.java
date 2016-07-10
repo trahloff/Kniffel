@@ -13,6 +13,7 @@ import helper.EComponentDesign;
 
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
+import java.awt.Color;
 
 public class ScGame extends Screen
 {
@@ -23,7 +24,8 @@ public class ScGame extends Screen
 	private KniffButton btnRoll;
 	private JLabel lblInfolabel;
 	private KniffPanel pnSheets;
-	private JPanel pnDiceContainer;
+	private KniffPanel pnDiceContainer;
+	private JLabel lblSollDasSpiel;
 	
 	public KniffButton getBtnRoll()
 	{
@@ -35,7 +37,6 @@ public class ScGame extends Screen
 		this.setLayout(null);
 		this.setName("game");
 		
-		
 		btnEnd = new KniffButton("Ende");
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
@@ -43,8 +44,9 @@ public class ScGame extends Screen
 				Controller.stopGame(1);
 			}
 		});
+
 		btnEnd.setComponentDesign(EComponentDesign.menuButton);
-		btnEnd.setBounds(20, 742, 174, 30);
+		btnEnd.setBounds(20, 742, 175, 30);
 		this.add(btnEnd);
 		
 		btnRoll = new KniffButton("W\u00FCrfel rollen");
@@ -62,7 +64,7 @@ public class ScGame extends Screen
 		
 		lblInfolabel = new JLabel("Spielinfo");
 		lblInfolabel.setFont(new Font("OCR A Extended", Font.PLAIN, 20));
-		lblInfolabel.setBounds(20, 11, 734, 48);
+		lblInfolabel.setBounds(20, 11, 908, 48);
 		lblInfolabel.setHorizontalAlignment(SwingConstants.CENTER);		
 		this.add(lblInfolabel);
 		
@@ -75,19 +77,31 @@ public class ScGame extends Screen
 		sheet.setTitle("Kombinationen");
 		sheet.setPreferredSize(new Dimension(150, 677));
 		sheet.setEnabled(false);
-		sheet.setBounds(20, 70, 174, 620);
+		sheet.setBounds(19, 70, 175, 620);
 		this.add(sheet);
 		
-		pnDiceContainer = new JPanel();
-		pnDiceContainer.setBounds(758, 144, 100, 576);
+		pnDiceContainer = new KniffPanel();
+		pnDiceContainer.setBounds(754, 575, 175, 115);
 		this.add(pnDiceContainer);
 		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		KniffButton knfbtnHilfe = new KniffButton("Ende");
 		knfbtnHilfe.setText("Hilfe");
 		knfbtnHilfe.setComponentDesign(EComponentDesign.menuButton);
-		knfbtnHilfe.setBounds(20, 701, 174, 30);
+		knfbtnHilfe.setBounds(20, 701, 175, 30);
 		add(knfbtnHilfe);
+		
+		KniffButton knfbtnRangliste = new KniffButton("Ende");
+		knfbtnRangliste.setText("Rangliste");
+		knfbtnRangliste.setComponentDesign(EComponentDesign.menuButton);
+		knfbtnRangliste.setBounds(754, 701, 175, 30);
+		add(knfbtnRangliste);
+		
+		KniffPanel kniffPanel = new KniffPanel();
+		kniffPanel.setBounds(754, 66, 174, 498);
+		add(kniffPanel);
+		kniffPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
 	
 		initDice();
 	}
@@ -143,5 +157,15 @@ public class ScGame extends Screen
 	{
 		super.paintComponent(g);
 		this.repaint();
+	}
+	
+	public void exitPromt()
+	{
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.PINK);
+		panel.setBounds(0, 0, this.getParent().getHeight(), this.getParent().getWidth());
+		add(panel);
+		
+		
 	}
 }

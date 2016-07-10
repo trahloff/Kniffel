@@ -43,7 +43,7 @@ public class ScOption extends Screen
 	private KniffPanel pnPlayers;
 	private JLabel lbInfoMessage;
 	private KniffButton btnStart;
-	private KniffButton btnAdd, btnRmv;
+	private KniffButton btnAdd;
 	private static Dictionary<KniffButton, Player> players = new Hashtable<KniffButton, Player>();
 	private JPanel pnInput;
 	private static JTextField nameValue;
@@ -61,13 +61,13 @@ public class ScOption extends Screen
 		pnPlayers.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTitle.setBounds(10, 11, 724, 100);
+		lbTitle.setBounds(10, 11, 760, 100);
 		lbTitle.setFont(new Font("OCR A Extended", Font.PLAIN, 40));
 		this.add(lbTitle);
 		
 		lbInfoMessage = new JLabel("Info");
 		lbInfoMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lbInfoMessage.setBounds(10, 647, 724, 32);
+		lbInfoMessage.setBounds(10, 647, 760, 32);
 		lbInfoMessage.setFont(Design.getFont());
 		this.add(lbInfoMessage);
 		
@@ -112,53 +112,42 @@ public class ScOption extends Screen
 		pnInput.setBounds(235, 149, 270, 50);
 		JLabel nameLabel = new JLabel ("Name");
 		nameLabel.setBounds(0, 0, 0, 0);
-		JLabel kurzLabel = new JLabel ("Kürzel");
-		kurzLabel.setBounds(0, 0, 0, 0);
-		nameLabel.setFont(Design.getFont());
-		kurzLabel.setFont(Design.getFont());
 		nameValue = new JTextField();
-		nameValue.setBounds(5, 5, 214, 40);
+		nameValue.setHorizontalAlignment(SwingConstants.CENTER);
+		nameValue.setBounds(5, 5, 205, 40);
 		nameValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		pnInput.setLayout(null);
 		
 		pnInput.add(nameLabel);
-		pnInput.add(kurzLabel);
 		pnInput.add(nameValue);
 		add(pnInput);
 		
 		btnAdd = new KniffButton("+");
-		btnAdd.setBounds(225, 5, 40, 40);
+		btnAdd.setBounds(220, 6, 40, 40);
 		pnInput.add(btnAdd);
 		btnAdd.setFont(btnAdd.getFont().deriveFont(12f));
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0)
 			{
-				addPlayer(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
+				addPlayer(ScOption.nameValue.getText());
 			}
 		});
 		btnAdd.setComponentDesign(EComponentDesign.menuButton);
 
 		btnStart.setBounds(410, 596, 100, 40);
 		btnStart.setComponentDesign(EComponentDesign.menuButton);
-		this.add(btnStart);
-		
-		kurzValue = new JTextField();
-		kurzValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
-		kurzValue.setBounds(31, 277, 61, 38);
-		add(kurzValue);
-	
-		
+		this.add(btnStart);		
 		
 		updateAfterInputChanged();
 	}
 
 	//
-	private boolean addPlayer(String playerName, String shortName)
+	private boolean addPlayer(String playerName)
 	{
 		try
 		{
-			Player p = createPlayer(playerName, shortName);		
+			Player p = createPlayer(playerName);		
 			
 			KniffButton b = p.getPlayerButton();
 			b.setFont(Design.getFont().deriveFont(0, 15));
@@ -166,6 +155,19 @@ public class ScOption extends Screen
 			
 			b.addMouseListener(new MouseAdapter() {
 				@Override
+				public void mouseEntered(MouseEvent e)
+				{
+					KniffButton b = ((KniffButton) e.getSource());
+					b.setText("löschen");
+				}
+				
+				public void mouseExited(MouseEvent e)
+				{
+					KniffButton b = ((KniffButton) e.getSource());
+					Player p = players.get(b);
+					b.setText(p.getFullName());
+				}
+				
 				public void mouseClicked(MouseEvent e)
 				{
 					KniffButton b = ((KniffButton) e.getSource());
@@ -196,10 +198,10 @@ public class ScOption extends Screen
 	}
 	
 	//
-	public static Player createPlayer(String name, String kurz) throws Exception{
+	public static Player createPlayer(String name) throws Exception{
 		
-		if (ScOption.nameValue.getText() == null || ScOption.kurzValue.getText() == null)
-			throw new Exception ("Bitte einen Spielernamen und ein Kürzel eingeben!");
+		if (ScOption.nameValue.getText().trim().equals(""))
+			throw new Exception ("Bitte einen Spielernamen eingeben!");
 
 			Enumeration<Player> i = players.elements();
 			
@@ -208,16 +210,18 @@ public class ScOption extends Screen
 				Player p = i.nextElement();
 				if (ScOption.nameValue.getText().toUpperCase().equals(p.getName().toUpperCase()))
 					throw new Exception ("Der Spielername " + nameValue.getText() + " ist bereits vergeben");
-				
-				if (ScOption.kurzValue.getText().toUpperCase().equals(p.getShortName().toUpperCase()))
-					throw new Exception ("Das Kürzel " + kurzValue.getText().toUpperCase() + " ist bereits vergeben");
 			}
 			
-			Player p = new Player(ScOption.nameValue.getText(), ScOption.kurzValue.getText());
+			String nameShort = "";
+			if (ScOption.nameValue.getText().trim().length() < 3)
+				nameShort = ScOption.nameValue.getText().trim().substring(0, ScOption.nameValue.getText().trim().length());
+			else
+				nameShort = ScOption.nameValue.getText().trim().substring(0, 3);
+				
+			Player p = new Player(ScOption.nameValue.getText(), nameShort);
 			
 			ScOption.players.put(p.getPlayerButton(), p);
 			ScOption.nameValue.setText("");
-			ScOption.kurzValue.setText("");
 			
 			return p;
 	}
@@ -248,18 +252,16 @@ public class ScOption extends Screen
 	
 	private void updateAfterInputChanged()
 	{
+		this.btnStart.setEnabled(false);
 		if (players.size() < 1)
-		{
 			this.err("Kein Spiel ohne Spieler!");
-			this.btnStart.setEnabled(false);
-		}
 		else if (players.size() > 8)
-		{
 			this.err("Mehr als 8 passen leider nicht an einen Tisch.");
-			this.btnStart.setEnabled(false);
-		}
 		else
+		{
+			this.info("Jetzt kann es los gehen...");
 			this.btnStart.setEnabled(true);
+		}
 	}
 	
 	private void warn(String s)

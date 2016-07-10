@@ -152,7 +152,6 @@ public class Controller
 		scContainer.add(scGame, scGame.getName());
 		scContainer.add(scSettings, scSettings.getName());
 	}
-
 	
 	public static boolean addPlayer(Player player) {
 		if(players.size() <= 8) {
@@ -161,5 +160,17 @@ public class Controller
 		}
 		return false;
 		
+	}
+	
+	public static Player[] getRanking()
+	{
+		Player[] ranking = new Player[players.size()];
+		
+		for (int i = 0; i < ranking.length; i++)
+		{
+			
+		}
+		
+		return ranking;
 	}
 }
