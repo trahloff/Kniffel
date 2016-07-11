@@ -14,6 +14,7 @@ import helper.EComponentDesign;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import javax.swing.JTextField;
 
 public class ScGame extends Screen
 {
@@ -22,10 +23,8 @@ public class ScGame extends Screen
 	private KniffButton btnEnd;
 	
 	private KniffButton btnRoll;
-	private JLabel lblInfolabel;
-	private KniffPanel pnSheets;
-	private KniffPanel pnDiceContainer;
-	private JLabel lblSollDasSpiel;
+	private JLabel lblInfolabel, lblRanking;
+	private KniffPanel pnSheets, pnRanking, pnDiceContainer;
 	
 	public KniffButton getBtnRoll()
 	{
@@ -36,17 +35,18 @@ public class ScGame extends Screen
 	{
 		this.setLayout(null);
 		this.setName("game");
-		
+
 		btnEnd = new KniffButton("Ende");
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Controller.stopGame(1);
+			public void mouseClicked(MouseEvent arg0)
+			{
+					Controller.stopGame(1);
 			}
 		});
 
 		btnEnd.setComponentDesign(EComponentDesign.menuButton);
-		btnEnd.setBounds(20, 742, 175, 30);
+		btnEnd.setBounds(20, 701, 175, 71);
 		this.add(btnEnd);
 		
 		btnRoll = new KniffButton("W\u00FCrfel rollen");
@@ -81,26 +81,28 @@ public class ScGame extends Screen
 		this.add(sheet);
 		
 		pnDiceContainer = new KniffPanel();
-		pnDiceContainer.setBounds(754, 575, 175, 115);
+		pnDiceContainer.setBounds(801, 325, 80, 365);
 		this.add(pnDiceContainer);
-		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 6));
 		
 		KniffButton knfbtnHilfe = new KniffButton("Ende");
 		knfbtnHilfe.setText("Hilfe");
 		knfbtnHilfe.setComponentDesign(EComponentDesign.menuButton);
-		knfbtnHilfe.setBounds(20, 701, 175, 30);
+		knfbtnHilfe.setBounds(753, 701, 175, 71);
 		add(knfbtnHilfe);
 		
-		KniffButton knfbtnRangliste = new KniffButton("Ende");
-		knfbtnRangliste.setText("Rangliste");
-		knfbtnRangliste.setComponentDesign(EComponentDesign.menuButton);
-		knfbtnRangliste.setBounds(754, 701, 175, 30);
-		add(knfbtnRangliste);
+		pnRanking = new KniffPanel();
+		pnRanking.setBounds(754, 114, 174, 201);
+		add(pnRanking);
+		pnRanking.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		KniffPanel kniffPanel = new KniffPanel();
-		kniffPanel.setBounds(754, 66, 174, 498);
-		add(kniffPanel);
-		kniffPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		lblRanking = new JLabel();
+		lblRanking.setText("Rangliste");
+		lblRanking.setBounds(754, 70, 174, 39);
+		lblRanking.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		lblRanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRanking.setVerticalAlignment(SwingConstants.CENTER);
+		add(lblRanking);
 
 	
 		initDice();
@@ -167,5 +169,18 @@ public class ScGame extends Screen
 		add(panel);
 		
 		
+	}
+
+	public void setRanking(Player[] ranking)
+	{
+		pnRanking.removeAll();
+		for (int i = 0; i < ranking.length; i++)
+		{
+			Player p = ranking[i];
+			KniffButton pPoints = new KniffButton(i+1 + ". - " + p.getName() + " | " + p.getPoints());
+			pPoints.setEnabled(false);
+			pPoints.setPreferredSize(new Dimension(this.pnRanking.getWidth(), 20));
+			pnRanking.add(pPoints);
+		}
 	}
 }

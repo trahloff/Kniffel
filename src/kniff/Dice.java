@@ -12,7 +12,7 @@ public class Dice extends JButton
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static int diceSize = 50;
+	private static int diceSize = 65;
 	private static Dimension globalSize = new Dimension(diceSize, diceSize);
 	private int dis = 15;							// distance between point and dice edge
 	private int psz = Math.round(400 / diceSize);	// point size
