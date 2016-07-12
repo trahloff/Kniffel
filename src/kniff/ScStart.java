@@ -25,7 +25,7 @@ public class ScStart extends Screen
 		
 		// Title-Label
 		lbTitle = new JLabel("Kniffelig");
-		lbTitle.setBounds(0, 150, 650, 150);
+		lbTitle.setBounds(0, 100, 650, 150);
 		lbTitle.setForeground(Color.decode("#666666"));
 		lbTitle.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 90));
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -41,7 +41,7 @@ public class ScStart extends Screen
 		// Start-Button
 		btnStart = new KniffButton("Spielen");
 		btnStart.setFont(Design.getFont().deriveFont(0, 25));
-		btnStart.setBounds(240, 345, 200, 200);
+		btnStart.setBounds(240, 274, 200, 200);
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -73,8 +73,8 @@ public class ScStart extends Screen
 		});
 		btnSettings.setComponentDesign(EComponentDesign.menuButton);
 		btnSettings.setBounds(250, 570, 180, 50);
-		add(btnSettings);
-	}
+		add(btnSettings);}
+		
 	
 	private String getRandomMessage()
 	{
