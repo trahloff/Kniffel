@@ -32,11 +32,11 @@ import helper.SystemUtil;
 @SuppressWarnings({"unused" })
 public class POI { //
 
-	// create/retrieve saveFile from the os specific AppData directory
+	// verzeichnis und saveFile bekommen bzw erstellen falls nicht vorhanden. getAppPath() gibt den OS-spezifischen AppData Ordner aus (Unter Windows zbsp %appdata% -> AppData/Roaming)
 	private static final File directory = new File(SystemUtil.getAppPath()+"/Kniffel");
 	private static final File saveFile = new File(SystemUtil.getAppPath()+"/Kniffel/save.xlsx");
 
-	// private functions. provide logic for the publicly exposed stuff
+	// private Funktionen
 	private static Workbook getSave() throws IOException {
 		FileInputStream input = new FileInputStream(saveFile);
 		Workbook wb = new HSSFWorkbook(input);
