@@ -86,7 +86,7 @@ public class ScGame extends Screen
 		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 6));
 		
 		KniffButton knfbtnHilfe = new KniffButton("Ende");
-		knfbtnHilfe.setText("Hilfe");
+		knfbtnHilfe.setText("Regeln");
 		knfbtnHilfe.setComponentDesign(EComponentDesign.menuButton);
 		knfbtnHilfe.setBounds(753, 701, 175, 71);
 		knfbtnHilfe.addMouseListener(new MouseAdapter() {

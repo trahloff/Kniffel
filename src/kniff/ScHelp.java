@@ -10,7 +10,12 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Enumeration;
+
 import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JButton;
 
 public class ScHelp extends Screen
 {
@@ -20,13 +25,56 @@ public class ScHelp extends Screen
 	{
 		setLayout(null);
 		
-		this.setName("Help");
+		this.setName("Spielregeln");
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel(" ");
+		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setIcon(new ImageIcon(ScHelp.class.getResource("/Bilder/Anleitung.JPG")));
-		lblNewLabel.setBounds(0, 0, 950, 820);
+		lblNewLabel.setBounds(24, -52, 950, 820);
 		add(lblNewLabel);
 		
+//		KniffButton knfbtnzuruck = new KniffButton("Zurück");
+//		knfbtnZuruck.setText("Zurück");
+//		knfbtnZuruck.setComponentDesign(EComponentDesign.menuButton);
+//		knfbtnZuruck.setBounds(753, 701, 175, 71);
+//		knfbtnZuruck.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e)
+//			{
+//				Controller.show(Controller.scGame);
+//			}
+//		});
+//		btnZurck.setBounds(801, 753, 89, 23);
+//		add(btnZurck);
+//		
+		
+		KniffButton btnStart = new KniffButton("Zurück");
+		btnStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				Controller.show(Controller.scGame);
+				
+//				try
+//				{
+//					if (!btnStart.isEnabled())
+//						return;
+//					
+//					ArrayList<Player> plrs = new ArrayList<Player>();
+//					Enumeration<Player> i = players.elements();
+//					while(i.hasMoreElements())
+//						plrs.add(i.nextElement());
+//					Controller.startGame(plrs);
+//				} catch (Exception e2)
+//				{
+//					
+//					Controller.show(Controller.scOption);
+//				}
+			}
+		});
+		btnStart.setBounds(24, 700, 100, 40);
+		btnStart.setComponentDesign(EComponentDesign.menuButton);
+		this.add(btnStart);
 		
 //		setLayout(null);
 //		
