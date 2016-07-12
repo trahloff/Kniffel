@@ -135,12 +135,18 @@ public class ScGame extends Screen
 	{		
 		initSheets();
 		initDice();
+		initRanking();
 		
 		Dice.setAllEnabled(true);
 		Dice.setAllInitial(true);
 		
 		btnRoll.setEnabled(true);
 		setEnableSheets(false);
+	}
+	
+	public void initRanking()
+	{
+		clearRanking();
 	}
 	
 	public void enableSheetForPlayer(Player player)
@@ -171,6 +177,11 @@ public class ScGame extends Screen
 		
 	}
 
+	public void clearRanking()
+	{
+		pnRanking.removeAll();
+	}
+	
 	public void setRanking(Player[] ranking)
 	{
 		pnRanking.removeAll();
