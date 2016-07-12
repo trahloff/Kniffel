@@ -23,6 +23,7 @@ public class Controller
 	public static ScGame scGame;
 	public static ScOption scOption;
 	public static ScSettings scSettings;
+	public static ScHelp scHelp;
 	public static Dice[] kniffDice;
 
 	public static void main(String[] args)
@@ -169,11 +170,13 @@ public class Controller
 		scOption = new ScOption();
 		scGame = new ScGame();
 		scSettings = new ScSettings();
+		scHelp = new ScHelp();
 
 		scContainer.add(scStart, scStart.getName());
 		scContainer.add(scOption, scOption.getName());
 		scContainer.add(scGame, scGame.getName());
 		scContainer.add(scSettings, scSettings.getName());
+		scContainer.add(scHelp, scHelp.getName());
 	}
 
 	public static boolean addPlayer(Player player) {
