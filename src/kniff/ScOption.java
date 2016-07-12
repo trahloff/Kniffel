@@ -43,6 +43,7 @@ public class ScOption extends Screen
 	private KniffPanel pnPlayers;
 	private JLabel lbInfoMessage;
 	private KniffButton btnStart;
+	private KniffButton btnBack;
 	private KniffButton btnAdd;
 	private static Dictionary<KniffButton, Player> players = new Hashtable<KniffButton, Player>();
 	private JPanel pnInput;
@@ -96,8 +97,8 @@ public class ScOption extends Screen
 		btnStart.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnStart);
 		
-		KniffButton btnback = new KniffButton("zurück");
-		btnback.addMouseListener(new MouseAdapter() {
+		btnBack = new KniffButton("zurück");
+		btnBack.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -105,8 +106,8 @@ public class ScOption extends Screen
 			}
 			
 		});
-		btnback.setBounds(230, 596, 100, 40);
-		add(btnback);
+		btnBack.setBounds(230, 596, 100, 40);
+		add(btnBack);
 		
 		pnInput = new KniffPanel();
 		pnInput.setBounds(235, 149, 270, 50);
@@ -114,7 +115,7 @@ public class ScOption extends Screen
 		nameLabel.setBounds(0, 0, 0, 0);
 		nameValue = new JTextField();
 		nameValue.setHorizontalAlignment(SwingConstants.CENTER);
-		nameValue.setBounds(5, 5, 205, 40);
+		nameValue.setBounds(5, 5, 210, 40);
 		nameValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		pnInput.setLayout(null);
 		
@@ -123,7 +124,7 @@ public class ScOption extends Screen
 		add(pnInput);
 		
 		btnAdd = new KniffButton("+");
-		btnAdd.setBounds(220, 6, 40, 40);
+		btnAdd.setBounds(220, 5, 55, 40);
 		pnInput.add(btnAdd);
 		btnAdd.setFont(btnAdd.getFont().deriveFont(12f));
 		btnAdd.addMouseListener(new MouseAdapter() {
@@ -280,5 +281,25 @@ public class ScOption extends Screen
 	{
 		this.lbInfoMessage.setForeground(Design.getColor(EColor.accent_a_light));
 		this.lbInfoMessage.setText(s);
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		
+		// repositioning in the center of the parent
+		if (this.getParent() == null)
+			return;
+		
+		int halfWidth = this.getParent().getWidth() / 2;
+		
+		this.lbTitle.setBounds(0, 20, this.getParent().getWidth(), 100);
+		
+		this.pnInput.setBounds(halfWidth - 140, 149, 280, 50);
+		this.pnPlayers.setBounds(halfWidth - 140, 220, 280, 365);
+		this.btnStart.setBounds(halfWidth + 140 - this.btnStart.getWidth(), 600, 100, 40);
+		this.btnBack.setBounds(halfWidth - 140, 600, 100, 40);
+		
+		this.lbInfoMessage.setBounds(0, 700, this.getParent().getWidth(), 30);
 	}
 }
