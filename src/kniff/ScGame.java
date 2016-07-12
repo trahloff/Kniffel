@@ -89,6 +89,13 @@ public class ScGame extends Screen
 		knfbtnHilfe.setText("Hilfe");
 		knfbtnHilfe.setComponentDesign(EComponentDesign.menuButton);
 		knfbtnHilfe.setBounds(753, 701, 175, 71);
+		knfbtnHilfe.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Controller.show(Controller.scHelp);
+			}
+		});
 		add(knfbtnHilfe);
 		
 		pnRanking = new KniffPanel();
