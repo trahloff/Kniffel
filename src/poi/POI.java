@@ -193,9 +193,26 @@ public class POI { //
 	private static void showReadError() {
 		JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
 	}
+	private static void checkSave() {
+
+		if (! directory.exists()){
+			directory.mkdirs(); // 'mkdir()' is unsafe
+		}
+
+		if(!saveFile.isFile()) {
+			try {
+				createSave();
+			} catch (IOException e) {
+				showReadError();
+			}
+		}
+
+	}
 
 	// publicly exposed stuff
 	public static ArrayList<String> getPlayerList() {
+
+		checkSave();
 
 		ArrayList<String> players = new ArrayList<String>();
 
@@ -218,6 +235,8 @@ public class POI { //
 	}
 	public static void savePlayerScore(String player, Integer score) throws IOException { // exception handling sollte hier nicht im service sondern auf controller ebene stattfinden
 
+		checkSave();
+
 		try {
 			saveScore(player, score);
 		} catch (Exception e) { // Spieler gibt es noch nicht
@@ -229,6 +248,8 @@ public class POI { //
 	}
 	public static void resetSaveFile() {
 
+		checkSave();
+
 		try {
 			createSave();
 		} catch (IOException e) {
@@ -236,25 +257,12 @@ public class POI { //
 		}
 
 	}
-	public static void checkSave() {
-
-		if (! directory.exists()){
-			directory.mkdirs(); // 'mkdir()' is unsafe
-		}
-
-		if(!saveFile.isFile()) {
-			try {
-				createSave();
-			} catch (IOException e) {
-				showReadError();
-			}
-		}
-
-	}
 	public static void highscoreAll() {
+		checkSave();
 		Scores.highscoreAll(getAllScores());
 	}
 	public static void highscoreByPlayer(String player) {
+		checkSave();
 		Scores.highscorePlayer(getScoreByPlayer(player));
 	}
 

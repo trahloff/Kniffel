@@ -10,8 +10,6 @@ public class TesterClass {
 
 	private static void testSave() throws IOException {
 
-		POI.checkSave();
-
 		for (int i = 0; i < 14; i++) {
 			POI.savePlayerScore("Hans", (int)(Math.random() * 1000));
 		}
