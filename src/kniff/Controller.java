@@ -25,6 +25,7 @@ public class Controller
 	public static ScSettings scSettings;
 	public static ScHelp scHelp;
 	public static ScPromt scPromt;
+	public static ScRanking scRanking;
 	
 	public static Dice[] kniffDice;
 
@@ -174,6 +175,7 @@ public class Controller
 		scSettings = new ScSettings();
 		scHelp = new ScHelp();
 		scPromt = new ScPromt();
+		scRanking = new ScRanking();
 
 		scContainer.add(scStart, scStart.getName());
 		scContainer.add(scOption, scOption.getName());
@@ -181,9 +183,11 @@ public class Controller
 		scContainer.add(scSettings, scSettings.getName());
 		scContainer.add(scHelp, scHelp.getName());
 		scContainer.add(scPromt, scPromt.getName());
+		scContainer.add(scRanking, scRanking.getName());
 	}
 
-	public static boolean addPlayer(Player player) {
+	public static boolean addPlayer(Player player)
+	{
 		if(players.size() <= 8) {
 			players.add(player);
 			return true;

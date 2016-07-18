@@ -82,7 +82,7 @@ public class ScStart extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				POI.highscoreAll();
+				Controller.show(Controller.scRanking);
 			}
 		});
 		btnRanking.setComponentDesign(EComponentDesign.menuButton);

@@ -199,7 +199,6 @@ public class ScGame extends Screen
 			KniffButton pPoints = new KniffButton(i+1 + ". - " + p.getName() + " | " + p.getPoints());
 			pPoints.setEnabled(false);
 			pPoints.setPreferredSize(new Dimension(this.pnRanking.getWidth(), 20));
-			pPoints.setAlignmentX(pPoints.LEFT_ALIGNMENT);
 			pnRanking.add(pPoints);
 		}
 	}
