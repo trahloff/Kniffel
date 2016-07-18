@@ -1,4 +1,4 @@
-package kniff;
+package Screens;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -26,6 +26,11 @@ import org.apache.poi.sl.draw.geom.IfElseExpression;
 
 import helper.EColor;
 import helper.EComponentDesign;
+import kniff.Controller;
+import kniff.Design;
+import kniff.KniffButton;
+import kniff.KniffPanel;
+import kniff.Player;
 
 import java.awt.FlowLayout;
 import java.awt.event.InputMethodListener;

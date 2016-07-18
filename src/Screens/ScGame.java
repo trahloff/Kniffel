@@ -1,4 +1,4 @@
-package kniff;
+package Screens;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,6 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import helper.EComponentDesign;
+import kniff.Controller;
+import kniff.Dice;
+import kniff.KniffButton;
+import kniff.KniffPanel;
+import kniff.Player;
+import kniff.Sheet;
 
 import javax.swing.JPanel;
 import java.awt.FlowLayout;

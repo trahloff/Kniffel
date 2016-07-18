@@ -6,6 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Screens.ScGame;
+import Screens.ScHelp;
+import Screens.ScOption;
+import Screens.ScPromt;
+import Screens.ScRanking;
+import Screens.ScSettings;
+import Screens.ScStart;
+import Screens.Screen;
 import poi.POI;
 
 public class Controller

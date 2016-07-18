@@ -1,8 +1,10 @@
-package kniff;
+package Screens;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import helper.*;
+import kniff.Controller;
+import kniff.KniffButton;
 
 import java.awt.Font;
 import java.awt.Graphics;

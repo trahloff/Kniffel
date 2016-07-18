@@ -1,4 +1,4 @@
-package kniff;
+package Screens;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,6 +16,10 @@ import javax.swing.SwingConstants;
 
 import helper.EColor;
 import helper.EComponentDesign;
+import kniff.Controller;
+import kniff.Design;
+import kniff.KniffButton;
+import kniff.KniffPanel;
 import poi.POI;
 import java.awt.FlowLayout;
 import javax.swing.JScrollBar;
