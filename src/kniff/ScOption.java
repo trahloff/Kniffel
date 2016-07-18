@@ -114,6 +114,14 @@ public class ScOption extends Screen
 		JLabel nameLabel = new JLabel ("Name");
 		nameLabel.setBounds(0, 0, 0, 0);
 		nameValue = new JTextField();
+		nameValue.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
+					if (btnAdd.isEnabled())
+						addPlayer(ScOption.nameValue.getText());
+			}
+		});
 		nameValue.setHorizontalAlignment(SwingConstants.CENTER);
 		nameValue.setBounds(5, 5, 210, 40);
 		nameValue.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
@@ -131,7 +139,8 @@ public class ScOption extends Screen
 			@Override
 			public void mouseClicked(MouseEvent arg0)
 			{
-				addPlayer(ScOption.nameValue.getText());
+				if (btnAdd.isEnabled())
+					addPlayer(ScOption.nameValue.getText());
 			}
 		});
 		btnAdd.setComponentDesign(EComponentDesign.menuButton);
@@ -263,6 +272,8 @@ public class ScOption extends Screen
 			this.info("Jetzt kann es los gehen...");
 			this.btnStart.setEnabled(true);
 		}
+		
+		this.btnAdd.setEnabled(players.size() < 8);
 	}
 	
 	private void warn(String s)

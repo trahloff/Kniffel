@@ -25,7 +25,8 @@ public class Sheet extends JPanel
 	private JPanel content;
 	private JLabel title;
 	private int componentHeight = 30;
-
+	private int fivOACount = 0;
+	
 	private ArrayList<CombiButton> combinations = new ArrayList<CombiButton>();
 	
 	public Sheet(boolean cleared)
@@ -157,7 +158,7 @@ public class Sheet extends JPanel
 				return b;
 		return null;
 	}
-
+	
 	//
 	public void updateSheetValues(Dice[] combination)
 	{
@@ -165,6 +166,36 @@ public class Sheet extends JPanel
 		for (CombiButton b : this.combinations)
 			if (!b.isKilled())
 				b.setValue(Dice.getSortedValues(Controller.kniffDice));		
+		
+		CombiButton btnFivOA = this.getCombiButton(EDiceCombination.FivoA);
+		if (Sheet.isFivoA(Dice.getSortedValues(combination)) && btnFivOA.isKilled()) {
+			CombiButton btnUpCombi = getCombiButton(this.getUpperCombinationByNumber(Dice.getSortedValues(combination)[0]));
+			if (!btnUpCombi.isKilled())
+			{
+				int value = btnUpCombi.getValue();
+				btnUpCombi.setValue(btnUpCombi.getValue() + 50);
+				btnUpCombi.setText(value + " +50");
+			}
+			else
+			{
+				CombiButton btnSmlStr 		= this.getCombiButton(EDiceCombination.SmlStr);
+				CombiButton btnBigStr 		= this.getCombiButton(EDiceCombination.BigStr);
+				CombiButton btnFullHouse 	= this.getCombiButton(EDiceCombination.FullHouse);
+				
+				if (!btnSmlStr.isKilled())
+					btnSmlStr.setValue(30);
+				if (!btnBigStr.isKilled())
+					btnBigStr.setValue(40);
+				if (!btnFullHouse.isKilled())
+					btnFullHouse.setValue(25);
+				
+			}
+		}
+//		else if (this.fivOACount > 0)
+//		{
+//			button.setTextToValue();
+//			button.kill();
+//		}
 		
 		// Berechnung zur Ausgabe auf den Zwischenergebnis Labels		
 		int b = 0;	// bonus
@@ -184,16 +215,26 @@ public class Sheet extends JPanel
 			// Positionen der Labels: 6, 7, 8, 16, 17, 18
 			// ...und Inhalt: "gesamt", "Bonus bei 63 oder mehr", "gesamt oberer Teil", "gesamt unterer Teil", "gesamt oberer Teil", "Endsumme"
 			
-			((JLabel)this.content.getComponent(6)).setText("" + a); 		// 6:"gesamt"
-			((JLabel)this.content.getComponent(7)).setText("" + b); 		// 7:"Bonus bei 63 oder mehr"
-			((JLabel)this.content.getComponent(8)).setText("" + (a + b)); 	// 8:"gesamt oberer Teil"
-			((JLabel)this.content.getComponent(16)).setText("" + c); 		// 16:"gesamt unterer Teil"
-			((JLabel)this.content.getComponent(17)).setText("" + a); 		// 17:"gesamt oberer Teil"
-			((JLabel)this.content.getComponent(18)).setText("" + (a + c));	// 18:"Endsumme"
+			((JLabel)this.content.getComponent(6)).setText("" + a); 			// 6:"gesamt"
+			((JLabel)this.content.getComponent(7)).setText("" + b); 			// 7:"Bonus bei 63 oder mehr"
+			((JLabel)this.content.getComponent(8)).setText("" + (a + b)); 		// 8:"gesamt oberer Teil"
+			((JLabel)this.content.getComponent(16)).setText("" + c); 			// 16:"gesamt unterer Teil"
+			((JLabel)this.content.getComponent(17)).setText("" + (a + b)); 		// 17:"gesamt oberer Teil"
+			((JLabel)this.content.getComponent(18)).setText("" + (a + b + c));	// 18:"Endsumme"
 		} catch (Exception e)
 		{
 			System.err.println("Fehlerhafte Indexzuweisung verhindert korrekte Berrechnung der Ergebnisse!");
 		}
+		
+
+	}
+	
+	private boolean kniffeliger()
+	{
+		if (this.fivOACount > 0 && Sheet.isFivoA(Dice.getSortedValues(Controller.kniffDice))) {
+			return true;
+		}
+		return false;
 	}
 	
 	// oberer Teil
@@ -289,6 +330,27 @@ public class Sheet extends JPanel
 	//
 	//-----------------------------------------------------------------
 	
+	// ermittelt die entsprechende Kombination des oberen Teils für eine bestimmte Zahl
+	private EDiceCombination getUpperCombinationByNumber(int i)
+	{
+		switch (i) {
+		case 1:
+			return EDiceCombination.One;
+		case 2:
+			return EDiceCombination.Two;
+		case 3:
+			return EDiceCombination.Thr;
+		case 4:
+			return EDiceCombination.Fou;
+		case 5:
+			return EDiceCombination.Fiv;
+		case 6:
+			return EDiceCombination.Six;
+		default:
+			return null;
+		}
+	}
+	
 	/**
 	 * calculates the points for a specific dice combination
 	 * @param combi - the combination for which the points should be calculated
@@ -304,7 +366,7 @@ public class Sheet extends JPanel
 		case BigStr:
 			return isBigStr(values) ? 40 : 0;
 		case FivoA:
-			return isFivoA(values) ? 40 : 0;
+			return isFivoA(values) ? 50 : 0;
 		case FouoA:
 			return isFouoA(values) ? countAny(values) : 0;
 		case FullHouse:
@@ -412,7 +474,7 @@ public class Sheet extends JPanel
 	{
 		for (int i = 0; i < values.length-1; i++)
 		{
-			if (values[i] > 0 && values[i] < 7)
+			if (Dice.isInitialValue(values[i]))
 				return false;
 			if (values[i] != values[i+1])
 				return false;

@@ -33,7 +33,13 @@ public class Dice extends JButton
 		{
 			this.isInitial = false;
 			this.value = (int) Math.round((Math.random()*5) + 1);
+			
+			// Test
+			this.isInitial = false;
+			this.value = 6;
+			// Test
 		}
+		
 		this.setText(value + "");
 		this.repaint();
 		return this.value;
