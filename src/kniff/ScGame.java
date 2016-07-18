@@ -24,7 +24,8 @@ public class ScGame extends Screen
 	
 	private KniffButton btnRoll;
 	private JLabel lblInfolabel, lblRanking;
-	private KniffPanel pnSheets, pnRanking, pnDiceContainer;
+	private KniffPanel pnSheets, pnDiceContainer;
+	private JPanel pnRanking;
 	
 	public KniffButton getBtnRoll()
 	{
@@ -41,7 +42,7 @@ public class ScGame extends Screen
 			@Override
 			public void mouseClicked(MouseEvent arg0)
 			{
-					Controller.stopGame(1);
+					Controller.show(Controller.scPromt);
 			}
 		});
 
@@ -98,7 +99,7 @@ public class ScGame extends Screen
 		});
 		add(knfbtnHilfe);
 		
-		pnRanking = new KniffPanel();
+		pnRanking = new JPanel();
 		pnRanking.setBounds(754, 114, 174, 201);
 		add(pnRanking);
 		pnRanking.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -198,6 +199,7 @@ public class ScGame extends Screen
 			KniffButton pPoints = new KniffButton(i+1 + ". - " + p.getName() + " | " + p.getPoints());
 			pPoints.setEnabled(false);
 			pPoints.setPreferredSize(new Dimension(this.pnRanking.getWidth(), 20));
+			pPoints.setAlignmentX(pPoints.LEFT_ALIGNMENT);
 			pnRanking.add(pPoints);
 		}
 	}

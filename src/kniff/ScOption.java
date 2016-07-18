@@ -218,8 +218,8 @@ public class ScOption extends Screen
 			while(i.hasMoreElements())
 			{
 				Player p = i.nextElement();
-				if (ScOption.nameValue.getText().toUpperCase().equals(p.getName().toUpperCase()))
-					throw new Exception ("Der Spielername " + nameValue.getText() + " ist bereits vergeben");
+				if (ScOption.nameValue.getText().trim().toUpperCase().equals(p.getName().trim().toUpperCase()))
+					throw new Exception ("Der Spielername " + nameValue.getText().trim() + " ist bereits vergeben");
 			}
 			
 			String nameShort = "";
@@ -228,7 +228,7 @@ public class ScOption extends Screen
 			else
 				nameShort = ScOption.nameValue.getText().trim().substring(0, 3);
 				
-			Player p = new Player(ScOption.nameValue.getText(), nameShort);
+			Player p = new Player(ScOption.nameValue.getText().trim(), nameShort);
 			
 			ScOption.players.put(p.getPlayerButton(), p);
 			ScOption.nameValue.setText("");

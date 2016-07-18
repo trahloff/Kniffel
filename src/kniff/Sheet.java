@@ -141,8 +141,6 @@ public class Sheet extends JPanel
 			
 			content.add(l, index[i]);
 		}
-		
-		
 	}
 	
 	// Gibt den CombiButton des Sheets zurück,
@@ -167,17 +165,24 @@ public class Sheet extends JPanel
 			if (!b.isKilled())
 				b.setValue(Dice.getSortedValues(Controller.kniffDice));		
 		
+		// Kniffel Kombinationsbutton ermitteln
 		CombiButton btnFivOA = this.getCombiButton(EDiceCombination.FivoA);
-		if (Sheet.isFivoA(Dice.getSortedValues(combination)) && btnFivOA.isKilled()) {
-			CombiButton btnUpCombi = getCombiButton(this.getUpperCombinationByNumber(Dice.getSortedValues(combination)[0]));
+		
+		// wenn die aktuelle Kombination ein Kniffel ist und die Kniffelkombination schon genutzt...
+		if (Sheet.isFivOA(combination) && btnFivOA.isKilled())
+		{
+			// Entsprechenden Kombinationsbutton der oberen Hälfte ermitteln...
+			CombiButton btnUpCombi = getCombiButton(this.getUpperCombinationByNumber(combination));
 			if (!btnUpCombi.isKilled())
 			{
+				// wenn die obere Kombination noch nicht genutzt ist, dann gebe +50 Bonus
 				int value = btnUpCombi.getValue();
 				btnUpCombi.setValue(btnUpCombi.getValue() + 50);
 				btnUpCombi.setText(value + " +50");
 			}
 			else
 			{
+				// wenn obere Kombination genutzt ist, dann gebe Bonus für beliebige untere Kombination
 				CombiButton btnSmlStr 		= this.getCombiButton(EDiceCombination.SmlStr);
 				CombiButton btnBigStr 		= this.getCombiButton(EDiceCombination.BigStr);
 				CombiButton btnFullHouse 	= this.getCombiButton(EDiceCombination.FullHouse);
@@ -188,14 +193,8 @@ public class Sheet extends JPanel
 					btnBigStr.setValue(40);
 				if (!btnFullHouse.isKilled())
 					btnFullHouse.setValue(25);
-				
 			}
 		}
-//		else if (this.fivOACount > 0)
-//		{
-//			button.setTextToValue();
-//			button.kill();
-//		}
 		
 		// Berechnung zur Ausgabe auf den Zwischenergebnis Labels		
 		int b = 0;	// bonus
@@ -225,18 +224,8 @@ public class Sheet extends JPanel
 		{
 			System.err.println("Fehlerhafte Indexzuweisung verhindert korrekte Berrechnung der Ergebnisse!");
 		}
-		
+	}
 
-	}
-	
-	private boolean kniffeliger()
-	{
-		if (this.fivOACount > 0 && Sheet.isFivoA(Dice.getSortedValues(Controller.kniffDice))) {
-			return true;
-		}
-		return false;
-	}
-	
 	// oberer Teil
 	public int getPointsOfUpperPart()
 	{
@@ -330,6 +319,12 @@ public class Sheet extends JPanel
 	//
 	//-----------------------------------------------------------------
 	
+	// ermittelt die entsprechende Kombination des oberen Teils für eine bestimmte Zahl im Dice-Array
+	private EDiceCombination getUpperCombinationByNumber(Dice[] dice)
+	{
+		return getUpperCombinationByNumber(Dice.getSortedValues(dice)[0]);
+	}
+	
 	// ermittelt die entsprechende Kombination des oberen Teils für eine bestimmte Zahl
 	private EDiceCombination getUpperCombinationByNumber(int i)
 	{
@@ -366,15 +361,15 @@ public class Sheet extends JPanel
 		case BigStr:
 			return isBigStr(values) ? 40 : 0;
 		case FivoA:
-			return isFivoA(values) ? 50 : 0;
+			return isFivOA(values) ? 50 : 0;
 		case FouoA:
-			return isFouoA(values) ? countAny(values) : 0;
+			return isFouOA(values) ? countAny(values) : 0;
 		case FullHouse:
 			return isFullHouse(values) ? 25 : 0;
 		case SmlStr:
 			return isSmlStr(values) ? 30 : 0;
 		case ThroA:
-			return isThroA(values) ? countAny(values) : 0;
+			return isThrOA(values) ? countAny(values) : 0;
 		case One:
 			return countAny(1, values);
 		case Two:
@@ -428,6 +423,35 @@ public class Sheet extends JPanel
 		return result;
 	}
 	
+	private static boolean isSmlStr(Dice[] combination)
+	{
+		return isSmlStr(Dice.getSortedValues(combination));
+	}
+	
+	private static boolean isBigStr(Dice[] combination)
+	{
+		return isBigStr(Dice.getSortedValues(combination));
+	}
+	
+	private static boolean isFullHouse(Dice[] combination)
+	{
+		return isFullHouse(Dice.getSortedValues(combination));
+	}
+	
+	private static boolean isThrOA(Dice[] combination)
+	{
+		return isThrOA(Dice.getSortedValues(combination));
+	}
+	
+	private static boolean isFouOA(Dice[] combination)
+	{
+		return isFouOA(Dice.getSortedValues(combination));
+	}
+	private static boolean isFivOA(Dice[] combination)
+	{
+		return isFivOA(Dice.getSortedValues(combination));
+	}
+	
 	/**
 	 * returns true if the dice value combination is a BIG STRAIGHT
 	 * @param values - the dice values
@@ -470,7 +494,7 @@ public class Sheet extends JPanel
 	 * @param values - the dice values
 	 * @return returns true if all values are equal else false
 	 */
-	private static boolean isFivoA(int[] values)
+	private static boolean isFivOA(int[] values)
 	{
 		for (int i = 0; i < values.length-1; i++)
 		{
@@ -514,7 +538,7 @@ public class Sheet extends JPanel
 	 * @param values - the dice values
 	 * @return returns true if 3er PASCH else false
 	 */
-	private static boolean isThroA(int[] values)
+	private static boolean isThrOA(int[] values)
 	{
 		for (int i = 0; i < values.length - 1; i++)
 			if (!Dice.isInitialValue(values[i]))				// Sicherheitsabfrage falls Buttons mit Initialwerten
@@ -528,7 +552,7 @@ public class Sheet extends JPanel
 	 * @param values - the dice values
 	 * @return returns true if 4er PASCH else false
 	 */
-	private static boolean isFouoA(int[] values)
+	private static boolean isFouOA(int[] values)
 	{
 		for (int i = 0; i < values.length - 1; i++)
 			if (!Dice.isInitialValue(values[i]))				// Sicherheitsabfrage falls Buttons mit Initialwerten

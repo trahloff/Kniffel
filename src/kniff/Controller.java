@@ -17,13 +17,15 @@ public class Controller
 	public static Player currentPlayer;
 	public static Iterator<Player> ip;
 	public static int remainingRolls = 3;
-	private static int remainingRounds = 13;
+	public static int remainingRounds = 13;
 
 	public static ScStart scStart;
 	public static ScGame scGame;
 	public static ScOption scOption;
 	public static ScSettings scSettings;
 	public static ScHelp scHelp;
+	public static ScPromt scPromt;
+	
 	public static Dice[] kniffDice;
 
 	public static void main(String[] args)
@@ -171,12 +173,14 @@ public class Controller
 		scGame = new ScGame();
 		scSettings = new ScSettings();
 		scHelp = new ScHelp();
+		scPromt = new ScPromt();
 
 		scContainer.add(scStart, scStart.getName());
 		scContainer.add(scOption, scOption.getName());
 		scContainer.add(scGame, scGame.getName());
 		scContainer.add(scSettings, scSettings.getName());
 		scContainer.add(scHelp, scHelp.getName());
+		scContainer.add(scPromt, scPromt.getName());
 	}
 
 	public static boolean addPlayer(Player player) {
