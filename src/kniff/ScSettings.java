@@ -38,6 +38,13 @@ public class ScSettings extends Screen
 		cBoxColor.setBounds(350, 340, 200, 35);
 		add(cBoxColor);
 		
+		for (int i = 0; i < this.cBoxColor.getItemCount(); i++) {
+			if (this.cBoxColor.getItemAt(i) == Design.getColorScheme()){
+				this.cBoxColor.setSelectedIndex(i);
+				break;
+			}
+		}
+		
 		lbInfoA = new JLabel("Auswahl des Farbschemas");
 		lbInfoA.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
 		lbInfoA.setBounds(350, 300, 250, 30);
@@ -80,10 +87,9 @@ public class ScSettings extends Screen
 		int halfWidth = this.getParent().getWidth() / 2;
 		
 		this.lbTitle.setBounds(0, 130, this.getParent().getWidth(), 150);
-	
 		this.lbInfoA.setBounds(halfWidth - 260 / 2, 360, 260, 20);
 		this.cBoxColor.setBounds(halfWidth - 260 / 2, 400, 260, 50);
 		this.btnApply.setBounds(halfWidth - 180 / 2, 570, 180, 50);
-		this.btnBack.setBounds(halfWidth - 180 / 2, 630, 180, 50);
+		this.btnBack.setBounds(halfWidth - 180 / 2, 630, 180, 50);		
 	}
 }
