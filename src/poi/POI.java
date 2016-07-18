@@ -89,7 +89,7 @@ public class POI { //
 
 
 	}
-	private static Map<String, Integer>getAllScores() {
+	public static Map<String, Integer>getAllScores() {
 
 		Map<String, Integer> map = new TreeMap<String, Integer>();
 

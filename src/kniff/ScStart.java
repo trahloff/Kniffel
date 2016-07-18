@@ -10,11 +10,12 @@ import javax.swing.SwingConstants;
 
 import helper.EColor;
 import helper.EComponentDesign;
+import poi.POI;
 
 public class ScStart extends Screen
 {	
 	private static final long serialVersionUID = 1L;
-	public KniffButton btnStart, btnEnd, btnSettings;
+	public KniffButton btnStart, btnEnd, btnSettings, btnRanking;
 	JLabel lbTitle, lbMessage;
 	
 	public ScStart()
@@ -73,7 +74,21 @@ public class ScStart extends Screen
 		});
 		btnSettings.setComponentDesign(EComponentDesign.menuButton);
 		btnSettings.setBounds(250, 570, 180, 50);
-		add(btnSettings);}
+		add(btnSettings);
+		
+		// Ranking-Button
+		btnRanking = new KniffButton("Punktetabelle");
+		btnRanking.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				POI.highscoreAll();
+			}
+		});
+		btnRanking.setComponentDesign(EComponentDesign.menuButton);
+		btnRanking.setBounds(250, 509, 180, 50);
+		add(btnRanking);
+	}
 		
 	
 	private String getRandomMessage()
@@ -132,9 +147,10 @@ public class ScStart extends Screen
 		
 		int halfWidth = this.getParent().getWidth() / 2;
 		
-		this.lbTitle.setBounds(0, 130, this.getParent().getWidth(), 150);
+		this.lbTitle.setBounds(0, 100, this.getParent().getWidth(), 150);
 		
-		this.btnStart.setBounds(halfWidth - 200 / 2, 300, 200, 200);	
+		this.btnStart.setBounds(halfWidth - 200 / 2, 250, 200, 200);
+		this.btnRanking.setBounds(halfWidth - 180 / 2, 510, 180, 50);
 		this.btnSettings.setBounds(halfWidth - 180 / 2, 570, 180, 50);
 		this.btnEnd.setBounds(halfWidth - 180 / 2, 630, 180, 50);
 		
