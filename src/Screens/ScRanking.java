@@ -20,6 +20,7 @@ import kniff.Controller;
 import kniff.Design;
 import kniff.KniffButton;
 import kniff.KniffPanel;
+import kniff.Player;
 import poi.POI;
 import java.awt.FlowLayout;
 import javax.swing.JScrollBar;
@@ -140,6 +141,21 @@ public class ScRanking extends Screen
 			KniffButton playerEntry = new KniffButton(player + " | " + ranking.get(player));
 			playerEntry.setEnabled(true);
 			playerEntry.setPreferredSize(new Dimension(this.pnRanking.getWidth() - 10, 40));
+			playerEntry.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e)
+				{
+					KniffButton b = ((KniffButton) e.getSource());
+					b.setText(POI.highscoreByPlayer(b.getText()); + " Punkte");
+				}
+				
+				public void mouseExited(MouseEvent e)
+				{
+					KniffButton b = ((KniffButton) e.getSource());
+					b.setText();
+				}
+			});
+			
 			pnRanking.add(playerEntry);
 			pnRanking.add(playerEntry, null, 0);
 		}
