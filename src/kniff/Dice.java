@@ -145,15 +145,15 @@ public class Dice extends JButton
         if (this.isEnabled())
 		{
         	g.setColor(Color.decode("#FDFDFD"));
-        	g.fillRoundRect(2, 2, this.getHeight() - 4, this.getWidth() - 4, 15, 15);
+        	g.fillRoundRect(2, 2, this.getWidth() - 4, this.getHeight() - 4, 15, 15);
         	g.setColor(Color.decode("#222222"));
 		}
         else
         {
         	g.setColor(Design.getColor(EColor.disabled_dice_a));
-            g.fillRoundRect(0, 0, this.getHeight(), this.getWidth(), 15, 15);
+            g.fillRoundRect(0, 0, this.getWidth(), this.getHeight(), 15, 15);
             g.setColor(Color.decode("#E0E0E0"));
-        	g.drawRoundRect(0, 0, this.getHeight()-1, this.getWidth()-1, 15, 15);
+        	g.drawRoundRect(0, 0, this.getWidth()-1, this.getHeight()-1, 15, 15);
 			g.setColor(Color.decode("#444444"));
         }
         if (this.isInitial)

@@ -130,7 +130,7 @@ public class ScRanking extends Screen
 		
 	}
 	
-	private void fillTable(Map<String, Integer> ranking)
+	private void fillTable(final Map<String, Integer> ranking)
 	{
 		this.pnRanking.removeAll();
 		
@@ -145,18 +145,16 @@ public class ScRanking extends Screen
 				@Override
 				public void mouseEntered(MouseEvent e)
 				{
-					KniffButton b = ((KniffButton) e.getSource());
-					b.setText(POI.highscoreByPlayer(b.getText()); + " Punkte");
+//					KniffButton b = ((KniffButton) e.getSource());
+//					b.setText(ranking.get(b.getText()) + " Punkte");
 				}
 				
 				public void mouseExited(MouseEvent e)
 				{
-					KniffButton b = ((KniffButton) e.getSource());
-					b.setText();
+//					KniffButton b = ((KniffButton) e.getSource());
+//					b.setText("");
 				}
 			});
-			
-			pnRanking.add(playerEntry);
 			pnRanking.add(playerEntry, null, 0);
 		}
 
@@ -191,10 +189,9 @@ public class ScRanking extends Screen
 			return;
 		int halfWidth = this.getParent().getWidth() / 2;
 		
-		
 		this.lbTitle.setBounds(0, 20, this.getParent().getWidth(), 100);
 		this.pnInput.setBounds(halfWidth - 140, 120, 280, 75);
-		nameValue.setBounds(5, 30, pnInput.getWidth() - 10, 40);
+		this.nameValue.setBounds(5, 30, this.pnInput.getWidth() - 10, 40);
 		this.pnRanking.setBounds(halfWidth - 140, 220, 280, 365);
 		this.btnBack.setBounds(halfWidth - 140, 600, 100, 40);
 		

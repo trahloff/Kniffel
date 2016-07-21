@@ -12,6 +12,7 @@ public class Player implements Comparable<Player>
 	private String shortName;
 	private Sheet sheet;
 	private KniffButton button;
+	private int position = 0;
 
 	public Player(String name, String shortName) throws Exception
 	{
@@ -85,5 +86,15 @@ public class Player implements Comparable<Player>
 	public int compareTo(Player p)
 	{
 		return p.name.compareTo(this.name);
+	}
+	
+	public void setPosition(int i)
+	{
+		this.position = i;
+	}
+	
+	public int getPosition()
+	{
+		return this.position;
 	}
 }

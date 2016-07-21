@@ -6,14 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Screens.ScGame;
-import Screens.ScHelp;
-import Screens.ScOption;
-import Screens.ScPromt;
-import Screens.ScRanking;
-import Screens.ScSettings;
-import Screens.ScStart;
-import Screens.Screen;
+import Screens.*;
 import poi.POI;
 
 public class Controller
@@ -34,6 +27,8 @@ public class Controller
 	public static ScHelp scHelp;
 	public static ScPromt scPromt;
 	public static ScRanking scRanking;
+	public static ScEnd scEnd;
+	public static ScWhoIsFirst scWhoIsFirst;
 	
 	public static Dice[] kniffDice;
 
@@ -46,6 +41,9 @@ public class Controller
 		initScreens();
 		MainWindow.main(args);
 		show(scStart);
+		// Test
+		// show(scEnd);
+		// Test
 	}
 
 	public static void show(Screen sc)
@@ -64,12 +62,19 @@ public class Controller
 		} else {
 			throw new Exception("Es scheint keine Spieler zu geben.");
 		}
-
+		
+		Controller.show(scWhoIsFirst);
+		scWhoIsFirst.init();
+		scWhoIsFirst.startPlayerOrder(players);
+	}
+	
+	public static void startGameScreen()
+	{
 		Controller.show(scGame);
 		scGame.init();
 		scGame.writeMessage(currentPlayer.getFullName() + " macht den ersten Wurf");
 	}
-
+	
 	public static void nextPlayer()
 	{
 		vanishSheetValues(currentPlayer);
@@ -78,7 +83,8 @@ public class Controller
 			ip = players.iterator();
 			if (remainingRounds <= 0)
 			{
-				stopGame(0);
+				saveScores();
+				Controller.show(scEnd);
 				return;
 			}
 			remainingRounds--;
@@ -109,7 +115,6 @@ public class Controller
 		{
 		case 0:
 			System.out.println("Spielende");
-			saveScores();
 			break;
 		case 1:
 			System.out.println("Spielabbruch durch Spieler");
@@ -138,7 +143,6 @@ public class Controller
 			} catch (IOException e)
 			{
 				System.err.println("Der Punktestand von " + p.getName() + " konnte aufgrund eines Schreib-Lesefehlers nicht gespeichert werden!");
-				e.printStackTrace();
 			}
 		}
 	}
@@ -184,6 +188,8 @@ public class Controller
 		scHelp = new ScHelp();
 		scPromt = new ScPromt();
 		scRanking = new ScRanking();
+		scEnd = new ScEnd();
+		scWhoIsFirst = new ScWhoIsFirst();
 
 		scContainer.add(scStart, scStart.getName());
 		scContainer.add(scOption, scOption.getName());
@@ -192,6 +198,8 @@ public class Controller
 		scContainer.add(scHelp, scHelp.getName());
 		scContainer.add(scPromt, scPromt.getName());
 		scContainer.add(scRanking, scRanking.getName());
+		scContainer.add(scEnd, scEnd.getName());
+		scContainer.add(scWhoIsFirst, scWhoIsFirst.getName());
 	}
 
 	public static boolean addPlayer(Player player)
