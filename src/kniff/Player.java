@@ -44,8 +44,8 @@ public class Player implements Comparable<Player>
 		
 		if (name.length() == 0)
 			throw new Exception("Der Name des Spielers darf nicht leer sein!");
-		if (name.length() > 20)
-			throw new Exception("Der Name des Spielers darf nicht länger als 20 Zeichen sein!");
+		if (name.length() > 10)
+			throw new Exception("Der Name des Spielers darf nicht länger als 10 Zeichen sein!");
 		this.name = name;
 	}
 

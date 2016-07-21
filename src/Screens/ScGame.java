@@ -1,4 +1,4 @@
-package kniff;
+package Screens;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,9 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import helper.EComponentDesign;
+import kniff.Controller;
+import kniff.Dice;
+import kniff.KniffButton;
+import kniff.KniffPanel;
+import kniff.Player;
+import kniff.Sheet;
 
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
+import java.awt.Color;
+import javax.swing.JTextField;
 
 public class ScGame extends Screen
 {
@@ -21,9 +29,9 @@ public class ScGame extends Screen
 	private KniffButton btnEnd;
 	
 	private KniffButton btnRoll;
-	private JLabel lblInfolabel;
-	private KniffPanel pnSheets;
-	private JPanel pnDiceContainer;
+	private JLabel lblInfolabel, lblRanking;
+	private KniffPanel pnSheets, pnDiceContainer;
+	private JPanel pnRanking;
 	
 	public KniffButton getBtnRoll()
 	{
@@ -34,17 +42,18 @@ public class ScGame extends Screen
 	{
 		this.setLayout(null);
 		this.setName("game");
-		
-		
+
 		btnEnd = new KniffButton("Ende");
 		btnEnd.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Controller.stopGame(1);
+			public void mouseClicked(MouseEvent arg0)
+			{
+					Controller.show(Controller.scPromt);
 			}
 		});
+
 		btnEnd.setComponentDesign(EComponentDesign.menuButton);
-		btnEnd.setBounds(20, 742, 174, 30);
+		btnEnd.setBounds(20, 701, 175, 71);
 		this.add(btnEnd);
 		
 		btnRoll = new KniffButton("W\u00FCrfel rollen");
@@ -62,7 +71,7 @@ public class ScGame extends Screen
 		
 		lblInfolabel = new JLabel("Spielinfo");
 		lblInfolabel.setFont(new Font("OCR A Extended", Font.PLAIN, 20));
-		lblInfolabel.setBounds(20, 11, 734, 48);
+		lblInfolabel.setBounds(20, 11, 908, 48);
 		lblInfolabel.setHorizontalAlignment(SwingConstants.CENTER);		
 		this.add(lblInfolabel);
 		
@@ -75,19 +84,40 @@ public class ScGame extends Screen
 		sheet.setTitle("Kombinationen");
 		sheet.setPreferredSize(new Dimension(150, 677));
 		sheet.setEnabled(false);
-		sheet.setBounds(20, 70, 174, 620);
+		sheet.setBounds(19, 70, 175, 620);
 		this.add(sheet);
 		
-		pnDiceContainer = new JPanel();
-		pnDiceContainer.setBounds(758, 144, 100, 576);
+		pnDiceContainer = new KniffPanel();
+		pnDiceContainer.setBounds(801, 325, 80, 365);
 		this.add(pnDiceContainer);
-		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnDiceContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 6));
 		
 		KniffButton knfbtnHilfe = new KniffButton("Ende");
-		knfbtnHilfe.setText("Hilfe");
+		knfbtnHilfe.setText("Regeln");
 		knfbtnHilfe.setComponentDesign(EComponentDesign.menuButton);
-		knfbtnHilfe.setBounds(20, 701, 174, 30);
+		knfbtnHilfe.setBounds(753, 701, 175, 71);
+		knfbtnHilfe.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Controller.show(Controller.scHelp);
+			}
+		});
 		add(knfbtnHilfe);
+		
+		pnRanking = new JPanel();
+		pnRanking.setBounds(754, 114, 174, 201);
+		add(pnRanking);
+		pnRanking.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblRanking = new JLabel();
+		lblRanking.setText("Rangliste");
+		lblRanking.setBounds(754, 70, 174, 39);
+		lblRanking.setFont(new Font("OCR A Extended", Font.PLAIN, 15));
+		lblRanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRanking.setVerticalAlignment(SwingConstants.CENTER);
+		add(lblRanking);
+
 	
 		initDice();
 	}
@@ -119,12 +149,18 @@ public class ScGame extends Screen
 	{		
 		initSheets();
 		initDice();
+		initRanking();
 		
 		Dice.setAllEnabled(true);
 		Dice.setAllInitial(true);
 		
 		btnRoll.setEnabled(true);
 		setEnableSheets(false);
+	}
+	
+	public void initRanking()
+	{
+		clearRanking();
 	}
 	
 	public void enableSheetForPlayer(Player player)
@@ -143,5 +179,33 @@ public class ScGame extends Screen
 	{
 		super.paintComponent(g);
 		this.repaint();
+	}
+	
+	public void exitPromt()
+	{
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.PINK);
+		panel.setBounds(0, 0, this.getParent().getHeight(), this.getParent().getWidth());
+		add(panel);
+		
+		
+	}
+
+	public void clearRanking()
+	{
+		pnRanking.removeAll();
+	}
+	
+	public void setRanking(Player[] ranking)
+	{
+		pnRanking.removeAll();
+		for (int i = 0; i < ranking.length; i++)
+		{
+			Player p = ranking[i];
+			KniffButton pPoints = new KniffButton(i+1 + ". - " + p.getName() + " | " + p.getPoints());
+			pPoints.setEnabled(false);
+			pPoints.setPreferredSize(new Dimension(this.pnRanking.getWidth(), 20));
+			pnRanking.add(pPoints);
+		}
 	}
 }

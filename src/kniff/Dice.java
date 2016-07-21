@@ -12,6 +12,12 @@ public class Dice extends JButton
 {
 	private static final long serialVersionUID = 1L;
 	
+	private static int diceSize = 65;
+	private static Dimension globalSize = new Dimension(diceSize, diceSize);
+	private int dis = 15;							// distance between point and dice edge
+	private int psz = Math.round(400 / diceSize);	// point size
+	private int cof	= 0;							// custom offset for point calibration
+	
 	private int value;
 	private boolean isInitial;
 	private final static int initialValue = 0;
@@ -28,6 +34,7 @@ public class Dice extends JButton
 			this.isInitial = false;
 			this.value = (int) Math.round((Math.random()*5) + 1);
 		}
+		
 		this.setText(value + "");
 		this.repaint();
 		return this.value;
@@ -138,94 +145,96 @@ public class Dice extends JButton
         if (this.isEnabled())
 		{
         	g.setColor(Color.decode("#FDFDFD"));
-        	g.fillRoundRect(15, 15, 70, 70, 15, 15);
+        	g.fillRoundRect(2, 2, this.getHeight() - 4, this.getWidth() - 4, 15, 15);
         	g.setColor(Color.decode("#222222"));
 		}
         else
         {
         	g.setColor(Design.getColor(EColor.disabled_dice_a));
-            g.fillRoundRect(12, 12, 76, 76, 15, 15);
+            g.fillRoundRect(0, 0, this.getHeight(), this.getWidth(), 15, 15);
             g.setColor(Color.decode("#E0E0E0"));
-        	g.drawRoundRect(12, 12, 76, 76, 15, 15);
+        	g.drawRoundRect(0, 0, this.getHeight()-1, this.getWidth()-1, 15, 15);
 			g.setColor(Color.decode("#444444"));
         }
         if (this.isInitial)
 		{
-			g.drawLine(25, 25, this.getWidth() - 25, this.getHeight() - 25);
-			g.drawLine(25, 75, this.getWidth() - 25, this.getHeight() - 75);
+			g.drawLine(dis, dis, (this.getWidth() - dis), (this.getHeight() - dis));
+			g.drawLine(dis, this.getWidth() -  dis, this.getHeight() - dis, dis);
 		}
         else
         {
-        switch (this.value)
-		{
-		case 1:
-			g.fillOval(45, 45, 10, 10);
-			break;
-		case 2:
-			g.fillOval(25, 25, 10, 10);
-			g.fillOval(65, 65, 10, 10);
-			break;
-		case 3:
-			g.fillOval(25, 25, 10, 10);
-			g.fillOval(45, 45, 10, 10);
-			g.fillOval(65, 65, 10, 10);
-			break;
-		case 4:
-			g.fillOval(25, 25, 10, 10);
-			g.fillOval(65, 65, 10, 10);	
-			g.fillOval(65, 25, 10, 10);
-			g.fillOval(25, 65, 10, 10);
-			break;
-		case 5:
-			g.fillOval(25, 25, 10, 10);
-			g.fillOval(45, 45, 10, 10);
-			g.fillOval(65, 65, 10, 10);
-			g.fillOval(65, 25, 10, 10);
-			g.fillOval(25, 65, 10, 10);
-			break;
-		case 6:
-			g.fillOval(25, 25, 10, 10);
-			g.fillOval(25, 45, 10, 10);
-			g.fillOval(25, 65, 10, 10);
-			g.fillOval(65, 25, 10, 10);
-			g.fillOval(65, 45, 10, 10);
-			g.fillOval(65, 65, 10, 10);
-			break;	
-		default:
-			break;
-		}
+        	int off = psz/2 + cof;					// offset for correct point positioning
+        	
+	        switch (this.value)
+			{
+			case 1:
+				g.fillOval(this.getHeight()/2 - off, this.getWidth()/2 - off, psz, psz);				// middle
+				break;
+			case 2:
+				g.fillOval(dis - off, dis - off, psz, psz);												// left top
+				g.fillOval((this.getWidth() - dis) - off,(this.getHeight() - dis) - off, psz, psz);		// right bottom
+				break;
+			case 3:
+				g.fillOval(dis - off, dis - off, psz, psz);												// left top
+				g.fillOval(this.getHeight()/2 - off, this.getWidth()/2 - off, psz, psz);				// middle
+				g.fillOval((this.getWidth() - dis) - off,(this.getHeight() - dis) - off, psz, psz);		// right bottom
+				break;
+			case 4:
+				g.fillOval(dis - off, dis - off, psz, psz);												// left top
+				g.fillOval(dis - off, (this.getHeight() - dis) - off, psz, psz);						// left bottom
+				g.fillOval((this.getWidth() - dis) - off, dis - off, psz, psz);							// right top
+				g.fillOval((this.getWidth() - dis) - off,(this.getHeight() - dis) - off, psz, psz);		// right bottom
+				break;
+			case 5:
+				g.fillOval(this.getHeight()/2 - off, this.getWidth()/2 - off, psz, psz);				// middle
+				g.fillOval(dis - off, dis - off, psz, psz);												// left top
+				g.fillOval(dis - off, (this.getHeight() - dis) - off, psz, psz);						// left bottom
+				g.fillOval((this.getWidth() - dis) - off, dis - off, psz, psz);							// right top
+				g.fillOval((this.getWidth() - dis) - off,(this.getHeight() - dis) - off, psz, psz);		// right bottom
+				break;
+			case 6:
+				g.fillOval(dis - off, dis - off, psz, psz);												// left top
+				g.fillOval(dis - off, (this.getHeight()/2) - off, psz, psz);							// left middle
+				g.fillOval(dis - off, (this.getHeight() - dis) - off, psz, psz);						// left bottom
+				g.fillOval((this.getWidth() - dis) - off, dis - off, psz, psz);							// right top
+				g.fillOval((this.getWidth() - dis) - off, (this.getHeight()/2) - off, psz, psz);		// right middle
+				g.fillOval((this.getWidth() - dis) - off,(this.getHeight() - dis) - off, psz, psz);		// right bottom
+				break;	
+			default:
+				break;
+			}
         }
     }
 	
 	public static Dice[] initDiceCollection()
-	{
+	{		
 		Dice die1 = new Dice();
 		die1.addMouseListener(DieButtonListener);
-		die1.setPreferredSize(new Dimension(100, 100));
+		die1.setPreferredSize(globalSize);
 		die1.setText("1");
 		die1.setFont(Design.getFont());
 		
 		Dice die2 = new Dice();
 		die2.addMouseListener(DieButtonListener);
-		die2.setPreferredSize(new Dimension(100, 100));
+		die2.setPreferredSize(globalSize);
 		die2.setText("2");
 		die2.setFont(Design.getFont());
 		
 		Dice die3 = new Dice();
 		die3.addMouseListener(DieButtonListener);
-		die3.setPreferredSize(new Dimension(100, 100));
+		die3.setPreferredSize(globalSize);
 		die3.setText("3");
 		die3.setFont(Design.getFont());
 		
 		Dice die4 = new Dice();
 		die4.addMouseListener(DieButtonListener);
-		die4.setPreferredSize(new Dimension(100, 100));
+		die4.setPreferredSize(globalSize);
 		die4.setText("4");
 		die4.setFont(Design.getFont());
 		
 		Dice die5 = new Dice();
 		die5.addMouseListener(DieButtonListener);
-		die5.setPreferredSize(new Dimension(100, 100));
+		die5.setPreferredSize(globalSize);
 		die5.setText("5");
 		die5.setFont(Design.getFont());
 		

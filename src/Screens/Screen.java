@@ -1,4 +1,4 @@
-package kniff;
+package Screens;
 
 import java.awt.CardLayout;
 import java.awt.Color;

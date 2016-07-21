@@ -1,5 +1,6 @@
 package kniff;
 
+import java.awt.Event;
 import java.awt.Graphics;
 import helper.*;
 
@@ -65,7 +66,12 @@ public class CombiButton extends KniffButton
 	// legt den Wert für die Kombination fest
 	public void setValue(int[] dice)
 	{
-		this.value = Sheet.calcPoints(this.combination, dice);
+		this.setValue(Sheet.calcPoints(this.combination, dice));
+	}
+	
+	public void setValue(int i)
+	{
+		this.value = i;
 		this.setTextToValue();
 	}
 	
@@ -90,13 +96,6 @@ public class CombiButton extends KniffButton
 	// übersteuert die setEnabled(*) Methode mit false für diesen Button entgültig
 	public void kill()
 	{
-		try
-		{
-			this.value = Integer.parseInt(this.getText());
-		} catch (Exception e)
-		{
-			this.value = 0;
-		}
 		this.isKilled = true;
 		this.setEnabled(false);
 	}
@@ -148,6 +147,13 @@ public class CombiButton extends KniffButton
 	{
 		//Design.drawButton(this, g);
 		super.paintComponent(g);
+	}
+
+	// belebt den CombiButton wieder
+	public void resuscitate()
+	{
+		this.isKilled = false;
+		this.setEnabled(true);
 	}
 	
 }
