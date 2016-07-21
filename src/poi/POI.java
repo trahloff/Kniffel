@@ -24,10 +24,13 @@ import helper.MapUtil;
 import helper.SystemUtil;
 
 /*
- *  'POI' ist eine Helferklasse.
- *  Es wurde sich explizit dazu entschieden sie als Service in Anlehnung an bestimmte MVC patterns zu designen und alles Funktionen statisch zu realisieren.
- *  Eine instanzierbare Klasse würde im Projektkontext nicht helfen.
- *  */
+ * 'POI' ist eine Library von Apache und steht für 'Poor Obfuscation Implementation'. Ja, ernsthaft.
+ * Diese Library wird genutzt um Highscores permanent auf dem Rechner des Anwenders zu speichern.
+ *
+ * Da eine instanzierbare Klasse im Projektkontext nicht weiterhelfen würde (man benötigt ausschließlich die Funktionen, Klassenattribute werden nicht gebraucht)
+ * Ist diese Klasse eine Ansaammlung ausschließlich statischer Methoden. Sie ist als Hilfsklasse anzusehen
+ *
+ */
 
 @SuppressWarnings({"unused" })
 public class POI { //
