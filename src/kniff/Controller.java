@@ -7,7 +7,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import helper.POI;
-import screens.*;
+import screens.ScEnd;
+import screens.ScGame;
+import screens.ScHelp;
+import screens.ScOption;
+import screens.ScPromt;
+import screens.ScRanking;
+import screens.ScSettings;
+import screens.ScStart;
+import screens.ScWhoIsFirst;
+import screens.Screen;
 
 public class Controller
 {
@@ -29,7 +38,7 @@ public class Controller
 	public static ScRanking scRanking;
 	public static ScEnd scEnd;
 	public static ScWhoIsFirst scWhoIsFirst;
-	
+
 	public static Dice[] kniffDice;
 
 	public static void main(String[] args)
@@ -64,7 +73,7 @@ public class Controller
 		}
 		scWhoIsFirst.startPlayerOrder(players);
 	}
-	
+
 	public static void startGameScreen()
 	{
 		Controller.show(scGame);
@@ -73,7 +82,7 @@ public class Controller
 		nextPlayer();
 		scGame.writeMessage(currentPlayer.getFullName() + " macht den ersten Wurf");
 	}
-	
+
 	public static void nextPlayer()
 	{
 		vanishSheetValues(currentPlayer);
@@ -88,7 +97,7 @@ public class Controller
 			ip = players.iterator();
 			remainingRounds--;
 		}
-		
+
 		currentPlayer = ip.next();
 
 		scGame.writeMessage(currentPlayer.getFullName() + " ist an der Reihe");
@@ -138,6 +147,7 @@ public class Controller
 			try
 			{
 				POI.savePlayerScore(p.getName(), p.getPoints());
+				ScRanking.newScores=true;
 			} catch (IOException e)
 			{
 				System.err.println("Der Punktestand von " + p.getName() + " konnte aufgrund eines Schreib-Lesefehlers nicht gespeichert werden!");
@@ -212,6 +222,7 @@ public class Controller
 
 	public static Player[] getRanking()
 	{
+
 		Player[] ranking = new Player[players.size()];
 		int j = 0;
 		for (Player player : players)

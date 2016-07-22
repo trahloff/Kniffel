@@ -35,6 +35,8 @@ public class ScRanking extends Screen
 
 	private JLabel lbTitle, lbInfoMessage;
 
+	public static boolean newScores = true;
+
 	public ScRanking()
 	{
 		this.setLayout(null);
@@ -93,7 +95,12 @@ public class ScRanking extends Screen
 		pnRanking.addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent event) {
-				listPlayerByName("");
+				if (newScores) {
+					System.out.println(newScores);
+					listPlayerByName("");
+					newScores = false;
+					System.out.println(newScores);
+				}
 			}
 			@Override // müssen für 'AncestorListener' implementiert werden
 			public void ancestorMoved(AncestorEvent event) {}
