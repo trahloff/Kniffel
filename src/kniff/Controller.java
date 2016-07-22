@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import Screens.*;
-import poi.POI;
+import helper.POI;
+import screens.*;
 
 public class Controller
 {

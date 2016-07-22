@@ -1,4 +1,4 @@
-package Screens;
+package screens;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,10 +10,10 @@ import javax.swing.SwingConstants;
 
 import helper.EColor;
 import helper.EComponentDesign;
+import helper.POI;
 import kniff.Controller;
 import kniff.Design;
 import kniff.KniffButton;
-import poi.POI;
 
 public class ScStart extends Screen
 {	

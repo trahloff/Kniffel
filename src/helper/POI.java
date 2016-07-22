@@ -1,4 +1,4 @@
-package poi;
+package helper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,9 +19,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-
-import helper.MapUtil;
-import helper.SystemUtil;
 
 /*
  * 'POI' ist eine Library von Apache und steht für 'Poor Obfuscation Implementation'. Ja, ernsthaft.
@@ -195,7 +192,7 @@ public class POI { //
 
 	//TODO obsolete?
 	private static void showReadError() {
-		JOptionPane.showMessageDialog(null, "The savefile \"save.xls\" can't be opened. Please close the file and try again.");
+		JOptionPane.showMessageDialog(null, "Ist die Datei \"save.xlsx\" eventuell gerade in Benutzung? Sie existiert, kann aber leider nicht geöffnet werden. Bitte schließe sie und versuche es erneut");
 	}
 
 	// Überprüft ob das Verzeichnis für das saveFile und das saveFile an sich existiert
@@ -261,14 +258,5 @@ public class POI { //
 
 	}
 
-	//TODO obsolete
-	public static void highscoreAll() {
-		Scores.highscoreAll(getAllScores());
-	}
-
-	//TODO obsolete
-	public static void highscoreByPlayer(String player) {
-		Scores.highscorePlayer(getScoreByPlayer(player));
-	}
 
 }

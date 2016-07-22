@@ -1,4 +1,4 @@
-package Screens;
+package screens;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
