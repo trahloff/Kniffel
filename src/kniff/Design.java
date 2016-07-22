@@ -218,8 +218,6 @@ public class Design
 				g.setColor(Design.getColor(EColor.bg_dark));
 				g.fillOval(5, 5, b.getWidth() - 11, b.getHeight() - 11);
 				
-//				g.setColor(Design.getColor(Colors.accent_a_light));					// Leonard Test
-//				g.fillRect(b.getWidth()/ 2 -50, b.getHeight()/ 2 -10, 100, 20);  // Leonard Test
 				
 				// final Color setting for Text
 				b.setForeground(Design.getColor(EColor.fg_light));
