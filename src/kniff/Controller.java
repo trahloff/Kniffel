@@ -62,9 +62,6 @@ public class Controller
 		} else {
 			throw new Exception("Es scheint keine Spieler zu geben.");
 		}
-		
-		Controller.show(scWhoIsFirst);
-		scWhoIsFirst.init();
 		scWhoIsFirst.startPlayerOrder(players);
 	}
 	
@@ -72,6 +69,8 @@ public class Controller
 	{
 		Controller.show(scGame);
 		scGame.init();
+		ip = players.iterator();
+		nextPlayer();
 		scGame.writeMessage(currentPlayer.getFullName() + " macht den ersten Wurf");
 	}
 	
@@ -80,18 +79,17 @@ public class Controller
 		vanishSheetValues(currentPlayer);
 		if (!ip.hasNext())
 		{
-			ip = players.iterator();
 			if (remainingRounds <= 0)
 			{
 				saveScores();
 				Controller.show(scEnd);
 				return;
 			}
+			ip = players.iterator();
 			remainingRounds--;
 		}
-		if (ip.hasNext()) {
-			currentPlayer = ip.next();
-		}
+		
+		currentPlayer = ip.next();
 
 		scGame.writeMessage(currentPlayer.getFullName() + " ist an der Reihe");
 		remainingRolls = 3;

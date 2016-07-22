@@ -79,7 +79,6 @@ public class ScEnd extends Screen{
 					
 					Controller.stopGame(0);
 					Controller.startGame(p);
-					Controller.show(Controller.scGame);
 				} catch (Exception e1) {
 					System.err.println("Fehler beim Starten des Spiel mit gleichen Einstellungen!\n> " + e1.getMessage());
 					Controller.show(Controller.scStart);

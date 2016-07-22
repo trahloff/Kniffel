@@ -104,9 +104,12 @@ public class ScOption extends Screen
 		btnAdd.setComponentDesign(EComponentDesign.menuButton);
 
 		
+		// Title-Label
+		lbTitle = new JLabel("Spielerauswahl");
+		lbTitle.setBounds(0, 11, 650, 150);
+		lbTitle.setForeground(Color.decode("#666666"));
+		lbTitle.setFont(Design.getFont().deriveFont(0, 30));
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTitle.setBounds(10, 11, 760, 100);
-		lbTitle.setFont(new Font("OCR A Extended", Font.PLAIN, 40));
 		this.add(lbTitle);
 		
 		lbInfoMessage = new JLabel("Info");

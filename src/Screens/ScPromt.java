@@ -18,8 +18,10 @@ public class ScPromt extends Screen
 {	
 	private static final long serialVersionUID = 1L;
 	
-	public KniffButton btnYes, btnNo;
-	JLabel lbTitle;
+	private Screen backTo = Controller.scStart;
+	private KniffButton btnYes, btnNo;
+	private JLabel lbTitle;	
+	
 	
 	public ScPromt()
 	{
@@ -51,14 +53,22 @@ public class ScPromt extends Screen
 		btnNo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.show(Controller.scGame);
+				Controller.show(backTo);
 			}
 		});
 		btnNo.setComponentDesign(EComponentDesign.menuButton);
 		this.add(btnNo);	
 	}
 
+	public Screen getBackToScreen()
+	{
+		return this.backTo;
+	}
 	
+	public void setBackToScreen(Screen backTo)
+	{
+		this.backTo = backTo;
+	}
 	
 	public void paintComponent(Graphics g)
 	{

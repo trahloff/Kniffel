@@ -48,7 +48,8 @@ public class ScGame extends Screen
 			@Override
 			public void mouseClicked(MouseEvent arg0)
 			{
-					Controller.show(Controller.scPromt);
+				Controller.scPromt.setBackToScreen(Controller.scGame);
+				Controller.show(Controller.scPromt);
 			}
 		});
 

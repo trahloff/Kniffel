@@ -7,6 +7,7 @@ import kniff.Controller;
 import kniff.Design;
 import kniff.KniffButton;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JComboBox;
@@ -28,11 +29,13 @@ public class ScSettings extends Screen
 		
 		this.setName("settings");
 		
+		// Title-Label
 		lbTitle = new JLabel("Einstellungen");
-		lbTitle.setFont(new Font("OCR A Extended", Font.PLAIN, 30));
+		lbTitle.setBounds(0, 11, 650, 150);
+		lbTitle.setForeground(Color.decode("#666666"));
+		lbTitle.setFont(Design.getFont().deriveFont(0, 30));
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTitle.setBounds(300, 120, 350, 50);
-		add(lbTitle);
+		this.add(lbTitle);
 		
 		cBoxColor = new JComboBox<EColorScheme>();
 		cBoxColor.setModel(new DefaultComboBoxModel<EColorScheme>(EColorScheme.values()));
