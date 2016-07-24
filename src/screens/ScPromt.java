@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 
 import helper.EColor;
 import helper.EComponentDesign;
-import kniff.Controller;
+import kniff.Main;
 import kniff.Design;
 import kniff.KniffButton;
 
@@ -18,7 +18,7 @@ public class ScPromt extends Screen
 {	
 	private static final long serialVersionUID = 1L;
 	
-	private Screen backTo = Controller.scStart;
+	private Screen backTo = Main.scStart;
 	private KniffButton btnYes, btnNo;
 	private JLabel lbTitle;	
 	
@@ -41,7 +41,7 @@ public class ScPromt extends Screen
 		btnYes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.stopGame(1);
+				Main.stopGame(1);
 			}
 		});
 		btnYes.setComponentDesign(EComponentDesign.menuButton);
@@ -53,7 +53,7 @@ public class ScPromt extends Screen
 		btnNo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.show(backTo);
+				Main.show(backTo);
 			}
 		});
 		btnNo.setComponentDesign(EComponentDesign.menuButton);

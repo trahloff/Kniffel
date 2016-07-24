@@ -3,7 +3,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import helper.*;
-import kniff.Controller;
+import kniff.Main;
 import kniff.KniffButton;
 
 import java.awt.Font;
@@ -44,7 +44,7 @@ public class ScHelp extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				Controller.show(Controller.scGame);
+				Main.show(Main.scGame);
 				
 			}
 		});

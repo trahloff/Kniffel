@@ -18,7 +18,7 @@ import screens.ScStart;
 import screens.ScWhoIsFirst;
 import screens.Screen;
 
-public class Controller
+public class Main
 {
 	public static Screen scContainer 		= new Screen(new CardLayout());
 	public static CardLayout clController 	= (CardLayout)(scContainer.getLayout());
@@ -85,7 +85,7 @@ public class Controller
 	public static void startGameScreen()
 	{
 		// anzeige des Spielfeldes
-		Controller.show(scGame);
+		Main.show(scGame);
 		// initialisierung des Spielfeldes
 		scGame.init();
 		// initialisierung des Iterators für die Spieler nach Festlegung der Spielerreihenfolge
@@ -105,7 +105,7 @@ public class Controller
 			{
 				// speichert die Ergebnisse für alle Spieler
 				saveScores();
-				Controller.show(scEnd);
+				Main.show(scEnd);
 				// bricht die Spiellogik ab
 				return;
 			}

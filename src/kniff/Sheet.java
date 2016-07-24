@@ -93,9 +93,9 @@ public class Sheet extends JPanel
 		                	 // tötet den Button entgültig um gewählte Kombination fest zu setzen
 		                	 button.kill();
 		                	 // aktualisiere alle Zwischenergebnisse
-		                	 updateSheetValues(Controller.kniffDice);
+		                	 updateSheetValues(Main.kniffDice);
 		                	 // der nächste Spieler ist an der Reihe
-		                	 Controller.nextPlayer();
+		                	 Main.nextPlayer();
 		                 }
 		             }
 		     }
@@ -163,7 +163,7 @@ public class Sheet extends JPanel
 		// für jede Kombination, die noch nicht gewählt wurde, wird der neue Wert gesetzt.
 		for (CombiButton b : this.combinations)
 			if (!b.isKilled())
-				b.setValue(Dice.getSortedValues(Controller.kniffDice));		
+				b.setValue(Dice.getSortedValues(Main.kniffDice));		
 		
 		// Kniffel Kombinationsbutton ermitteln
 		CombiButton btnFivOA = this.getCombiButton(EDiceCombination.FivoA);

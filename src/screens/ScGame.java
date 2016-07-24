@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import helper.EComponentDesign;
-import kniff.Controller;
+import kniff.Main;
 import kniff.Dice;
 import kniff.KniffButton;
 import kniff.KniffPanel;
@@ -48,8 +48,8 @@ public class ScGame extends Screen
 			@Override
 			public void mouseClicked(MouseEvent arg0)
 			{
-				Controller.scPromt.setBackToScreen(Controller.scGame);
-				Controller.show(Controller.scPromt);
+				Main.scPromt.setBackToScreen(Main.scGame);
+				Main.show(Main.scPromt);
 			}
 		});
 
@@ -63,7 +63,7 @@ public class ScGame extends Screen
 			public void mouseClicked(MouseEvent e)
 			{
 				if (((KniffButton)e.getSource()).isEnabled())
-					Controller.rollDice();
+					Main.rollDice();
 			}
 		});
 		btnRoll.setBounds(204, 701, 540, 71);
@@ -101,7 +101,7 @@ public class ScGame extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Controller.show(Controller.scHelp);
+				Main.show(Main.scHelp);
 			}
 		});
 		add(knfbtnHilfe);
@@ -125,7 +125,7 @@ public class ScGame extends Screen
 	
 	private void initDice()
 	{
-		for (Dice d : Controller.kniffDice)
+		for (Dice d : Main.kniffDice)
 			pnDiceContainer.add(d);	
 		Dice.rollAll();
 	}
@@ -133,9 +133,9 @@ public class ScGame extends Screen
 	private void initSheets()
 	{
 		pnSheets.removeAll();
-		for (Player p : Controller.players)
+		for (Player p : Main.players)
 		{
-			p.getSheet().setPreferredSize(new Dimension((pnSheets.getWidth() / Controller.players.size()) - 5, pnSheets.getHeight() - 10));
+			p.getSheet().setPreferredSize(new Dimension((pnSheets.getWidth() / Main.players.size()) - 5, pnSheets.getHeight() - 10));
 			pnSheets.add(p.getSheet());
 		}
 		this.repaint();

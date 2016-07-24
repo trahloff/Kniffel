@@ -3,7 +3,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import helper.*;
-import kniff.Controller;
+import kniff.Main;
 import kniff.Design;
 import kniff.KniffButton;
 
@@ -63,7 +63,7 @@ public class ScSettings extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Controller.show(Controller.scStart);
+				Main.show(Main.scStart);
 			}
 		});
 		btnBack.setBounds(350, 600, 120, 40);

@@ -3,7 +3,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import helper.*;
-import kniff.Controller;
+import kniff.Main;
 import kniff.Design;
 import kniff.KniffButton;
 import kniff.KniffPanel;
@@ -80,8 +80,8 @@ public class ScWhoIsFirst extends Screen
 		{
 			@Override
 			public void mouseClicked(MouseEvent e){
-				Controller.scPromt.setBackToScreen(Controller.scWhoIsFirst);
-				Controller.show(Controller.scPromt);
+				Main.scPromt.setBackToScreen(Main.scWhoIsFirst);
+				Main.show(Main.scPromt);
 			}
 		});
 		btnBack.setBounds(24, 700, 100, 40);
@@ -96,7 +96,7 @@ public class ScWhoIsFirst extends Screen
 			public void mouseClicked(MouseEvent e){
 				if (!btnStart.isEnabled())
 					return;
-				Controller.startGameScreen();
+				Main.startGameScreen();
 			}
 		});
 		btnStart.setBounds(24, 700, 100, 40);
@@ -131,8 +131,8 @@ public class ScWhoIsFirst extends Screen
 					lbSubTitle.setText("Die Reihenfolge steht fest!");
 					
 					// Sendet die fertige Reihenfolge an den Controller
-					Controller.players.clear();
-					Controller.players.addAll(playerOrder);
+					Main.players.clear();
+					Main.players.addAll(playerOrder);
 				}
 					
 			}
@@ -220,18 +220,18 @@ public class ScWhoIsFirst extends Screen
 
 	public void startPlayerOrder(ArrayList<Player> players) throws Exception
 	{
-		Controller.show(Controller.scWhoIsFirst);
+		Main.show(Main.scWhoIsFirst);
 		if (players.size() == 0)
 			throw new Exception("Es gibt keine Spieler deren Startreihenfolge bestimmt werden könnte!");
 		if (players.size() == 1)
-			Controller.startGameScreen();
+			Main.startGameScreen();
 		playerOrder.clear();
 
 		try
 		{
 			ip = players.iterator();
 			if (!ip.hasNext())
-				Controller.startGameScreen();
+				Main.startGameScreen();
 			currentPlayer = ip.next();
 		} catch (Exception e) {
 			e.printStackTrace();

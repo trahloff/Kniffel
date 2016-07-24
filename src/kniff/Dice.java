@@ -51,30 +51,30 @@ public class Dice extends JButton
 	// legt fest, ob alle globalen Würfel aktiviert sind oder nicht
 	public static void setAllEnabled(boolean v)
 	{
-		for (Dice d : Controller.kniffDice)
+		for (Dice d : Main.kniffDice)
 			d.setEnabled(v);
 	}
 	
 	// legt fest, ob alle globalen Würfel initial isnd oder nicht
 	public static void setAllInitial(boolean v)
 	{
-		for (Dice d : Controller.kniffDice)
+		for (Dice d : Main.kniffDice)
 			d.setInitial(v);
 	}
 	
 	// rollt alle würfel im Würfelarray
 	public static Dice[] rollAll()
 	{
-		for (Dice d : Controller.kniffDice)
+		for (Dice d : Main.kniffDice)
 			d.roll();
-		return Controller.kniffDice;
+		return Main.kniffDice;
 	} 
 	
 	// deaktiviert alle würfel im Würfelaaray
 	public static boolean allDeactivated()
 	{
-        for (int i = 0; i < Controller.kniffDice.length; i++)
-       	 if (Controller.kniffDice[i].isEnabled())
+        for (int i = 0; i < Main.kniffDice.length; i++)
+       	 if (Main.kniffDice[i].isEnabled())
        		 return false;
         return true;
 	}
@@ -263,7 +263,7 @@ public class Dice extends JButton
 		                	 button.setEnabled(false);
 		                 else
 		                	 button.setEnabled(true);
-		                 Controller.updateBtnRoll();
+		                 Main.updateBtnRoll();
 		             }
 		     }
 	};

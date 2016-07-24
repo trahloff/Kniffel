@@ -26,7 +26,7 @@ import org.apache.poi.sl.draw.geom.IfElseExpression;
 
 import helper.EColor;
 import helper.EComponentDesign;
-import kniff.Controller;
+import kniff.Main;
 import kniff.Design;
 import kniff.KniffButton;
 import kniff.KniffPanel;
@@ -131,11 +131,11 @@ public class ScOption extends Screen
 					Enumeration<Player> i = players.elements();
 					while(i.hasMoreElements())
 						plrs.add(i.nextElement());
-					Controller.startGame(plrs);
+					Main.startGame(plrs);
 				} catch (Exception e2)
 				{
 					
-					Controller.show(Controller.scOption);
+					Main.show(Main.scOption);
 				}
 			}
 		});
@@ -148,7 +148,7 @@ public class ScOption extends Screen
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Controller.show(Controller.scStart);   // Leonard Text	
+				Main.show(Main.scStart);   // Leonard Text	
 			}
 			
 		});

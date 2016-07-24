@@ -20,7 +20,7 @@ import javax.swing.event.AncestorListener;
 
 import helper.EColor;
 import helper.POI;
-import kniff.Controller;
+import kniff.Main;
 import kniff.Design;
 import kniff.KniffButton;
 import kniff.KniffPanel;
@@ -84,7 +84,7 @@ public class ScRanking extends Screen
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Controller.show(Controller.scStart);   // Leonard Text
+				Main.show(Main.scStart);   // Leonard Text
 			}
 
 		});

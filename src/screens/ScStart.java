@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import helper.EColor;
 import helper.EComponentDesign;
 import helper.POI;
-import kniff.Controller;
+import kniff.Main;
 import kniff.Design;
 import kniff.KniffButton;
 
@@ -49,7 +49,7 @@ public class ScStart extends Screen
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Controller.show(Controller.scOption);
+				Main.show(Main.scOption);
 			}
 		});
 		btnStart.setComponentDesign(EComponentDesign.startButton);
@@ -72,7 +72,7 @@ public class ScStart extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Controller.show(Controller.scSettings);
+				Main.show(Main.scSettings);
 			}
 		});
 		btnSettings.setComponentDesign(EComponentDesign.menuButton);
@@ -85,7 +85,7 @@ public class ScStart extends Screen
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Controller.show(Controller.scRanking);
+				Main.show(Main.scRanking);
 			}
 		});
 		btnRanking.setComponentDesign(EComponentDesign.menuButton);

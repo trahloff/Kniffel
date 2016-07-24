@@ -32,7 +32,7 @@ public class MainWindow
 				} catch (Exception e)
 				{
 					e.printStackTrace();
-					Controller.show(Controller.scStart);
+					Main.show(Main.scStart);
 				}
 			}
 		});
@@ -51,6 +51,6 @@ public class MainWindow
 		frmKniffelig.setBounds(200, 30, 950, 820);
 		frmKniffelig.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		frmKniffelig.getContentPane().setLayout(new CardLayout(0, 0));	
-		frmKniffelig.getContentPane().add(Controller.scContainer, "container");
+		frmKniffelig.getContentPane().add(Main.scContainer, "container");
 	}
 }
