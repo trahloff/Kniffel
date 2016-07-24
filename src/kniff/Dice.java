@@ -27,6 +27,7 @@ public class Dice extends JButton
 		super();
 	}
 	
+	// rollt den würfel und errechnet eine neue zufallszahl zwischen 0 und 7
 	public int roll()
 	{
 		if (this.isEnabled())
@@ -40,24 +41,28 @@ public class Dice extends JButton
 		return this.value;
 	}
 	
+	// setzt den Würfel zurück. 
 	public void setInitial(boolean v)
 	{
 		this.isInitial = v;
 		this.value = this.initialValue;
 	}
 	
+	// legt fest, ob alle globalen Würfel aktiviert sind oder nicht
 	public static void setAllEnabled(boolean v)
 	{
 		for (Dice d : Controller.kniffDice)
 			d.setEnabled(v);
 	}
 	
+	// legt fest, ob alle globalen Würfel initial isnd oder nicht
 	public static void setAllInitial(boolean v)
 	{
 		for (Dice d : Controller.kniffDice)
 			d.setInitial(v);
 	}
 	
+	// rollt alle würfel im Würfelarray
 	public static Dice[] rollAll()
 	{
 		for (Dice d : Controller.kniffDice)
@@ -65,6 +70,7 @@ public class Dice extends JButton
 		return Controller.kniffDice;
 	} 
 	
+	// deaktiviert alle würfel im Würfelaaray
 	public static boolean allDeactivated()
 	{
         for (int i = 0; i < Controller.kniffDice.length; i++)
@@ -73,6 +79,7 @@ public class Dice extends JButton
         return true;
 	}
 	
+	// sortiert die Würfelwerte 
 	public static int[] getSortedValues(Dice[] Dice)
 	{
 		int[] values = new int[5];
@@ -88,6 +95,7 @@ public class Dice extends JButton
 		return values;
 	}
 	
+	// sortiert die Augenwerte 
 	public static int[] sortKniffelDiceValues(int[] values)
 	{
 		if (values.length != 5)
@@ -106,6 +114,7 @@ public class Dice extends JButton
 		return values;
 	}
 	
+	// rekursive Methodik zur sortierung
 	private static int[] sortNext(int[] values, int i)
 	{
 		if (i > 0)
@@ -125,12 +134,13 @@ public class Dice extends JButton
 		return initialValue;
 	}
 	
-
+	// prüft, ob der übergebene wert initial Wert des würfels ist
 	public static boolean isInitialValue(int i)
 	{
 		return i == initialValue;
 	}
 	
+	// zeichen Logik für die Würfel
 	public void paintComponent(Graphics g)
     {
         //super.paintComponent(g);
@@ -206,6 +216,7 @@ public class Dice extends JButton
         }
     }
 	
+	// initialisiert 5 Würfel
 	public static Dice[] initDiceCollection()
 	{		
 		Dice die1 = new Dice();
@@ -241,6 +252,7 @@ public class Dice extends JButton
 		return new Dice[]{die1, die2, die3, die4, die5};
 	}
 	
+	// allgemeiner MouseListener für alle Würfel. 
 	private static MouseAdapter DieButtonListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {

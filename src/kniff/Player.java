@@ -71,6 +71,7 @@ public class Player implements Comparable<Player>
 		return shortName;
 	}
 
+	// gibt den dem Spieler zueordneten Button zurück.
 	public KniffButton getPlayerButton()
 	{
 		if (this.button == null)

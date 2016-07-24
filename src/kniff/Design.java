@@ -14,15 +14,14 @@ import javax.swing.JPanel;
 
 import helper.EColor;
 import helper.EColorScheme;
-import helper.EDesign;
 
 public class Design
 {
 	private static Dictionary<EColor, Color> colorDictionary = new Hashtable<EColor, Color>();
 	private static EColorScheme globalColorScheme = EColorScheme.Standard;
 	private static Font globalFont = new Font("OCR A Extended", Font.PLAIN, 12);
-	private static EDesign globalDesignScheme = EDesign.Standard;
 	
+	// legt das genannte schema fest
 	public static void setColorScheme(EColorScheme s)
 	{
 		globalColorScheme = s;
@@ -45,10 +44,10 @@ public class Design
 		}
 	}
 	
+	// legt ein zufälliges Farbschema fest
 	public static void setRandom()
 	{
 		EColorScheme c;
-		EDesign d;
 		
 		switch ((int) (Math.random() * 10))
 		{
@@ -66,25 +65,8 @@ public class Design
 			c = EColorScheme.Standard;
 			break;
 		}
-		
-		switch ((int) (Math.random() * 10))
-		{
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-			d = EDesign.Sap;
-			break;
-		case 4:
-			d = EDesign.Episch;
-			break;
-		default:
-			d = EDesign.Standard;
-			break;
-		}
-		
+
 		setColorScheme(c);
-		setDesignScheme(d);
 	}
 	
 	public static Color getColor(EColor c)
@@ -170,6 +152,7 @@ public class Design
 		return globalFont;
 	}
 	
+	//zeichnet ein KniffButton Steuerelement
 	public static void drawButton(KniffButton b, Graphics g) 
 	{
 		b.setBorderPainted(false);
@@ -193,6 +176,7 @@ public class Design
 		}
 	}
 	
+	// Start Button Design
 	private static void paintStartButton(KniffButton b, Graphics g) // Startbutton
 	{
 		g.setColor(Design.getColor(EColor.bg_dark));
@@ -265,17 +249,7 @@ public class Design
 	// MenuButton
 	private static void paintMenuButton(KniffButton b, Graphics g)
 	{		
-		switch (globalDesignScheme)
-		{
-		case Episch:
-			// break;
-		case Sap:
-			// break;
-		case Standard:
-		default:
-			paintMenuButtonDefault(b, g);
-			break;
-		}
+		paintMenuButtonDefault(b, g);
 	}
 
 	// MenuButton : Default
@@ -380,15 +354,5 @@ public class Design
 	public static EColorScheme getColorScheme()
 	{
 		return globalColorScheme;
-	}
-	
-	public static void setDesignScheme(EDesign d)
-	{
-		globalDesignScheme = d;
-	}
-	
-	public static EDesign getDesignScheme()
-	{
-		return globalDesignScheme;
 	}
 }

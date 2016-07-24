@@ -43,25 +43,31 @@ public class Controller
 
 	public static void main(String[] args)
 	{
+		// legt zufällig ein Designschema fest
 		Design.setRandom();
+		// legt die globale Schriftart des Programms fest
 		Design.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
 
+		// die Würfel werden initialisiert
 		kniffDice = Dice.initDiceCollection();
+		// alle Bildschirme werden initialisiert
 		initScreens();
+		// die fenster Logik wird ausgeführt
 		MainWindow.main(args);
+		// der Startbildschirm wird aufgerufen
 		show(scStart);
-		// Test
-		// show(scEnd);
-		// Test
 	}
 
+	// legt den angegebenen Screen in den Vordergrund
 	public static void show(Screen sc)
 	{
 		clController.show(scContainer, sc.getName());
 	}
 
+	// Logik bei Spielstart
 	public static void startGame(ArrayList<Player> p) throws Exception
 	{
+		// Spieler werden der globalen Spielerliste hinzugefügt
 		players.addAll(p);
 		ip = players.iterator();
 		remainingRounds = 12;
@@ -71,29 +77,39 @@ public class Controller
 		} else {
 			throw new Exception("Es scheint keine Spieler zu geben.");
 		}
+		// startet Subroutine für die Bestimmung der Spielerreihenfolge 
 		scWhoIsFirst.startPlayerOrder(players);
 	}
 
+	// Logik zum Aufruf des Spielfeldes
 	public static void startGameScreen()
 	{
+		// anzeige des Spielfeldes
 		Controller.show(scGame);
+		// initialisierung des Spielfeldes
 		scGame.init();
+		// initialisierung des Iterators für die Spieler nach Festlegung der Spielerreihenfolge
 		ip = players.iterator();
 		nextPlayer();
 		scGame.writeMessage(currentPlayer.getFullName() + " macht den ersten Wurf");
 	}
 
+	// setzt den nächsten Spieler zum globalen currentPlayer sofern noch runden zu spielen sind
 	public static void nextPlayer()
 	{
 		vanishSheetValues(currentPlayer);
 		if (!ip.hasNext())
 		{
+			// wenn das Spiel zu Ende ist
 			if (remainingRounds <= 0)
 			{
+				// speichert die Ergebnisse für alle Spieler
 				saveScores();
 				Controller.show(scEnd);
+				// bricht die Spiellogik ab
 				return;
 			}
+			//wenn es noch mehr runden gibt, dann setze den Iterator zurück
 			ip = players.iterator();
 			remainingRounds--;
 		}
@@ -103,19 +119,23 @@ public class Controller
 		scGame.writeMessage(currentPlayer.getFullName() + " ist an der Reihe");
 		remainingRolls = 3;
 
+		
 		scGame.setRanking(getRanking());
 
+		// Steuerelemente Aktivieren
 		scGame.getBtnRoll().setEnabled(true);
 		scGame.setEnableSheets(false);
 		Dice.setAllEnabled(true);
 		Dice.setAllInitial(true);
 	}
 
+	// löscht die nicht festgelegten Einträge von den Spielersheets
 	private static void vanishSheetValues(Player p)
 	{
 		p.getSheet().vanish();
 	}
 
+	// Beendet das Spiel mit entsprechendem Endcode
 	public static void stopGame(int i)
 	{
 		switch (i)
@@ -131,16 +151,19 @@ public class Controller
 			break;
 		}
 
+		// alle spielersheets werden zurückgesetzt
 		for (Player p : players) {
 			p.resetSheet();
 		}
 
+		// aufräumen...
 		currentPlayer = null;
 		players.clear();
 		show(scStart);
 
 	}
 
+	// speichert die Ergebnisse für alle spieler
 	private static void saveScores()
 	{
 		for (Player p : players) {
@@ -155,6 +178,7 @@ public class Controller
 		}
 	}
 
+	// 
 	public static void rollDice()
 	{
 		if (!currentPlayer.getSheet().isEnabled()) {
@@ -172,11 +196,13 @@ public class Controller
 		scGame.enableSheetForPlayer(currentPlayer);
 	}
 
+	// setzt die Werte in dem Playersheet fest auf basis der Würfelergebnisse
 	private static void updateSheetValue(Player p, Dice[] kniffDice)
 	{
 		p.getSheet().updateSheetValues(kniffDice);
 	}
 
+	// legt fest, ob der BtnRoll des scGame screens aktiv ist oder nicht
 	public static void updateBtnRoll()
 	{
 		scGame.getBtnRoll().setEnabled(!Dice.allDeactivated());
@@ -185,6 +211,7 @@ public class Controller
 		}
 	}
 
+	// initialisiert alle screens und fügt sie in den globalen Container ein
 	private static void initScreens()
 	{
 		scContainer.setName("container");
@@ -210,6 +237,7 @@ public class Controller
 		scContainer.add(scWhoIsFirst, scWhoIsFirst.getName());
 	}
 
+	// fügt einen Spieler der globalen Spieler liste hinzu
 	public static boolean addPlayer(Player player)
 	{
 		if(players.size() <= 8) {
@@ -220,6 +248,7 @@ public class Controller
 
 	}
 
+	// gibt eine nach Punkten des aktuellen Spiels sortierte Spielerliste zurück
 	public static Player[] getRanking()
 	{
 

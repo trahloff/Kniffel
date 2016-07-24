@@ -66,6 +66,7 @@ public class KniffButton extends JButton
 		return this.design;
 	}
 
+	// wichtig, für die Zeichnung der Buttons
 	private MouseListener mouseListener = new MouseListener()
 			{
 				public void reset()
